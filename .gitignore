@@ -1,0 +1,24 @@
+# Private docs & local memory
+docs/
+agent.md
+releases.md
+
+# Large / binary files
+*.pdf
+*.zip
+*.tar.gz
+
+# Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
