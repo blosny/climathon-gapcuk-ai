@@ -12,10 +12,19 @@
 ## 📌 Proje Özeti
 Türkiye, dünya fındık üretiminin yaklaşık **%70'ini** karşılamaktadır. Ancak her yıl fındık hasadı sonrasında açığa çıkan yaklaşık **175.000 ton fındık zürufu (yöresel adıyla gapçuk)**, döngüsel bir yönetim altyapısı bulunmadığı için ciddi bir ekolojik ve ekonomik tehdide dönüşmektedir:
 1. **Çiğ Olarak Bahçeye Saçılması (%80-90):** Çiftçiler iyi niyetle gübre olsun diye gapçuğu kompostlamadan fındık ocaklarına sermektedir. Bu durum fındıkta %30'a varan rekolte kaybına yol açan **Külleme Hastalığı (Erysiphe corylacea)** mantarının kışlama yuvası olmakta ve çiftçiyi aşırı kimyasal mantar ilacına mahkum etmektedir.
-2. **Açık Alanda Kontrolsüz Yakılması (%5-10):** Biriken yüksek nemli atık harman ve yol kenarlarında yakılarak yoğun hava kirliliği, partikül madde (PM2.5/PM10) ve karbon salımı yaratmaktadır.
+2. **Açık Alanda Kontrolsüz Yakılması (%5-10):** Tek şeritli köy yollarını açmak amacıyla biriken yüksek nemli atık harman ve yol kenarlarında yakılarak yoğun hava kirliliği, partikül madde (PM2.5/PM10) ve karbon salımı yaratmaktadır.
 3. **Bilinçli Kompostlaştırma:** Bölge genelinde %5'in altındadır.
 
-**Gapçuk AI**, donanım yatırımı gerektirmeksizin uydu verileri (Sentinel), mikroklima modellemesi ve yapay zeka karar destek motorları ile hasat sonrası atık yoğunluğunu haritalayan, külleme hastalığı riskini erkenden tahminleyen ve döngüsel biyokütle lojistiğini optimize eden uçtan uca bir iklim teknolojisidir.
+**Gapçuk AI**, donanım yatırımı gerektirmeksizin uydu verileri (Sentinel-2), mikroklima modellemesi ve yapay zeka karar destek motorları ile hasat sonrası atık yoğunluğunu haritalayan, külleme hastalığı riskini erkenden tahminleyen ve döngüsel biyokütle lojistiğini optimize eden uçtan uca bir iklim teknolojisidir.
+
+---
+
+## ⚙️ Çözüm Mimarisi (Hibrit Model)
+* **Kullanıcı Deneyimi (Sıfır Dijital Direnç):** Çiftçiler karmaşık mobil uygulamalar yüklemeden WhatsApp/SMS üzerinden tek tıkla konum atarak yol kenarındaki gapçuk yığınını bildirir.
+* **Uydu Tabanlı Atık & Hasat Haritalama:** Sentinel-2 açık uydu görüntüleri ve NDVI analiziyle hasat takvimi ve köy bazlı atık yoğunluğu önceden tahmin edilir.
+* **Dinamik Rota Optimizasyonu (AI):** Gelen bildirimler ve yol eğim verileri işlenerek toplama araçları (Ziraat Odası / Biyokütle Girişimi) için en az yakıt harcayan rota oluşturulur.
+* **Külleme Erken Uyarı & Biyomimikri Rehberi:** Toplanamayan atıklar için mikroklima (nem/sıcaklık) verileriyle hastalık riski hesaplanır; çiftçiye yerinde hızlı kompostlama (Trichoderma/kireçleme) takvimi iletilir.
+* **Ekonomik Döngüsellik:** Sert fındık kabuğu fiyatlarının aşırı yükseldiği piyasada, toplanan gapçuk pelet biyoyakıtı ve organik komposta dönüştürülerek yerel Biyokütle Enerji Santrallerine (BES) ve seralara hammadde olarak kazandırılır.
 
 ---
 
@@ -26,22 +35,7 @@ Türkiye, dünya fındık üretiminin yaklaşık **%70'ini** karşılamaktadır.
 
 ---
 
-## 📁 Proje Yapısı
-```text
-climathon/
-├── docs/
-│   ├── climathon_gorev1_teslim.md    # Hafta 1 Problem Definition teslim metni
-│   ├── Webinar 1 - Dert Ortağı...    # Hafta 1 resmi yönergeleri
-│   └── Webinar 2 - YZ İstemleri...   # Hafta 2 PDR resmi yönergeleri
-├── agent.md                          # Proje hafızası ve bağlam dokümanı
-├── releases.md                       # Gün gün geliştirme tarihçesi
-├── .gitignore
-└── README.md
-```
-
----
-
 ## 🛠️ Süreç ve Yol Haritası
 - [x] **Hafta 1:** Problem Tanımı & Saha Doğrulaması (Ünye / Ordu)
-- [ ] **Hafta 2:** Project Design Review (PDR) & Çözüm Mimarisi
-- [ ] **Hafta 3:** Build Haftası (No-code & AI Prototip İnşası)
+- [x] **Hafta 2:** Project Design Review (PDR) & Çözüm Mimarisi (Tamamlandı & Teslim Edildi)
+- [ ] **Hafta 3:** Build Haftası (No-code & AI Prototip İnşası: Streamlit Arayüzü + OR-Tools Rota Motoru + Külleme Tahmini)
