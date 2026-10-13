@@ -2,6 +2,8 @@
 docs/
 agent.md
 releases.md
+scratch/
+*.docx
 
 # Large / binary files
 *.pdf
