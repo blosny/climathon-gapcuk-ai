@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gapçuk AI | Biyokütle Döngüselliği ve Külleme Erken Uyarı Platformu</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <!-- Leaflet CSS (Açık Kaynak Harita - Sıfır Token) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- CSS Stilleri -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Üst Başlık & Marka & Rol Seçici -->
+        <header class="app-header">
+            <div class="brand-wrapper">
+                <img src="assets/logo.png" alt="Gapçuk AI Logo" class="brand-logo-img">
+                <div>
+                    <h1 class="brand-title">Gapçuk AI</h1>
+                    <p class="brand-subtitle">
+                        <span>Ordu / Ünye Pilot Havzası</span>
+                        <span>•</span>
+                        <span>Fındık Zürufu Biyokütle Döngüselliği & Külleme Erken Uyarı Platformu</span>
+                    </p>
+                    <div class="brand-badges">
+                        <span class="badge badge-cop">🎯 COP31: Cutting Waste by Half</span>
+                        <span class="badge badge-siemens">⚙️ Siemens: Resource Efficiency & Circularity</span>
+                        <span class="badge badge-unye">📍 Ordu / Ünye</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-right-controls">
+                <!-- Rol Değiştirici (Jüri için Hızlı Deneyim) -->
+                <div class="role-switcher-container">
+                    <button class="role-btn active" id="role-operator-btn" onclick="switchRole('operator')">
+                        🏢 Operatör Paneli
+                    </button>
+                    <button class="role-btn" id="role-farmer-btn" onclick="switchRole('farmer')">
+                        📱 Çiftçi Görünümü
+                    </button>
+                </div>
+
+                <!-- Canlı Hava Durumu Çipi -->
+                <div id="weather-badge">
+                    <div class="weather-chip">
+                        <span>📡 Mikroklima Yükleniyor...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- KPI / Metrik Kartları -->
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">📦 Bildirilen Gapçuk Atığı</div>
+                <div class="kpi-value" id="metric-sacks">220 Çuval</div>
+                <div class="kpi-subtext" id="metric-tons">9.9 Ton Biyokütle</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">💰 Biyokütle Piyasa Değeri</div>
+                <div class="kpi-value" id="metric-val-tl">21,780 ₺</div>
+                <div class="kpi-subtext" id="metric-val-usd">$631 (BES Eşdeğeri)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">🚨 Tıkalı Köy Yolu (Acil)</div>
+                <div class="kpi-value" id="metric-road-blocked" style="color:#FEB2B2;">4 Nokta</div>
+                <div class="kpi-subtext" style="color:#FC8181;">Tek Şerit Kapalı (Öncelikli)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">🌱 Engellenen Emisyon</div>
+                <div class="kpi-value" id="metric-co2" style="color:#68D391;">14.4 Ton CO₂e</div>
+                <div class="kpi-subtext">Açıkta Yakma Engelleniyor</div>
+            </div>
+        </section>
+
+        <!-- Tab Butonları -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-target="tab-operator" id="tab-btn-operator">
+                <span>🗺️</span> 1. GapçukRoute™ (Dinamik Rota & BES Paneli)
+            </button>
+            <button class="tab-btn" data-target="tab-farmer" id="tab-btn-farmer">
+                <span>📱</span> 2. GapçukBot™ (Çiftçi WhatsApp & Bildirim)
+            </button>
+            <button class="tab-btn" data-target="tab-disease" id="tab-btn-disease">
+                <span>🔬</span> 3. GapçukBio™ (Külleme Tahmini & Biyomimikri)
+            </button>
+        </nav>
+
+        <!-- ============================================== -->
+        <!-- TAB 1: OPERATÖR PANELİ & OSRM GERÇEK HARİTA    -->
+        <!-- ============================================== -->
+        <div id="tab-operator" class="tab-content active">
+            <div class="map-layout">
+                <!-- Gerçek Harita Konteynırı -->
+                <div id="map" class="map-container"></div>
+
+                <!-- Harita Yan Paneli -->
+                <div class="map-sidebar">
+                    <div class="sidebar-card">
+                        <h4>🚚 Optimize Edilmiş Toplama Sırası</h4>
+                        <div class="timeline-container" id="route-timeline-list">
+                            <!-- JS ile sıralı duraklar (#1, #2...) eklenecek -->
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card" style="border-left: 4px solid var(--secondary);">
+                        <h4>🏭 Hedef Biyokütle Alıcısı</h4>
+                        <p style="font-size:0.85rem; color:#E2E8F0; margin-bottom:4px;">
+                            <strong>Oltan & Köleoğlu Biyokütle Enerji Santrali (BES)</strong>
+                        </p>
+                        <p style="font-size:0.75rem; color:var(--text-secondary);">
+                            Samsun Çarşamba (42 km) | 27 MWe Kapasite | Günlük Fındık Zürufu Kabulü Aktif
+                        </p>
+                    </div>
+
+                    <div class="sidebar-card" style="border-left: 4px solid var(--success);">
+                        <h4>⚡ AI Rota & Yakıt Tasarrufu</h4>
+                        <p id="ai-route-info" style="font-size:0.8rem; color:#81E6D9;">
+                            🤖 <strong>OSRM Gerçek Yol Motoru:</strong> Asfalt ve köy yolları taranıyor...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: ÇİFTÇİ BİLDİRİM & WHATSAPP SİMÜLATÖRÜ  -->
+        <!-- ============================================== -->
+        <div id="tab-farmer" class="tab-content">
+            <div class="two-col-layout">
+                <!-- Sol Kolon: Çiftçi Formu -->
+                <div class="panel-card">
+                    <h3 class="panel-title">📝 Yeni Gapçuk Bildirimi Yap (Sıfır Direnç)</h3>
+                    <p class="panel-desc">Çiftçi karmaşık mobil uygulamalar indirmeden patoz bittiğinde tek tıkla konum atar.</p>
+
+                    <form id="farmer-report-form">
+                        <div class="form-group">
+                            <label for="form-farmer">Ad Soyad / Hane Temsilcisi</label>
+                            <input type="text" id="form-farmer" class="form-control" placeholder="Örn: Kemal Şensoy" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-village">Bulunduğunuz Köy / Mahalle</label>
+                            <select id="form-village" class="form-control">
+                                <option value="Yazkonağı Köyü">Yazkonağı Köyü</option>
+                                <option value="Tekkiraz Mahallesi">Tekkiraz Mahallesi</option>
+                                <option value="Yeşilkent Köyü">Yeşilkent Köyü</option>
+                                <option value="Pelitliyatak Köyü">Pelitliyatak Köyü</option>
+                                <option value="İnkur Mahallesi">İnkur Mahallesi</option>
+                                <option value="Erenyurt Köyü">Erenyurt Köyü</option>
+                                <option value="Fevzi Çakmak Mah.">Fevzi Çakmak Mah.</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-sacks">Tahmini Gapçuk Çuval Sayısı</label>
+                            <input type="number" id="form-sacks" class="form-control" min="5" max="150" value="30">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Köy Yolu Durumu</label>
+                            <div style="display:flex; flex-direction:column; gap:8px; margin-top:6px;">
+                                <label style="display:flex; align-items:center; gap:8px; font-weight:normal; cursor:pointer;">
+                                    <input type="radio" name="road-status" value="blocked" checked> 
+                                    <span>⚠️ Tek şeritli köy yolu tıkalı (Acil kaldırılmalı)</span>
+                                </label>
+                                <label style="display:flex; align-items:center; gap:8px; font-weight:normal; cursor:pointer;">
+                                    <input type="radio" name="road-status" value="courtyard"> 
+                                    <span>🏡 Harman avlusu önünde</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="btn-submit-report">
+                            📢 Gapçuk Bildirimini Gönder (Rotaya Ekle)
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Sağ Kolon: WhatsApp Asistan Simülatörü -->
+                <div class="panel-card">
+                    <h3 class="panel-title">💬 WhatsApp AI Asistanı Canlı Simülasyonu</h3>
+                    <p class="panel-desc">Köylülerin %90'ının atığı yakmadan seve seve teslim etmesini sağlayan diyalog akışı:</p>
+
+                    <div class="whatsapp-phone-frame">
+                        <div class="whatsapp-header">
+                            <div class="whatsapp-avatar">🌰</div>
+                            <div class="whatsapp-chat-info">
+                                <h5>Gapçuk AI Toplama Asistanı</h5>
+                                <p>Çevrimiçi | Ünye Ziraat Odası</p>
+                            </div>
+                        </div>
+
+                        <div class="whatsapp-chat-body" id="whatsapp-messages">
+                            <div class="chat-bubble farmer-bubble">
+                                <span class="chat-sender">🧑‍🌾 Mustafa Yılmaz (Yazkonağı):</span>
+                                <p>Selamün aleyküm, Yazkonağı cami yukarısında patoz bitti. Yolu kapattık, 35 çuval gapçuk var. Traktör ne zaman gelir?</p>
+                                <span class="chat-time">10:30</span>
+                            </div>
+                            <div class="chat-bubble bot-bubble">
+                                <span class="chat-sender">🤖 Gapçuk AI Asistanı:</span>
+                                <p>Aleyküm selam Mustafa Dayı! Bildirimin alındı. 📍 Konumun Ziraat Odası dinamik toplama rotasına <strong>1. Durak</strong> olarak eklendi.<br/><br/>
+                                🚛 <strong>Toplama Ekibi:</strong> Yarın 11:30 - 13:00 arası Yazkonağı hattında olacak.<br/>
+                                ⚠️ <strong>Hava Uyarısı:</strong> Gece nem %85'e çıkıyor. Lütfen gapçuğu ateşe verme ve bahçedeki fındık ocaklarına dökme (külleme riski var).</p>
+                                <span class="chat-time">10:31</span>
+                            </div>
+                            <div class="chat-bubble farmer-bubble">
+                                <span class="chat-sender">🧑‍🌾 Mustafa Yılmaz:</span>
+                                <p>Tamamdır, yolu açacaklarsa bekletiyorum, yakmıyorum. Teşekkürler.</p>
+                                <span class="chat-time">10:32</span>
+                            </div>
+                        </div>
+
+                        <!-- Hızlı Çiftçi Diyalog Butonları (Jüri Simülasyonu) -->
+                        <div class="whatsapp-quick-actions">
+                            <span class="quick-title">⚡ Hızlı Çiftçi Soruları (Tıkla ve AI Yanıtını Gör):</span>
+                            <div class="quick-btns-row">
+                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('weather')">🌦️ Hava yağmurlu, ne yapayım?</button>
+                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('eta')">🚚 Kamyon nerede, gecikir mi?</button>
+                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('road')">🚨 Yol tamamen kapandı, acil!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: AI KÜLLEME TAHMİNİ & BİYOMİMİKRİ       -->
+        <!-- ============================================== -->
+        <div id="tab-disease" class="tab-content">
+            <div class="two-col-layout">
+                <!-- Sol: Mikroklima ve Risk Motoru -->
+                <div class="panel-card">
+                    <h3 class="panel-title">🌡️ Mikroklima Risk Analiz Motoru</h3>
+                    <p class="panel-desc">Kamyonun hemen ulaşamadığı yerlerde külleme mantarı patlamasını önleyen tahmin modeli.</p>
+
+                    <div id="risk-indicator" style="margin-bottom:20px;">
+                        <!-- JS ile doldurulacak -->
+                    </div>
+
+                    <div id="risk-recommendation" style="background:rgba(255,255,255,0.05); padding:14px; border-radius:var(--radius-sm); font-size:0.85rem; border-left:4px solid var(--accent-orange); margin-bottom:20px;">
+                        <!-- JS ile doldurulacak -->
+                    </div>
+
+                    <h4 style="font-size:0.95rem; color:#FFFFFF; margin-bottom:10px;">🧬 Neden Ham Halde Bahçeye Atılmamalı?</h4>
+                    <ul style="font-size:0.85rem; color:var(--text-secondary); padding-left:18px; line-height:1.7;">
+                        <li><strong>Azot Hırsızlığı:</strong> Çiğ gapçuk çürürken topraktaki serbest azotu tüketir, fındığı besinsiz bırakır.</li>
+                        <li><strong>Mantar Kuluçkası:</strong> <em>Erysiphe corylacea</em> sporları gapçuk yığınında kışlar, ilkbaharda rekolteyi %30 düşürür.</li>
+                        <li><strong>Açıkta Yakma Kirliliği:</strong> Islak atığın yakılması yoğun PM2.5 partikül maddesi ve karbonmonoksit üretir.</li>
+                    </ul>
+                </div>
+
+                <!-- Sağ: Biyomimikri ve Ekonomik Değerleme -->
+                <div class="panel-card">
+                    <h3 class="panel-title">🍄 Doğa Temelli Çözüm: GapçukBio™</h3>
+                    <p class="panel-desc">Doğanın milyonlarca yıllık mantar mücadelesinden ilham alan hızlı biyo-kompostlama:</p>
+
+                    <div style="background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); padding:16px; border-radius:var(--radius-md); margin-bottom:20px;">
+                        <h4 style="color:#6EE7B7; font-size:0.95rem; margin-bottom:8px;">🌿 Trichoderma Biyo-Kompost Reçetesi</h4>
+                        <ol style="font-size:0.82rem; color:#E2E8F0; padding-left:18px; line-height:1.6;">
+                            <li><strong>Faydalı Mantar Aşısı:</strong> Gapçuk yığınının üstüne 100L suya 100g <em>Trichoderma</em> mikroorganizması suyla pülverize edilir.</li>
+                            <li><strong>Külleme Avcısı:</strong> Trichoderma, zararlı külleme mantarını doğrudan parazitler ve yok eder.</li>
+                            <li><strong>21 Günde Organik Gübre:</strong> 6 ay süren kireçleme yerine 3 haftada kokusuz siyah kompost elde edilir.</li>
+                        </ol>
+                    </div>
+
+                    <div style="background:rgba(217, 119, 6, 0.12); border:1px solid rgba(217, 119, 6, 0.35); padding:16px; border-radius:var(--radius-md);">
+                        <h4 style="color:#FCD34D; font-size:0.95rem; margin-bottom:6px;">💡 Fındık Kabuğu Piyasası & Ekonomik Kanıt</h4>
+                        <p style="font-size:0.82rem; color:#E2E8F0; line-height:1.5;">
+                            Güncel olarak sert fındık kabuğunun kilogram fiyatı yakıt talebi nedeniyle fındık fiyatını geçmiş, marketlerde paketle satılmaktadır. Toplanan gapçuk (züruf); Oltan Köleoğlu BES ve seralar için tonu <strong>~2.200 TL</strong> değerinde hazır pelet biyoyakıtı hammaddesidir.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bilimsel Kaynakça & Doğrulama Raporları (Tab 3 Altı) -->
+            <div class="references-container">
+                <div class="references-header">
+                    <h4>📚 Bilimsel Kaynakça & Doğrulama Raporları (Scientific Grounding)</h4>
+                </div>
+                <p class="references-sub">Gapçuk AI erken uyarı parametreleri, biyo-kompostlama reçetesi ve emisyon katsayıları aşağıdaki akademik ve sektörel kurumların araştırmalarına dayanmaktadır:</p>
+
+                <div class="references-grid">
+                    <div class="ref-item">
+                        <div class="ref-org">🔬 TÜBİTAK & KTAE (Proje No: 118O452)</div>
+                        <div class="ref-title">Fındık Zürufunun Hızlı Kompostlaştırılması & Trichoderma İnokülasyonu</div>
+                        <div class="ref-desc">Karadeniz Tarımsal Araştırma Enstitüsü; züruf yığınlarında <em>Trichoderma spp.</em> biyo-aşısının <em>Erysiphe corylacea</em> sporlarını biyolojik olarak baskıladığını ve C:N dengesini 21 günde optimize ettiğini kanıtlamıştır.</div>
+                        <a href="https://dergipark.org.tr/tr/pub/anajas/issue/45371/549429" target="_blank" rel="noopener noreferrer" class="ref-link">
+                            🔗 TÜBİTAK / DergiPark Makalesi &rarr;
+                        </a>
+                    </div>
+
+                    <div class="ref-item">
+                        <div class="ref-org">🌱 Ordu Üniversitesi Ziraat Fakültesi (2023)</div>
+                        <div class="ref-title">Doğu Karadeniz Fındık Küllemesi Epidemiyolojisi & Mikroklima Modeli</div>
+                        <div class="ref-desc">Sıcaklık (18-26°C) ve yüksek bağıl nemin (>%75) külleme spor çimlenmesini tetiklediği; harman atıklarının tarlada bırakılmasının ilkbahar primer inokulum kaynağı olduğu tespit edilmiştir.</div>
+                        <a href="https://dergipark.org.tr/tr/pub/ouzkymfd/issue/37759/426027" target="_blank" rel="noopener noreferrer" class="ref-link">
+                            🔗 Ordu Üniv. Araştırma Bildirisi &rarr;
+                        </a>
+                    </div>
+
+                    <div class="ref-item">
+                        <div class="ref-org">⚡ Oltan & Köleoğlu BES / EPDK (Çarşamba Santrali, 27 MWe)</div>
+                        <div class="ref-title">Tarımsal Biyokütle Tedarik Şartnamesi & Enerji Eşdeğeri</div>
+                        <div class="ref-desc">Fındık zürufunun (gapçuk) alt ısıl değeri ~3.850 kcal/kg (%8-10 nem). Santral ton başına ~2.200 TL hazır pelet biyoyakıtı alım değeri uygulamaktadır.</div>
+                        <a href="http://www.oltankoleoglu.com.tr/biyokutle-enerji-santralleri" target="_blank" rel="noopener noreferrer" class="ref-link">
+                            🔗 Çarşamba BES Teknik Raporu &rarr;
+                        </a>
+                    </div>
+
+                    <div class="ref-item">
+                        <div class="ref-org">🌍 IPCC & Çevre, Şehircilik ve İklim Değişikliği Bakanlığı</div>
+                        <div class="ref-title">Tarımsal Atık Açıkta Yakma Kaynaklı Emisyon Hesaplama Kılavuzu</div>
+                        <div class="ref-desc">Açıkta yakılan her 1 ton nemli fındık zürufu, ortalama 1.45 ton CO₂e sera gazı ve insan sağlığına zararlı yoğun PM2.5 ile siyah karbon (BC) partikülü salmaktadır.</div>
+                        <a href="https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html" target="_blank" rel="noopener noreferrer" class="ref-link">
+                            🔗 IPCC Emisyon Metodolojisi &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            Climathon 2026 | Haftalık Görev 3: Build & Show | <strong>Taha Buğra Çiçek</strong> (Ünye / Ordu)<br/>
+            Altyapı: Leaflet.js (OSRM Canlı Yol Navigasyonu) • Open-Meteo Canlı API • Modüler ES6 Mimarisi
+        </footer>
+
+    </div>
+
+    <!-- Toast Bildirimi -->
+    <div id="toast" class="toast-msg"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Uygulama Scripti -->
+    <script type="module" src="js/app.js"></script>
+
+    <!-- Global Rol Değiştirici Helper -->
+    <script>
+        function switchRole(role) {
+            document.getElementById('role-operator-btn').classList.toggle('active', role === 'operator');
+            document.getElementById('role-farmer-btn').classList.toggle('active', role === 'farmer');
+            
+            if (role === 'operator') {
+                document.getElementById('tab-btn-operator').click();
+            } else {
+                document.getElementById('tab-btn-farmer').click();
+            }
+        }
+    </script>
+
+</body>
+</html>
