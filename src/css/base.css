@@ -1,0 +1,105 @@
+/* ============================================================
+   GAPÇUK AI - BASE STYLES & SVG UTILITIES
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.12) 0px, transparent 45%),
+        radial-gradient(at 90% 10%, rgba(245, 158, 11, 0.10) 0px, transparent 45%),
+        radial-gradient(at 50% 90%, rgba(2, 132, 199, 0.08) 0px, transparent 55%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 24px;
+}
+
+/* ============================================================
+   SVG ICON UTILITIES (Lucide / Feather Standard)
+   ============================================================ */
+.icon-svg {
+    display: inline-block;
+    width: 1.15em;
+    height: 1.15em;
+    stroke-width: 1.85;
+    stroke: currentColor;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vertical-align: -0.18em;
+    flex-shrink: 0;
+}
+
+.icon-svg.sm {
+    width: 0.95em;
+    height: 0.95em;
+    stroke-width: 1.7;
+}
+
+.icon-svg.md {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.icon-svg.lg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.icon-svg.accent-green { color: var(--primary); }
+.icon-svg.accent-amber { color: var(--accent-amber); }
+.icon-svg.accent-red { color: var(--danger); }
+.icon-svg.accent-blue { color: var(--accent-blue); }
+
+/* Footer */
+.app-footer {
+    text-align: center;
+    padding: 30px 0 20px 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--bg-card-border);
+    margin-top: 40px;
+}
+
+/* Toast Notification */
+.toast-msg {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #064E3B;
+    color: #FFFFFF;
+    padding: 14px 22px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    pointer-events: none;
+}
+
+.toast-msg.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+

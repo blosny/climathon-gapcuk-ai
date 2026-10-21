@@ -1,0 +1,173 @@
+/* ============================================================
+   GAPÇUK AI - HEADER & NAVIGATION CONTROLS
+   ============================================================ */
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--bg-card-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-md);
+    gap: 20px;
+}
+
+@media (max-width: 900px) {
+    .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-right-controls {
+        width: 100%;
+        align-items: stretch;
+    }
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #FFFFFF;
+    padding: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: 1.85rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #FFFFFF 15%, #34D399 60%, #FBBF24 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.brand-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+    flex-wrap: wrap;
+}
+
+.brand-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: 0.2px;
+}
+
+.badge-cop {
+    background: rgba(16, 185, 129, 0.14);
+    color: #6EE7B7;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.badge-siemens {
+    background: rgba(2, 132, 199, 0.14);
+    color: #7DD3FC;
+    border: 1px solid rgba(2, 132, 199, 0.35);
+}
+
+.badge-unye {
+    background: rgba(245, 158, 11, 0.14);
+    color: #FCD34D;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.header-right-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    margin-left: auto;
+}
+
+/* Role Switcher */
+.role-switcher-container {
+    display: flex;
+    background: rgba(15, 23, 42, 0.7);
+    padding: 3px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 4px;
+}
+
+.role-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.role-btn:hover {
+    color: #FFFFFF;
+}
+
+.role-btn.active {
+    background: var(--primary);
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+/* Weather Chip (Header) */
+.weather-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.85);
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--bg-card-border);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.weather-temp { color: #F6AD55; display: inline-flex; align-items: center; gap: 4px; }
+.weather-hum { color: #63B3ED; display: inline-flex; align-items: center; gap: 4px; }
+.weather-sep { color: var(--text-muted); }
+.weather-live-tag {
+    background: rgba(56, 161, 105, 0.2);
+    color: #68D391;
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(56, 161, 105, 0.4);
+}

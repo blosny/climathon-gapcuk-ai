@@ -1,0 +1,229 @@
+/* ============================================================
+   GAPÇUK AI - MAP & OSRM ROUTE SIDEBAR STYLES
+   ============================================================ */
+
+.map-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    height: 600px;
+}
+
+@media (max-width: 992px) {
+    .map-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+}
+
+.map-container {
+    height: 100%;
+    min-height: 480px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--bg-card-border);
+    box-shadow: var(--shadow-lg);
+    background: #061114;
+}
+
+/* Sidebar Info Panel */
+.map-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar-card {
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+}
+
+.sidebar-card h4 {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #FFFFFF;
+}
+
+/* Timeline */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 270px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.timeline-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 23, 42, 0.7);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.timeline-step:hover {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.timeline-step.step-urgent {
+    border-left: 3px solid var(--danger);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.step-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.step-circle.circle-urgent {
+    background: var(--danger);
+}
+
+.step-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.step-village {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #FFFFFF;
+}
+
+.step-sacks {
+    font-size: 0.76rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.badge-road-blocked {
+    background: rgba(239, 68, 68, 0.2);
+    color: #FCA5A5;
+    font-size: 0.68rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.badge-road-open {
+    background: rgba(16, 185, 129, 0.15);
+    color: #6EE7B7;
+    font-size: 0.68rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Map Markers & Popups */
+.custom-hq-marker {
+    background: transparent;
+    border: none;
+}
+
+.marker-hq-badge {
+    background: #064E3B;
+    border: 2px solid #34D399;
+    color: #FFFFFF;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.waste-pin-styled {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #0B171B;
+    border: 2px solid var(--primary);
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.urgency-critical .waste-pin-styled {
+    border-color: var(--danger);
+    background: #1A0B0B;
+}
+
+.stop-number {
+    font-size: 0.75rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.pin-sacks {
+    font-size: 0.58rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.map-popup-card {
+    padding: 4px;
+    font-family: var(--font-body);
+}
+
+.map-popup-card h4 {
+    color: #93C5FD;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.map-popup-card p {
+    font-size: 0.8rem;
+    margin: 3px 0;
+    color: #E2E8F0;
+}
+
+.tag-road-blocked {
+    color: #FEB2B2;
+    background: rgba(239, 68, 68, 0.25);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.72rem;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.popup-eta {
+    margin-top: 6px;
+    font-size: 0.76rem;
+    color: #6EE7B7;
+    background: rgba(16, 185, 129, 0.15);
+    padding: 3px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}

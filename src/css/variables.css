@@ -1,0 +1,49 @@
+/* ============================================================
+   GAPÇUK AI - DESIGN SYSTEM VARIABLES & TOKENS
+   Enterprise Clean-Tech / Circular Bio-Economy
+   ============================================================ */
+
+:root {
+    /* Primary Emerald / Ecological Bio-Green */
+    --primary: #10B981;
+    --primary-hover: #059669;
+    --primary-light: rgba(16, 185, 129, 0.14);
+    --primary-border: rgba(16, 185, 129, 0.32);
+    --primary-glow: rgba(16, 185, 129, 0.25);
+
+    /* Amber / Hazelnut Züruf Accent */
+    --accent-amber: #F59E0B;
+    --accent-amber-hover: #D97706;
+    --accent-amber-light: rgba(245, 158, 11, 0.14);
+    --accent-amber-border: rgba(245, 158, 11, 0.35);
+
+    /* Functional Accents */
+    --accent-blue: #0284C7;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+    --success: #10B981;
+
+    /* Backgrounds & Surfaces (Obsidian Clean-Tech) */
+    --bg-dark: #071215;
+    --bg-surface: #0B171B;
+    --bg-card: rgba(13, 27, 32, 0.85);
+    --bg-card-border: rgba(255, 255, 255, 0.09);
+    --bg-glass: rgba(11, 23, 27, 0.92);
+
+    /* Typography */
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Radii & Elevation */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
