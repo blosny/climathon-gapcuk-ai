@@ -31,9 +31,18 @@
                         <span>Fındık Zürufu Biyokütle Döngüselliği & Külleme Erken Uyarı Platformu</span>
                     </p>
                     <div class="brand-badges">
-                        <span class="badge badge-cop">🎯 COP31: Cutting Waste by Half</span>
-                        <span class="badge badge-siemens">⚙️ Siemens: Resource Efficiency & Circularity</span>
-                        <span class="badge badge-unye">📍 Ordu / Ünye</span>
+                        <span class="badge badge-cop">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                            <span>COP31: Cutting Waste by Half</span>
+                        </span>
+                        <span class="badge badge-siemens">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            <span>Siemens: Resource Efficiency</span>
+                        </span>
+                        <span class="badge badge-unye">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>Ordu / Ünye</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -42,17 +51,20 @@
                 <!-- Rol Değiştirici (Jüri için Hızlı Deneyim) -->
                 <div class="role-switcher-container">
                     <button class="role-btn active" id="role-operator-btn" onclick="switchRole('operator')">
-                        🏢 Operatör Paneli
+                        <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                        <span>Operatör Paneli</span>
                     </button>
                     <button class="role-btn" id="role-farmer-btn" onclick="switchRole('farmer')">
-                        📱 Çiftçi Görünümü
+                        <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                        <span>Çiftçi Görünümü</span>
                     </button>
                 </div>
 
                 <!-- Canlı Hava Durumu Çipi -->
                 <div id="weather-badge">
                     <div class="weather-chip">
-                        <span>📡 Mikroklima Yükleniyor...</span>
+                        <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                        <span>Mikroklima Yükleniyor...</span>
                     </div>
                 </div>
             </div>
@@ -61,22 +73,34 @@
         <!-- KPI / Metrik Kartları -->
         <section class="kpi-grid">
             <div class="kpi-card">
-                <div class="kpi-label">📦 Bildirilen Gapçuk Atığı</div>
+                <div class="kpi-label">
+                    <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span>Bildirilen Gapçuk Atığı</span>
+                </div>
                 <div class="kpi-value" id="metric-sacks">220 Çuval</div>
                 <div class="kpi-subtext" id="metric-tons">9.9 Ton Biyokütle</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-label">💰 Biyokütle Piyasa Değeri</div>
+                <div class="kpi-label">
+                    <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5c0 2.5-6 1.5-6 4s1.3 2.5 3 2.5 3-1.1 3-2.5"></path></svg>
+                    <span>Biyokütle Piyasa Değeri</span>
+                </div>
                 <div class="kpi-value" id="metric-val-tl">21,780 ₺</div>
                 <div class="kpi-subtext" id="metric-val-usd">$631 (BES Eşdeğeri)</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-label">🚨 Tıkalı Köy Yolu (Acil)</div>
+                <div class="kpi-label">
+                    <svg class="icon-svg sm accent-red" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <span>Tıkalı Köy Yolu (Öncelikli)</span>
+                </div>
                 <div class="kpi-value" id="metric-road-blocked" style="color:#FEB2B2;">4 Nokta</div>
-                <div class="kpi-subtext" style="color:#FC8181;">Tek Şerit Kapalı (Öncelikli)</div>
+                <div class="kpi-subtext" style="color:#FC8181;">Tek Şerit Kapalı (Acil Müdahale)</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-label">🌱 Engellenen Emisyon</div>
+                <div class="kpi-label">
+                    <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                    <span>Engellenen Emisyon</span>
+                </div>
                 <div class="kpi-value" id="metric-co2" style="color:#68D391;">14.4 Ton CO₂e</div>
                 <div class="kpi-subtext">Açıkta Yakma Engelleniyor</div>
             </div>
@@ -85,13 +109,16 @@
         <!-- Tab Butonları -->
         <nav class="tabs-nav">
             <button class="tab-btn active" data-target="tab-operator" id="tab-btn-operator">
-                <span>🗺️</span> 1. GapçukRoute™ (Dinamik Rota & BES Paneli)
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a4.5 4.5 0 0 0 0-9H7a4 4 0 0 1 0-8h11"></path><polyline points="15 5 18 2 21 5"></polyline></svg>
+                <span>1. GapçukRoute™ (Dinamik Rota & BES Paneli)</span>
             </button>
             <button class="tab-btn" data-target="tab-farmer" id="tab-btn-farmer">
-                <span>📱</span> 2. GapçukBot™ (Çiftçi WhatsApp & Bildirim)
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>2. GapçukBot™ (Çiftçi WhatsApp & Bildirim)</span>
             </button>
             <button class="tab-btn" data-target="tab-disease" id="tab-btn-disease">
-                <span>🔬</span> 3. GapçukBio™ (Külleme Tahmini & Biyomimikri)
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 18h8"></path><path d="M3 22h18"></path><path d="M14 22a7 7 0 1 0 0-14h-1"></path><path d="M9 14h2"></path><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"></path><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"></path></svg>
+                <span>3. GapçukBio™ (Külleme Tahmini & Biyomimikri)</span>
             </button>
         </nav>
 
@@ -106,14 +133,20 @@
                 <!-- Harita Yan Paneli -->
                 <div class="map-sidebar">
                     <div class="sidebar-card">
-                        <h4>🚚 Optimize Edilmiş Toplama Sırası</h4>
+                        <h4>
+                            <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            <span>Optimize Edilmiş Toplama Sırası</span>
+                        </h4>
                         <div class="timeline-container" id="route-timeline-list">
                             <!-- JS ile sıralı duraklar (#1, #2...) eklenecek -->
                         </div>
                     </div>
 
                     <div class="sidebar-card" style="border-left: 4px solid var(--secondary);">
-                        <h4>🏭 Hedef Biyokütle Alıcısı</h4>
+                        <h4>
+                            <svg class="icon-svg sm accent-blue" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M17 18h1"></path><path d="M12 18h1"></path><path d="M7 18h1"></path></svg>
+                            <span>Hedef Biyokütle Alıcısı</span>
+                        </h4>
                         <p style="font-size:0.85rem; color:#E2E8F0; margin-bottom:4px;">
                             <strong>Oltan & Köleoğlu Biyokütle Enerji Santrali (BES)</strong>
                         </p>
@@ -123,9 +156,13 @@
                     </div>
 
                     <div class="sidebar-card" style="border-left: 4px solid var(--success);">
-                        <h4>⚡ AI Rota & Yakıt Tasarrufu</h4>
+                        <h4>
+                            <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <span>AI Rota & Yakıt Tasarrufu</span>
+                        </h4>
                         <p id="ai-route-info" style="font-size:0.8rem; color:#81E6D9;">
-                            🤖 <strong>OSRM Gerçek Yol Motoru:</strong> Asfalt ve köy yolları taranıyor...
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                            <strong>OSRM Gerçek Yol Motoru:</strong> Asfalt ve köy yolları taranıyor...
                         </p>
                     </div>
                 </div>
@@ -139,7 +176,10 @@
             <div class="two-col-layout">
                 <!-- Sol Kolon: Çiftçi Formu -->
                 <div class="panel-card">
-                    <h3 class="panel-title">📝 Yeni Gapçuk Bildirimi Yap (Sıfır Direnç)</h3>
+                    <h3 class="panel-title">
+                        <svg class="icon-svg accent-green" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                        <span>Yeni Gapçuk Bildirimi Yap</span>
+                    </h3>
                     <p class="panel-desc">Çiftçi karmaşık mobil uygulamalar indirmeden patoz bittiğinde tek tıkla konum atar.</p>
 
                     <form id="farmer-report-form">
@@ -171,29 +211,39 @@
                             <div style="display:flex; flex-direction:column; gap:8px; margin-top:6px;">
                                 <label style="display:flex; align-items:center; gap:8px; font-weight:normal; cursor:pointer;">
                                     <input type="radio" name="road-status" value="blocked" checked> 
-                                    <span>⚠️ Tek şeritli köy yolu tıkalı (Acil kaldırılmalı)</span>
+                                    <span>
+                                        <svg class="icon-svg sm accent-red" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                        Tek şeritli köy yolu tıkalı (Acil kaldırılmalı)
+                                    </span>
                                 </label>
                                 <label style="display:flex; align-items:center; gap:8px; font-weight:normal; cursor:pointer;">
                                     <input type="radio" name="road-status" value="courtyard"> 
-                                    <span>🏡 Harman avlusu önünde</span>
+                                    <span>
+                                        <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                        Harman avlusu önünde
+                                    </span>
                                 </label>
                             </div>
                         </div>
 
                         <button type="submit" class="btn-primary" id="btn-submit-report">
-                            📢 Gapçuk Bildirimini Gönder (Rotaya Ekle)
+                            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            <span>Gapçuk Bildirimini Gönder (Rotaya Ekle)</span>
                         </button>
                     </form>
                 </div>
 
                 <!-- Sağ Kolon: WhatsApp Asistan Simülatörü -->
                 <div class="panel-card">
-                    <h3 class="panel-title">💬 WhatsApp AI Asistanı Canlı Simülasyonu</h3>
+                    <h3 class="panel-title">
+                        <svg class="icon-svg accent-green" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span>WhatsApp AI Asistanı Canlı Simülasyonu</span>
+                    </h3>
                     <p class="panel-desc">Köylülerin %90'ının atığı yakmadan seve seve teslim etmesini sağlayan diyalog akışı:</p>
 
                     <div class="whatsapp-phone-frame">
                         <div class="whatsapp-header">
-                            <div class="whatsapp-avatar">🌰</div>
+                            <div class="whatsapp-avatar"><img src="assets/logo.png" alt="Gapçuk AI"></div>
                             <div class="whatsapp-chat-info">
                                 <h5>Gapçuk AI Toplama Asistanı</h5>
                                 <p>Çevrimiçi | Ünye Ziraat Odası</p>
@@ -202,19 +252,19 @@
 
                         <div class="whatsapp-chat-body" id="whatsapp-messages">
                             <div class="chat-bubble farmer-bubble">
-                                <span class="chat-sender">🧑‍🌾 Mustafa Yılmaz (Yazkonağı):</span>
+                                <span class="chat-sender">Mustafa Yılmaz (Yazkonağı):</span>
                                 <p>Selamün aleyküm, Yazkonağı cami yukarısında patoz bitti. Yolu kapattık, 35 çuval gapçuk var. Traktör ne zaman gelir?</p>
                                 <span class="chat-time">10:30</span>
                             </div>
                             <div class="chat-bubble bot-bubble">
-                                <span class="chat-sender">🤖 Gapçuk AI Asistanı:</span>
-                                <p>Aleyküm selam Mustafa Dayı! Bildirimin alındı. 📍 Konumun Ziraat Odası dinamik toplama rotasına <strong>1. Durak</strong> olarak eklendi.<br/><br/>
-                                🚛 <strong>Toplama Ekibi:</strong> Yarın 11:30 - 13:00 arası Yazkonağı hattında olacak.<br/>
-                                ⚠️ <strong>Hava Uyarısı:</strong> Gece nem %85'e çıkıyor. Lütfen gapçuğu ateşe verme ve bahçedeki fındık ocaklarına dökme (külleme riski var).</p>
+                                <span class="chat-sender">Gapçuk AI Asistanı:</span>
+                                <p>Aleyküm selam Mustafa Dayı! Bildirimin alındı. <strong>Durak #1</strong> olarak Ziraat Odası dinamik toplama rotasına eklendi.<br/><br/>
+                                <strong>Toplama Ekibi:</strong> Yarın 11:30 - 13:00 arası Yazkonağı hattında olacak.<br/>
+                                <strong>Hava Uyarısı:</strong> Gece nem %85'e çıkıyor. Lütfen gapçuğu ateşe verme ve bahçedeki fındık ocaklarına dökme (külleme riski var).</p>
                                 <span class="chat-time">10:31</span>
                             </div>
                             <div class="chat-bubble farmer-bubble">
-                                <span class="chat-sender">🧑‍🌾 Mustafa Yılmaz:</span>
+                                <span class="chat-sender">Mustafa Yılmaz:</span>
                                 <p>Tamamdır, yolu açacaklarsa bekletiyorum, yakmıyorum. Teşekkürler.</p>
                                 <span class="chat-time">10:32</span>
                             </div>
@@ -222,11 +272,23 @@
 
                         <!-- Hızlı Çiftçi Diyalog Butonları (Jüri Simülasyonu) -->
                         <div class="whatsapp-quick-actions">
-                            <span class="quick-title">⚡ Hızlı Çiftçi Soruları (Tıkla ve AI Yanıtını Gör):</span>
+                            <span class="quick-title">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                <span>Hızlı Çiftçi Soruları (Tıkla ve AI Yanıtını Gör):</span>
+                            </span>
                             <div class="quick-btns-row">
-                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('weather')">🌦️ Hava yağmurlu, ne yapayım?</button>
-                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('eta')">🚚 Kamyon nerede, gecikir mi?</button>
-                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('road')">🚨 Yol tamamen kapandı, acil!</button>
+                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('weather')">
+                                    <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path><line x1="8" y1="19" x2="6" y2="22"></line><line x1="12" y1="19" x2="10" y2="22"></line><line x1="16" y1="19" x2="14" y2="22"></line></svg>
+                                    <span>Hava yağmurlu, ne yapayım?</span>
+                                </button>
+                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('eta')">
+                                    <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                    <span>Kamyon nerede, gecikir mi?</span>
+                                </button>
+                                <button type="button" class="quick-btn" onclick="window.askBotQuestion('road')">
+                                    <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                    <span>Yol tamamen kapandı, acil!</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -241,7 +303,10 @@
             <div class="two-col-layout">
                 <!-- Sol: Mikroklima ve Risk Motoru -->
                 <div class="panel-card">
-                    <h3 class="panel-title">🌡️ Mikroklima Risk Analiz Motoru</h3>
+                    <h3 class="panel-title">
+                        <svg class="icon-svg accent-amber" viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                        <span>Mikroklima Risk Analiz Motoru</span>
+                    </h3>
                     <p class="panel-desc">Kamyonun hemen ulaşamadığı yerlerde külleme mantarı patlamasını önleyen tahmin modeli.</p>
 
                     <div id="risk-indicator" style="margin-bottom:20px;">
@@ -252,7 +317,10 @@
                         <!-- JS ile doldurulacak -->
                     </div>
 
-                    <h4 style="font-size:0.95rem; color:#FFFFFF; margin-bottom:10px;">🧬 Neden Ham Halde Bahçeye Atılmamalı?</h4>
+                    <h4 style="font-size:0.95rem; color:#FFFFFF; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+                        <svg class="icon-svg sm accent-red" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <span>Neden Ham Halde Bahçeye Atılmamalı?</span>
+                    </h4>
                     <ul style="font-size:0.85rem; color:var(--text-secondary); padding-left:18px; line-height:1.7;">
                         <li><strong>Azot Hırsızlığı:</strong> Çiğ gapçuk çürürken topraktaki serbest azotu tüketir, fındığı besinsiz bırakır.</li>
                         <li><strong>Mantar Kuluçkası:</strong> <em>Erysiphe corylacea</em> sporları gapçuk yığınında kışlar, ilkbaharda rekolteyi %30 düşürür.</li>
@@ -262,11 +330,17 @@
 
                 <!-- Sağ: Biyomimikri ve Ekonomik Değerleme -->
                 <div class="panel-card">
-                    <h3 class="panel-title">🍄 Doğa Temelli Çözüm: GapçukBio™</h3>
+                    <h3 class="panel-title">
+                        <svg class="icon-svg accent-green" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                        <span>Doğa Temelli Çözüm: GapçukBio™</span>
+                    </h3>
                     <p class="panel-desc">Doğanın milyonlarca yıllık mantar mücadelesinden ilham alan hızlı biyo-kompostlama:</p>
 
                     <div style="background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); padding:16px; border-radius:var(--radius-md); margin-bottom:20px;">
-                        <h4 style="color:#6EE7B7; font-size:0.95rem; margin-bottom:8px;">🌿 Trichoderma Biyo-Kompost Reçetesi</h4>
+                        <h4 style="color:#6EE7B7; font-size:0.95rem; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                            <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            <span>Trichoderma Biyo-Kompost Reçetesi</span>
+                        </h4>
                         <ol style="font-size:0.82rem; color:#E2E8F0; padding-left:18px; line-height:1.6;">
                             <li><strong>Faydalı Mantar Aşısı:</strong> Gapçuk yığınının üstüne 100L suya 100g <em>Trichoderma</em> mikroorganizması suyla pülverize edilir.</li>
                             <li><strong>Külleme Avcısı:</strong> Trichoderma, zararlı külleme mantarını doğrudan parazitler ve yok eder.</li>
@@ -275,7 +349,10 @@
                     </div>
 
                     <div style="background:rgba(217, 119, 6, 0.12); border:1px solid rgba(217, 119, 6, 0.35); padding:16px; border-radius:var(--radius-md);">
-                        <h4 style="color:#FCD34D; font-size:0.95rem; margin-bottom:6px;">💡 Fındık Kabuğu Piyasası & Ekonomik Kanıt</h4>
+                        <h4 style="color:#FCD34D; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+                            <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                            <span>Fındık Kabuğu Piyasası & Ekonomik Kanıt</span>
+                        </h4>
                         <p style="font-size:0.82rem; color:#E2E8F0; line-height:1.5;">
                             Güncel olarak sert fındık kabuğunun kilogram fiyatı yakıt talebi nedeniyle fındık fiyatını geçmiş, marketlerde paketle satılmaktadır. Toplanan gapçuk (züruf); Oltan Köleoğlu BES ve seralar için tonu <strong>~2.200 TL</strong> değerinde hazır pelet biyoyakıtı hammaddesidir.
                         </p>
@@ -286,44 +363,63 @@
             <!-- Bilimsel Kaynakça & Doğrulama Raporları (Tab 3 Altı) -->
             <div class="references-container">
                 <div class="references-header">
-                    <h4>📚 Bilimsel Kaynakça & Doğrulama Raporları (Scientific Grounding)</h4>
+                    <h4>
+                        <svg class="icon-svg accent-green" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        <span>Bilimsel Kaynakça & Doğrulama Raporları (Scientific Grounding)</span>
+                    </h4>
                 </div>
                 <p class="references-sub">Gapçuk AI erken uyarı parametreleri, biyo-kompostlama reçetesi ve emisyon katsayıları aşağıdaki akademik ve sektörel kurumların araştırmalarına dayanmaktadır:</p>
 
                 <div class="references-grid">
                     <div class="ref-item">
-                        <div class="ref-org">🔬 TÜBİTAK & KTAE (Proje No: 118O452)</div>
+                        <div class="ref-org">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M6 18h8"></path><path d="M3 22h18"></path><path d="M14 22a7 7 0 1 0 0-14h-1"></path><path d="M9 14h2"></path><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"></path><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"></path></svg>
+                            <span>TÜBİTAK & KTAE (Proje No: 118O452)</span>
+                        </div>
                         <div class="ref-title">Fındık Zürufunun Hızlı Kompostlaştırılması & Trichoderma İnokülasyonu</div>
                         <div class="ref-desc">Karadeniz Tarımsal Araştırma Enstitüsü; züruf yığınlarında <em>Trichoderma spp.</em> biyo-aşısının <em>Erysiphe corylacea</em> sporlarını biyolojik olarak baskıladığını ve C:N dengesini 21 günde optimize ettiğini kanıtlamıştır.</div>
                         <a href="https://dergipark.org.tr/tr/pub/anajas/issue/45371/549429" target="_blank" rel="noopener noreferrer" class="ref-link">
-                            🔗 TÜBİTAK / DergiPark Makalesi &rarr;
+                            <span>TÜBİTAK / DergiPark Makalesi</span>
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         </a>
                     </div>
 
                     <div class="ref-item">
-                        <div class="ref-org">🌱 Ordu Üniversitesi Ziraat Fakültesi (2023)</div>
+                        <div class="ref-org">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                            <span>Ordu Üniversitesi Ziraat Fakültesi (2023)</span>
+                        </div>
                         <div class="ref-title">Doğu Karadeniz Fındık Küllemesi Epidemiyolojisi & Mikroklima Modeli</div>
                         <div class="ref-desc">Sıcaklık (18-26°C) ve yüksek bağıl nemin (>%75) külleme spor çimlenmesini tetiklediği; harman atıklarının tarlada bırakılmasının ilkbahar primer inokulum kaynağı olduğu tespit edilmiştir.</div>
                         <a href="https://dergipark.org.tr/tr/pub/ouzkymfd/issue/37759/426027" target="_blank" rel="noopener noreferrer" class="ref-link">
-                            🔗 Ordu Üniv. Araştırma Bildirisi &rarr;
+                            <span>Ordu Üniv. Araştırma Bildirisi</span>
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         </a>
                     </div>
 
                     <div class="ref-item">
-                        <div class="ref-org">⚡ Oltan & Köleoğlu BES / EPDK (Çarşamba Santrali, 27 MWe)</div>
+                        <div class="ref-org">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            <span>Oltan & Köleoğlu BES / EPDK (Çarşamba Santrali, 27 MWe)</span>
+                        </div>
                         <div class="ref-title">Tarımsal Biyokütle Tedarik Şartnamesi & Enerji Eşdeğeri</div>
                         <div class="ref-desc">Fındık zürufunun (gapçuk) alt ısıl değeri ~3.850 kcal/kg (%8-10 nem). Santral ton başına ~2.200 TL hazır pelet biyoyakıtı alım değeri uygulamaktadır.</div>
                         <a href="http://www.oltankoleoglu.com.tr/biyokutle-enerji-santralleri" target="_blank" rel="noopener noreferrer" class="ref-link">
-                            🔗 Çarşamba BES Teknik Raporu &rarr;
+                            <span>Çarşamba BES Teknik Raporu</span>
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         </a>
                     </div>
 
                     <div class="ref-item">
-                        <div class="ref-org">🌍 IPCC & Çevre, Şehircilik ve İklim Değişikliği Bakanlığı</div>
+                        <div class="ref-org">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span>IPCC & Çevre, Şehircilik ve İklim Değişikliği Bakanlığı</span>
+                        </div>
                         <div class="ref-title">Tarımsal Atık Açıkta Yakma Kaynaklı Emisyon Hesaplama Kılavuzu</div>
                         <div class="ref-desc">Açıkta yakılan her 1 ton nemli fındık zürufu, ortalama 1.45 ton CO₂e sera gazı ve insan sağlığına zararlı yoğun PM2.5 ile siyah karbon (BC) partikülü salmaktadır.</div>
                         <a href="https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html" target="_blank" rel="noopener noreferrer" class="ref-link">
-                            🔗 IPCC Emisyon Metodolojisi &rarr;
+                            <span>IPCC Emisyon Metodolojisi</span>
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         </a>
                     </div>
                 </div>

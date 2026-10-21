@@ -38,8 +38,8 @@ export function initMap(containerId, reports) {
     streetLayer.addTo(mapInstance);
 
     const baseMaps = {
-        "🗺️ Sokak & Köy Yolları": streetLayer,
-        "🛰️ Uydu & Fındık Bahçeleri": satelliteLayer
+        "Sokak & Köy Yolları": streetLayer,
+        "Uydu & Bahçeler": satelliteLayer
     };
     L.control.layers(baseMaps, null, { position: 'topright' }).addTo(mapInstance);
 
@@ -95,7 +95,9 @@ export async function renderReports(reports) {
         className: 'custom-hq-marker',
         html: `
             <div class="marker-hq-badge">
-                <span class="hq-icon">🏢</span>
+                <span class="hq-icon">
+                    <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M3 21h18"></path><path d="M5 21V7l8-4v18"></path><path d="M19 21V11l-6-4"></path><path d="M9 9h1"></path><path d="M9 13h1"></path><path d="M9 17h1"></path></svg>
+                </span>
                 <span class="hq-title">Ünye Ziraat Odası (Filo Çıkış)</span>
             </div>
         `,
@@ -104,7 +106,7 @@ export async function renderReports(reports) {
     });
 
     L.marker(CONFIG.unyeCenter, { icon: hqIcon })
-        .bindPopup(`<b>🏢 Başlangıç: Ünye Ziraat Odası</b><br/>Toplama aracı buradan hareket eder.`)
+        .bindPopup(`<b>Başlangıç: Ünye Ziraat Odası</b><br/>Toplama aracı buradan hareket eder.`)
         .addTo(markersLayer);
 
     // Durakları coğrafi ve aciliyet sırasına göre optimize et
@@ -138,8 +140,8 @@ export async function renderReports(reports) {
                 <p><b>Çiftçi:</b> ${item.farmer}</p>
                 <p><b>Atık Miktarı:</b> <span class="badge-sacks">${item.sacks} Çuval (~${item.sacks * CONFIG.kgPerSack} kg)</span></p>
                 <p><b>Durum:</b> ${item.status}</p>
-                ${item.roadBlocked ? '<p class="tag-road-blocked">🚨 Tek Şerit Köy Yolu Tıkalı</p>' : ''}
-                <div class="popup-eta">⏱️ Tahmini Varış: <strong>+${stopNum * 22} dk</strong></div>
+                ${item.roadBlocked ? '<p class="tag-road-blocked">Tek Şerit Köy Yolu Tıkalı</p>' : ''}
+                <div class="popup-eta">Tahmini Varış: <strong>+${stopNum * 22} dk</strong></div>
             </div>
         `;
 
@@ -204,7 +206,8 @@ async function drawRealRoadRoute(orderedStops) {
                 const routeInfoElem = document.getElementById('ai-route-info');
                 if (routeInfoElem) {
                     routeInfoElem.innerHTML = `
-                        🤖 <strong>OSRM Gerçek Yol Rotası:</strong> Toplam <strong>${totalKm} km</strong> sürüş mesafesi (~${durationMin} dk). 
+                        <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                        <strong>OSRM Gerçek Yol Rotası:</strong> Toplam <strong>${totalKm} km</strong> sürüş mesafesi (~${durationMin} dk). 
                         Plansız turlamaya göre <strong>%34 yakıt tasarrufu</strong> sağlandı.
                     `;
                 }
@@ -233,8 +236,8 @@ function updateRouteTimeline(orderedStops) {
     orderedStops.forEach((stop, idx) => {
         const isBlocked = !!stop.roadBlocked;
         const roadBadge = isBlocked
-            ? `<span class="badge-road-blocked">🚨 Tek Şerit Tıkalı (Acil)</span>`
-            : `<span class="badge-road-open">🟢 Yol Açık (Harman Önü)</span>`;
+            ? `<span class="badge-road-blocked">Tek Şerit Tıkalı (Acil)</span>`
+            : `<span class="badge-road-open">Yol Açık (Harman Önü)</span>`;
 
         html += `
             <div class="timeline-step ${isBlocked ? 'step-urgent' : ''}">
@@ -242,7 +245,7 @@ function updateRouteTimeline(orderedStops) {
                 <div class="step-details">
                     <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
                         <span class="step-village">${stop.village}</span>
-                        <span style="font-size:0.72rem; color:#94A3B8;">👤 ${stop.farmer || 'Üretici'}</span>
+                        <span style="font-size:0.72rem; color:#94A3B8;">${stop.farmer || 'Üretici'}</span>
                     </div>
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:3px; gap:6px;">
                         <span class="step-sacks">${stop.sacks} çuval <small style="color:#64748B;">(~${(stop.sacks * 0.045).toFixed(1)}t)</small></span>
