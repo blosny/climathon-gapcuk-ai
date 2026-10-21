@@ -48,16 +48,24 @@
             </div>
 
             <div class="header-right-controls">
-                <!-- Rol Değiştirici (Jüri için Hızlı Deneyim) -->
-                <div class="role-switcher-container">
-                    <button class="role-btn active" id="role-operator-btn" onclick="switchRole('operator')">
-                        <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-                        <span>Operatör Paneli</span>
+                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+                    <!-- Bilgi Merkezi & SSS Butonu -->
+                    <button class="btn-faq-trigger" id="btn-open-faq" onclick="window.openFaqModal()">
+                        <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <span>Gapçuk Rehberi & SSS (6 Soru)</span>
                     </button>
-                    <button class="role-btn" id="role-farmer-btn" onclick="switchRole('farmer')">
-                        <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                        <span>Çiftçi Görünümü</span>
-                    </button>
+
+                    <!-- Rol Değiştirici (Jüri için Hızlı Deneyim) -->
+                    <div class="role-switcher-container">
+                        <button class="role-btn active" id="role-operator-btn" onclick="switchRole('operator')">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                            <span>Operatör Paneli</span>
+                        </button>
+                        <button class="role-btn" id="role-farmer-btn" onclick="switchRole('farmer')">
+                            <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                            <span>Çiftçi Görünümü</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Canlı Hava Durumu Çipi -->
@@ -437,13 +445,145 @@
     <!-- Toast Bildirimi -->
     <div id="toast" class="toast-msg"></div>
 
+    <!-- ============================================== -->
+    <!-- FAQ & ONBOARDING BİLGİ MERKEZİ MODALI (6 SORU) -->
+    <!-- ============================================== -->
+    <div id="faq-modal" class="modal-overlay" onclick="if(event.target === this) closeFaqModal()">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title-wrap">
+                    <svg class="icon-svg md accent-green" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <div>
+                        <h3>Gapçuk AI Bilgi Merkezi & Saha Gerçekleri</h3>
+                        <p>Jüri ve Değerlendiriciler İçin 6 Soruda Bölgesel Biyokütle Döngüselliği</p>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeFaqModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="faq-grid">
+                    
+                    <!-- Soru 1 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <img src="assets/faq/faq1_patoz.jpg" alt="Patoz ve Fındık Zürufu" loading="lazy">
+                            <span class="faq-card-badge">3.850 kcal/kg Biyoyakıt Potansiyeli</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>1. Gapçuk (Züruf) Nedir ve Neden Değerlidir?</h4>
+                            <p>
+                                Fındığın hasat sonrası harman patozunda sert kabuktan ayrılan yeşil/kahverengi dış kabuğudur. Yüksek lignin ve selüloz lifi içerir. Kuru halde linyit kömürünü geride bırakan <strong>3.850 kcal/kg alt ısıl değere</strong> sahip temiz bir sanayi biyoyakıtı hammaddesidir. Doğru kompostlandığında ise bölgenin organik maddece fakir topraklarını besleyen A sınıfı doğal gübreye dönüşür.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: EPDK & Çarşamba BES Teknik Şartnamesi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soru 2 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <img src="assets/faq/faq2_kulleme.jpg" alt="Külleme Mantarı ve Fındık Yaprağı" loading="lazy">
+                            <span class="faq-card-badge" style="color:#FCA5A5; border-color:rgba(239,68,68,0.4);">C/N 50:1 Azot Hırsızlığı & Külleme</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>2. Neden Bahçeye Rastgele Dökülmemeli?</h4>
+                            <p>
+                                Samsun İl Tarım ve Orman Müdürlüğü resmi raporuna göre çiğ zürufun C/N (Karbon/Azot) oranı <strong>45-50:1</strong> seviyesindedir. Bahçeye döküldüğünde çürümek için topraktaki serbest azotu çalar ve fındığı aç bırakır. Daha da tehlikelisi; <em>Erysiphe corylacea</em> (külleme mantarı) sporlarının kışlamasına ideal kuluçka ortamı sağlayarak ilkbaharda rekolteyi %30'a varan oranda düşürür.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: Samsun İl Tarım Md. & KTAE Raporu (Haber/933)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soru 3 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <img src="assets/faq/faq3_yakma.jpg" alt="Açıkta Yakma ve Yoğun Duman" loading="lazy">
+                            <span class="faq-card-badge" style="color:#FCD34D; border-color:rgba(245,158,11,0.4);">1.45 Ton CO₂e / Ton Emisyon</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>3. Neden Açıkta Yakılmamalı?</h4>
+                            <p>
+                                Islak zürufun açıkta yakılması; yoğun kükürt dioksit (SO₂), karbonmonoksit ve insan ciğerine doğrudan nüfuz eden PM2.5 partikül maddesi salar. Köy yollarında görüşü kapatıp kazalara ve yangınlara yol açar. IPCC tarımsal atık metodolojisine göre yakılan her 1 ton nemli züruf <strong>1.45 ton CO₂e sera gazı</strong> yayar.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: IPCC Tarımsal Yanma Kılavuzu & Çevre Bakanlığı</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soru 4 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <img src="assets/screenshots/tab1_route.png" alt="OSRM Canlı Rotalama" loading="lazy">
+                            <span class="faq-card-badge">KİK & U-ETDS: %95+ Hazır GPS</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>4. Kamyon Filosuna Yeni Cihaz Takılacak mı?</h4>
+                            <p>
+                                Kesinlikle sıfır yeni donanım maliyeti! 4925 sayılı Taşıma Kanunu, Ulaştırma Bakanlığı U-ETDS sistemi ve Kamu İhale Kurumu (KİK) hafriyat ve belediye atık nakliye şartnameleri uyarınca bölgedeki ağır vasıtaların <strong>%95'inden fazlasında yasal zorunluluk gereği GPS telemetrisi (Arvento/Mobiliz vb.)</strong> bulunmaktadır. Gapçuk AI, bu hazır donanımı OSRM API üzerinden rotalayarak akıllı hale getirir.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: 4925 Sayılı Taşıma Kanunu & KİK Şartnameleri</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soru 5 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <img src="assets/screenshots/tab3_bio.png" alt="Biyokompost ve Çiftçi Teşviki" loading="lazy">
+                            <span class="faq-card-badge">4.200 ₺ Net Çiftçi Katma Değeri</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>5. Çiftçiye 40 Çuval Gapçuğa Ne Veriyoruz?</h4>
+                            <p>
+                                Çiftçiyi mağdur etmeyen, teşvik eden 4 bileşenli adil takas: 40 çuval (~1.8 ton) gapçuk teslim eden üreticimize <strong>2 Çuval (100 kg) Fermente Biyokompost ÜCRETSİZ kapıya teslim</strong> edilir (Piyasa değeri ~1.200 ₺). İlave gübre alımında <strong>%30 indirim kuponu</strong> verilir (~700 ₺). Harman temizleme nakliye masrafı sıfırlanır (~800 ₺) ve külleme kırıldığı için kimyasal ilaç tasarrufu sağlanır (~1.500 ₺). Toplamda çiftçiye <strong>4.200 ₺ net kazanç</strong> sağlanır.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: Ziraat Odası & Hepsiburada 2.331 ₺ Gübre Endeksi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soru 6 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <img src="assets/screenshots/tab1_route.png" alt="50M$ Biyokütle Ölçeklenme Vizyonu" loading="lazy">
+                            <span class="faq-card-badge">50 Milyon $ Pazar & 700.000 Ha</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>6. Bu Model Karadeniz Dışına Nasıl Ölçeklenir?</h4>
+                            <p>
+                                Ordu/Ünye bizim pilot havzamızdır. Bu model Karadeniz genelindeki <strong>700.000 hektarlık fındık alanına (yıllık 500.000+ ton züruf)</strong> ve Ege'deki <strong>zeytin pirinası ile pamuk sapına</strong> doğrudan ölçeklenebilir <strong>50 milyon dolarlık döngüsel biyokütle tedarik altyapısıdır</strong>. Tek bir WhatsApp numarası ve merkezi rota optimizasyonuyla tüm tarımsal atıklar yeşil enerjiye dönüştürülür.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: COP31 & Küresel Biyokütle Tedarik Tezi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     
     <!-- Uygulama Scripti -->
     <script type="module" src="js/app.js"></script>
 
-    <!-- Global Rol Değiştirici Helper -->
+    <!-- Global Rol & Modal Helper -->
     <script>
         function switchRole(role) {
             document.getElementById('role-operator-btn').classList.toggle('active', role === 'operator');
@@ -455,6 +595,29 @@
                 document.getElementById('tab-btn-farmer').click();
             }
         }
+
+        window.openFaqModal = function() {
+            const modal = document.getElementById('faq-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+        };
+
+        window.closeFaqModal = function() {
+            const modal = document.getElementById('faq-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 250);
+            }
+        };
+
+        // ESC tuşu ile kapatma desteği
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                window.closeFaqModal();
+            }
+        });
     </script>
 
 </body>
