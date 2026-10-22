@@ -18,16 +18,32 @@
 
     <div class="container">
         
+        <!-- Üst Kurumsal Durum Şeridi (B2B Canlı Sistem Göstergesi) -->
+        <div class="system-status-bar">
+            <div class="status-badge-live">
+                <span class="live-dot"></span>
+                <span data-i18n="system_status">SİSTEM AKTİF: Ordu / Ünye Pilot Sahası • Temiz Enerji & Biyo-Güvenlik Altyapısı</span>
+            </div>
+            <div class="status-partners">
+                <span data-i18n="partner_bes">Hedef: Oltan & Köleoğlu Çarşamba BES (27 MWe)</span>
+                <span class="sep">•</span>
+                <span data-i18n="protocol">Protokol: COP31 & TÜBİTAK-TOVAG-121O442</span>
+            </div>
+        </div>
+
         <!-- Üst Başlık & Marka & Rol Seçici -->
         <header class="app-header">
             <div class="brand-wrapper">
                 <img src="assets/logo.png" alt="Gapçuk AI Logo" class="brand-logo-img">
                 <div>
-                    <h1 class="brand-title">Gapçuk AI</h1>
-                    <p class="brand-subtitle">
+                    <h1 class="brand-title">
+                        Gapçuk AI
+                        <span style="font-size:0.72rem; vertical-align:middle; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.35); color:#6EE7B7; padding:3px 9px; border-radius:12px; font-weight:700; letter-spacing:0.4px;">B2B PLATFORM</span>
+                    </h1>
+                    <p class="brand-subtitle" data-i18n="brand_subtitle">
                         <span>Ordu / Ünye Pilot Havzası</span>
                         <span>•</span>
-                        <span>Fındık Zürufu Biyokütle Döngüselliği & Külleme Erken Uyarı Platformu</span>
+                        <span>Fındık Zürufu Döngüsel Lojistik & Külleme Önleme Konsolu</span>
                     </p>
                     <div class="brand-badges">
                         <span class="badge badge-cop">
@@ -51,19 +67,25 @@
                     <!-- Bilgi Merkezi & SSS Butonu -->
                     <button class="btn-faq-trigger" id="btn-open-faq" onclick="window.openFaqModal()">
                         <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                        <span>Gapçuk Rehberi & SSS (6 Soru)</span>
+                        <span data-i18n="btn_faq">Gapçuk Rehberi & SSS (8 Soru)</span>
                     </button>
 
                     <!-- Rol Değiştirici (Jüri için Hızlı Deneyim) -->
                     <div class="role-switcher-container">
                         <button class="role-btn active" id="role-operator-btn" onclick="switchRole('operator')">
                             <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-                            <span>Operatör Paneli</span>
+                            <span data-i18n="role_operator">Operatör Paneli</span>
                         </button>
                         <button class="role-btn" id="role-farmer-btn" onclick="switchRole('farmer')">
                             <svg class="icon-svg sm" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                            <span>Çiftçi Görünümü</span>
+                            <span data-i18n="role_farmer">Çiftçi Görünümü</span>
                         </button>
+                    </div>
+
+                    <!-- Dil Seçici (TR / EN) -->
+                    <div class="lang-toggle-container">
+                        <button class="lang-btn active" id="lang-btn-tr" onclick="window.switchLanguage('tr')">TR</button>
+                        <button class="lang-btn" id="lang-btn-en" onclick="window.switchLanguage('en')">EN</button>
                     </div>
                 </div>
 
@@ -77,39 +99,62 @@
             </div>
         </header>
 
-        <!-- KPI / Metrik Kartları -->
+        <!-- KPI / Metrik Kartları (B2B Zenginleştirilmiş) -->
         <section class="kpi-grid">
             <div class="kpi-card">
-                <div class="kpi-label">
-                    <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                    <span>Bildirilen Gapçuk Atığı</span>
+                <div class="kpi-header-row">
+                    <div class="kpi-label">
+                        <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <span>Bildirilen Gapçuk</span>
+                    </div>
+                    <span class="kpi-pill green">Ordu / Ünye</span>
                 </div>
                 <div class="kpi-value" id="metric-sacks">220 Çuval</div>
-                <div class="kpi-subtext" id="metric-tons">9.9 Ton Biyokütle</div>
+                <div class="kpi-subtext" id="metric-tons">9.9 Ton Biyokütle • 45 kg / çuval ort.</div>
+                <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width: 73%;"></div></div>
+                <div class="kpi-footer-meta"><span>Kapasite Hedefi: 300 Çuval/Gün</span><span>%73 Doluluk</span></div>
             </div>
+
             <div class="kpi-card">
-                <div class="kpi-label">
-                    <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5c0 2.5-6 1.5-6 4s1.3 2.5 3 2.5 3-1.1 3-2.5"></path></svg>
-                    <span>Biyokütle Piyasa Değeri</span>
+                <div class="kpi-header-row">
+                    <div class="kpi-label">
+                        <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5c0 2.5-6 1.5-6 4s1.3 2.5 3 2.5 3-1.1 3-2.5"></path></svg>
+                        <span>Çarşamba BES Değeri</span>
+                    </div>
+                    <span class="kpi-pill amber">27 MWe</span>
                 </div>
-                <div class="kpi-value" id="metric-val-tl">21,780 ₺</div>
-                <div class="kpi-subtext" id="metric-val-usd">$631 (BES Eşdeğeri)</div>
+                <div class="kpi-value" id="metric-val-tl">21.780 ₺</div>
+                <div class="kpi-subtext" id="metric-val-usd">2.200 TL / Ton • 3.820 kcal/kg LHV</div>
+                <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width: 100%; background:linear-gradient(90deg, #F59E0B, #FBBF24);"></div></div>
+                <div class="kpi-footer-meta"><span>Kantar Teslim Garantili</span><span>Şartname ↗</span></div>
             </div>
+
             <div class="kpi-card">
-                <div class="kpi-label">
-                    <svg class="icon-svg sm accent-red" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                    <span>Tıkalı Köy Yolu (Öncelikli)</span>
+                <div class="kpi-header-row">
+                    <div class="kpi-label">
+                        <svg class="icon-svg sm accent-red" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <span>Tek Şerit Yol Blokajı</span>
+                    </div>
+                    <span class="kpi-pill red">Acil Müdahale</span>
                 </div>
                 <div class="kpi-value" id="metric-road-blocked" style="color:#FEB2B2;">4 Nokta</div>
-                <div class="kpi-subtext" style="color:#FC8181;">Tek Şerit Kapalı (Acil Müdahale)</div>
+                <div class="kpi-subtext" style="color:#FC8181;">Pelitliyatak, Tekkiraz, Erenyurt, Yazkonağı</div>
+                <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width: 100%; background:linear-gradient(90deg, #EF4444, #F87171);"></div></div>
+                <div class="kpi-footer-meta"><span>Öncü Kepçe Sevk Durumu</span><span>Aktif Takip ↗</span></div>
             </div>
+
             <div class="kpi-card">
-                <div class="kpi-label">
-                    <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
-                    <span>Engellenen Emisyon</span>
+                <div class="kpi-header-row">
+                    <div class="kpi-label">
+                        <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                        <span>Engellenen Emisyon</span>
+                    </div>
+                    <span class="kpi-pill blue">IPCC 1.45x</span>
                 </div>
                 <div class="kpi-value" id="metric-co2" style="color:#68D391;">14.4 Ton CO₂e</div>
-                <div class="kpi-subtext">Açıkta Yakma Engelleniyor</div>
+                <div class="kpi-subtext">Açıkta Yakma & Çürüme İptali</div>
+                <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width: 85%; background:linear-gradient(90deg, #0284C7, #38BDF8);"></div></div>
+                <div class="kpi-footer-meta"><span>COP31 Standart Modeli</span><span>Metodoloji ↗</span></div>
             </div>
         </section>
 
@@ -134,35 +179,86 @@
         <!-- ============================================== -->
         <div id="tab-operator" class="tab-content active">
             <div class="map-layout">
-                <!-- Gerçek Harita Konteynırı -->
-                <div id="map" class="map-container"></div>
+                <!-- Gerçek Harita ve Telemetri Kolonu -->
+                <div class="map-view-column">
+                    <div class="map-header-bar">
+                        <div class="map-header-title">
+                            <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                            <span>OSRM Lojistik Koridoru: Ünye Kırsalı ➔ Çarşamba BES (27 MWe)</span>
+                        </div>
+                        <div class="map-header-tags">
+                            <span class="tag-corridor">D010 Sahil Arter</span>
+                            <button class="btn-center-map" id="btn-recenter-map">Görünümü Ortala</button>
+                        </div>
+                    </div>
+
+                    <div id="map" class="map-container"></div>
+
+                    <div class="map-telemetry-bar">
+                        <div class="telemetry-item">
+                            <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <div>
+                                <small data-i18n="telemetry_cycle">Döngü Süresi</small>
+                                <strong id="telemetry-cycle-time">115 Dakika</strong>
+                            </div>
+                        </div>
+                        <div class="telemetry-item">
+                            <svg class="icon-svg sm accent-blue" viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <div>
+                                <small data-i18n="telemetry_distance">Toplam Mesafe</small>
+                                <strong id="telemetry-distance">78.4 km</strong>
+                            </div>
+                        </div>
+                        <div class="telemetry-item">
+                            <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            <div>
+                                <small data-i18n="telemetry_diesel">Dizel Sarfiyatı</small>
+                                <strong id="telemetry-diesel">28.5 Litre</strong>
+                            </div>
+                        </div>
+                        <div class="telemetry-item">
+                            <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            <div>
+                                <small data-i18n="telemetry_truck">Filo Taşıma Kapasitesi</small>
+                                <strong id="telemetry-truck-load">9.9 Ton / 25t Tır (%40)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Harita Yan Paneli -->
                 <div class="map-sidebar">
                     <div class="sidebar-card">
                         <h4>
                             <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                            <span>Optimize Edilmiş Toplama Sırası</span>
+                            <span>OSRM Toplama & Müdahale Sırası</span>
                         </h4>
+
+                        <!-- Durak Filtreleri -->
+                        <div class="sidebar-filter-row">
+                            <span class="filter-chip active">Tümü (6)</span>
+                            <span class="filter-chip">Tek Şerit Kapalı (4)</span>
+                            <span class="filter-chip">Açık (2)</span>
+                        </div>
+
                         <div class="timeline-container" id="route-timeline-list">
                             <!-- JS ile sıralı duraklar (#1, #2...) eklenecek -->
                         </div>
                     </div>
 
-                    <div class="sidebar-card" style="border-left: 4px solid var(--secondary);">
-                        <h4>
-                            <svg class="icon-svg sm accent-blue" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M17 18h1"></path><path d="M12 18h1"></path><path d="M7 18h1"></path></svg>
-                            <span>Hedef Biyokütle Alıcısı</span>
-                        </h4>
-                        <p style="font-size:0.85rem; color:#E2E8F0; margin-bottom:4px;">
-                            <strong>Oltan & Köleoğlu Biyokütle Enerji Santrali (BES)</strong>
-                        </p>
-                        <p style="font-size:0.75rem; color:var(--text-secondary);">
-                            Samsun Çarşamba (42 km) | 27 MWe Kapasite | Günlük Fındık Zürufu Kabulü Aktif
-                        </p>
+                    <!-- Hedef Santral Kantar Teslim Özeti -->
+                    <div class="sidebar-card" style="border-left: 4px solid var(--accent-amber); background: linear-gradient(135deg, rgba(13,27,32,0.95) 0%, rgba(245,158,11,0.08) 100%);">
+                        <div style="font-size:0.68rem; color:#FCD34D; font-weight:700; text-transform:uppercase; letter-spacing:0.3px; margin-bottom:4px;">Hedef Santral Kantar Teslimi</div>
+                        <h4 style="margin:0 0 4px 0; font-size:0.92rem; color:#FFFFFF;">Oltan & Köleoğlu BES (27 MWe)</h4>
+                        <p style="font-size:0.75rem; color:#CBD5E1; margin:0 0 8px 0;">Samsun / Çarşamba (42 km) • Günlük Fındık Zürufu Kabulü Aktif</p>
+                        <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#6EE7B7; border-top:1px solid rgba(255,255,255,0.08); padding-top:6px;">
+                            <span>Toplam Yük: <strong>9.9 Ton</strong></span>
+                            <span>Değer: <strong>21.780 TL</strong></span>
+                            <span>CO₂e: <strong>14.4 t Önleme</strong></span>
+                        </div>
                     </div>
 
-                    <div class="sidebar-card" style="border-left: 4px solid var(--success);">
+                    <div class="sidebar-card" style="border-left: 4px solid var(--primary);">
                         <h4>
                             <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                             <span>AI Rota & Yakıt Tasarrufu</span>
@@ -343,6 +439,10 @@
                     </h3>
                     <p class="panel-desc">Doğanın milyonlarca yıllık mantar mücadelesinden ilham alan hızlı biyo-kompostlama:</p>
 
+                    <div style="border-radius:var(--radius-md); overflow:hidden; margin-bottom:16px; height:140px; border:1px solid rgba(16,185,129,0.3);">
+                        <img src="assets/faq/faq5_kompost.jpg" alt="21 Günde Trichoderma Fermente Organik Kompost" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+                    </div>
+
                     <div style="background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); padding:16px; border-radius:var(--radius-md); margin-bottom:20px;">
                         <h4 style="color:#6EE7B7; font-size:0.95rem; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
                             <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -401,13 +501,43 @@
                     </div>
                 </div>
 
-                <div style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:12px 18px; border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:12px 18px; border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
                     <div>
                         <strong style="color:#FFFFFF; font-size:0.95rem;">Toplam Net Çiftçi Katma Değeri:</strong>
                         <span style="color:#6EE7B7; font-size:1.25rem; font-weight:800; margin-left:8px;">4.200 ₺ / Harman Sezonu</span>
                     </div>
                     <div style="font-size:0.8rem; color:#CBD5E1;">
                         Çarşamba BES Değeri: <strong>~3.960 ₺</strong> • Önlenen Sera Gazı: <strong>2.61 Ton CO₂e</strong>
+                    </div>
+                </div>
+
+                <!-- 2. Kasa Analizi: Toplama Filosu & Santral Nakit Akışı (10 Tonluk Günlük Ring) -->
+                <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,158,11,0.35); padding:14px 18px; border-radius:var(--radius-sm);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                        <span style="font-size:0.78rem; font-weight:700; color:#FCD34D; text-transform:uppercase; letter-spacing:0.4px;">
+                            Filo İşletme Nakit Akışı (10 Tonluk / 220 Çuval Sefer Özeti)
+                        </span>
+                        <span style="background:rgba(245,158,11,0.18); color:#FCD34D; font-size:0.72rem; padding:2px 8px; border-radius:10px; border:1px solid rgba(245,158,11,0.3);">
+                            Kendi Kendini Finanse Eden Model
+                        </span>
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:0.82rem;">
+                        <div style="color:#E2E8F0;">
+                            <span style="color:#94A3B8;">Santral Kantar Hasılatı:</span><br/>
+                            <strong style="color:#34D399; font-size:1.05rem;">+22.000 ₺</strong> <small style="color:#6EE7B7;">(10t x 2.200 ₺)</small>
+                        </div>
+                        <div style="color:#E2E8F0;">
+                            <span style="color:#94A3B8;">Dizel Yakıt & Operasyon:</span><br/>
+                            <strong style="color:#F87171; font-size:1.05rem;">-3.500 ₺</strong> <small style="color:#FCA5A5;">(28.5L Dizel + Şoför)</small>
+                        </div>
+                        <div style="color:#E2E8F0;">
+                            <span style="color:#94A3B8;">Biyo-Kompost Üretim Maliyeti:</span><br/>
+                            <strong style="color:#F87171; font-size:1.05rem;">-100 ₺</strong> <small style="color:#FCA5A5;">(2 Çuval Trichoderma)</small>
+                        </div>
+                        <div style="color:#E2E8F0; background:rgba(16,185,129,0.12); padding:6px 10px; border-radius:6px; border:1px solid rgba(16,185,129,0.3);">
+                            <span style="color:#6EE7B7; font-weight:700;">Sefer Başı Net Kasa Kârı:</span><br/>
+                            <strong style="color:#FFFFFF; font-size:1.15rem; font-weight:800;">+18.400 ₺ / Gün</strong>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -499,7 +629,7 @@
                     <svg class="icon-svg md accent-green" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     <div>
                         <h3>Gapçuk AI Bilgi Merkezi & Saha Gerçekleri</h3>
-                        <p>Jüri ve Değerlendiriciler İçin 6 Soruda Bölgesel Biyokütle Döngüselliği</p>
+                        <p>Jüri ve Değerlendiriciler İçin 8 Soruda Bölgesel Biyokütle Döngüselliği</p>
                     </div>
                 </div>
                 <button class="modal-close-btn" onclick="closeFaqModal()">&times;</button>
@@ -511,7 +641,7 @@
                     <!-- Soru 1 -->
                     <div class="faq-card">
                         <div class="faq-card-media">
-                            <img src="assets/faq/faq1_patoz.jpg" alt="Patoz ve Fındık Zürufu" loading="lazy">
+                            <img src="assets/faq/faq1_patoz.jpg" alt="Fındık Zürufu ve Harman Biyokütlesi" loading="lazy">
                             <span class="faq-card-badge">3.850 kcal/kg Biyoyakıt Potansiyeli</span>
                         </div>
                         <div class="faq-card-content">
@@ -547,17 +677,17 @@
                     <!-- Soru 3 -->
                     <div class="faq-card">
                         <div class="faq-card-media">
-                            <img src="assets/faq/faq3_yakma.jpg" alt="Açıkta Yakma ve Yoğun Duman" loading="lazy">
-                            <span class="faq-card-badge" style="color:#FCD34D; border-color:rgba(245,158,11,0.4);">1.45 Ton CO₂e / Ton Emisyon</span>
+                            <img src="assets/faq/faq3_yakma.jpg" alt="Yol Kenarına Yığılmış Züruf ve Duman Tehlikesi" loading="lazy">
+                            <span class="faq-card-badge" style="color:#FCD34D; border-color:rgba(245,158,11,0.4);">T.C. Kaymakamlık Emri & Yasal Ceza</span>
                         </div>
                         <div class="faq-card-content">
-                            <h4>3. Neden Açıkta Yakılmamalı?</h4>
+                            <h4>3. Yol Kenarına Atma ve Açıkta Yakma Yasağı Nedir?</h4>
                             <p>
-                                Islak zürufun açıkta yakılması; yoğun kükürt dioksit (SO₂), karbonmonoksit ve insan ciğerine doğrudan nüfuz eden PM2.5 partikül maddesi salar. Köy yollarında görüşü kapatıp kazalara ve yangınlara yol açar. IPCC tarımsal atık metodolojisine göre yakılan her 1 ton nemli züruf <strong>1.45 ton CO₂e sera gazı</strong> yayar.
+                                T.C. Kabataş Kaymakamlığı ve bölge mülki idareleri resmi tebliğlerle <strong>zürufun yol kenarlarına, menfezlere ve dere yataklarına dökülmesini kesin olarak yasaklamıştır</strong>. Yolda bırakılan atıklar tek şeritli dağ yollarını daraltıp trafik güvenliğini felç etmekte, yangın riski doğurmakta ve yağışlarda menfezleri tıkayarak sel baskınlarına yol açmaktadır. Açıkta yakıldığında ise her 1 tonu <strong>1.45 ton CO₂e sera gazı ve zararlı duman</strong> yayarak TCK ve Çevre Kanunu kapsamında cezaya tabidir.
                             </p>
                             <div class="ref-citation">
                                 <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                <span>Kaynak: IPCC Tarımsal Yanma Kılavuzu & Çevre Bakanlığı</span>
+                                <span>Kaynak: T.C. Kabataş Kaymakamlığı Emri, 2872 Çevre Kanunu & IPCC</span>
                             </div>
                         </div>
                     </div>
@@ -660,6 +790,72 @@
                             <div class="ref-citation">
                                 <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                 <span>Kaynak: COP31 & Küresel Biyokütle Tedarik Tezi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soru 7 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <div class="faq-infographic-banner" style="background:linear-gradient(135deg, rgba(2,132,199,0.3) 0%, rgba(15,23,42,0.95) 100%);">
+                                <div style="display:flex; align-items:center; justify-content:center; gap:14px; width:100%; margin-bottom:8px;">
+                                    <div style="background:rgba(2,132,199,0.25); border:1px solid rgba(56,189,248,0.4); border-radius:10px; padding:6px 10px; text-align:center;">
+                                        <div style="font-size:0.65rem; color:#7DD3FC; font-weight:700;">KÖY RINGI</div>
+                                        <div style="font-size:0.95rem; font-weight:800; color:#FFFFFF;">10t Kamyon</div>
+                                    </div>
+                                    <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                    <div style="background:rgba(16,185,129,0.25); border:1px solid rgba(16,185,129,0.4); border-radius:10px; padding:6px 10px; text-align:center;">
+                                        <div style="font-size:0.65rem; color:#6EE7B7; font-weight:700;">BES NAKLİYE</div>
+                                        <div style="font-size:0.95rem; font-weight:800; color:#34D399;">25t Tır</div>
+                                    </div>
+                                </div>
+                                <div style="font-size:0.75rem; color:#BAE6FD; font-weight:600; text-align:center;">
+                                    2 Kademeli Hibrit Kırsal Lojistik
+                                </div>
+                            </div>
+                            <span class="faq-card-badge">Hub-and-Spoke Kırsal Dağıtım</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>7. Dik ve Dar Dağ Yollarına 25 Tonluk Tır Nasıl Girer?</h4>
+                            <p>
+                                Karadeniz coğrafyasında devasa tır dağ köyüne sokulmaz. Gapçuk AI <strong>2 kademeli hibrit lojistik (Hub-and-Spoke)</strong> uygular: Köylerden zürufu <strong>10-12 tonluk kırsal damperli ring kamyonları</strong> toplar. Ünye Ziraat Odası aktarma merkezinde yük konsolide edilir ve Çarşamba BES kantar teslimine <strong>tek bir 25 tonluk tırla</strong> sevk edilir. Böylece hem köy yolunda kaza ve sıkışma önlenir hem de uzun yolda %34 yakıt tasarrufu sağlanır.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: OSRM Rota Optimizasyonu & Karayolları Ağ Analizi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soru 8 -->
+                    <div class="faq-card">
+                        <div class="faq-card-media">
+                            <div class="faq-infographic-banner" style="background:linear-gradient(135deg, rgba(245,158,11,0.3) 0%, rgba(15,23,42,0.95) 100%);">
+                                <div style="display:flex; align-items:center; justify-content:center; gap:14px; width:100%; margin-bottom:8px;">
+                                    <div style="background:rgba(16,185,129,0.25); border:1px solid rgba(16,185,129,0.4); border-radius:10px; padding:6px 10px; text-align:center;">
+                                        <div style="font-size:0.65rem; color:#6EE7B7; font-weight:700;">NEM &le; %35</div>
+                                        <div style="font-size:0.92rem; font-weight:800; color:#34D399;">BES Santral</div>
+                                    </div>
+                                    <span style="color:#94A3B8; font-size:0.8rem;">|</span>
+                                    <div style="background:rgba(245,158,11,0.25); border:1px solid rgba(245,158,11,0.4); border-radius:10px; padding:6px 10px; text-align:center;">
+                                        <div style="font-size:0.65rem; color:#FCD34D; font-weight:700;">NEM &gt; %35</div>
+                                        <div style="font-size:0.92rem; font-weight:800; color:#FBBF24;">Biyo-Kompost</div>
+                                    </div>
+                                </div>
+                                <div style="font-size:0.75rem; color:#FDE68A; font-weight:600; text-align:center;">
+                                    Dijital Prob Nem Ölçümü & Akıllı Yönlendirme
+                                </div>
+                            </div>
+                            <span class="faq-card-badge">Oltan & Köleoğlu BES Şartnamesi</span>
+                        </div>
+                        <div class="faq-card-content">
+                            <h4>8. Yağmur Yağarsa ve Nem %35 Sınırını Aşarsa Ne Olur?</h4>
+                            <p>
+                                Oltan & Köleoğlu Çarşamba BES Satın Alma Şartnamesine göre <strong>kabul edilen maksimum nem oranı %35'tir</strong>. Şoförlerimizde el tipi dijital prob nem ölçer bulunur. Çuvala batırıldığında nem <strong>%35 altındaysa</strong> kantar kabul garantili Çarşamba rotasına verilir; <strong>%35 üstündeyse</strong> santralde red yememek için doğrudan Ziraat Odası Biyo-Kompost Tesisine (GapçukBio) yönlendirilerek 21 günde organik gübreye dönüştürülür. Hiçbir atık israf olmaz.
+                            </p>
+                            <div class="ref-citation">
+                                <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Kaynak: Çarşamba BES Satın Alma Md. Yasin Öz Doğrulaması</span>
                             </div>
                         </div>
                     </div>

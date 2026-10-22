@@ -6,14 +6,18 @@
 
 import { CONFIG, INITIAL_REPORTS } from './data.js';
 import { fetchUnyeWeather } from './weather.js';
-import { initMap, renderReports } from './map.js';
+import { initMap, renderReports, updateFilterCounts } from './map.js';
 import { initChatSimulator, updateChatWeather } from './chat.js';
 import { initModal } from './modal.js';
+import { initLanguage } from './lang.js';
 
 let reports = [...INITIAL_REPORTS];
 let currentWeatherData = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // 0. Dil motorunu başlat (TR / EN)
+    initLanguage();
+
     // 1. Haritayı başlat
     initMap('map', reports);
 
@@ -116,6 +120,7 @@ function handleNewReport(newReport) {
     renderReports(reports);
     updateMetrics();
     renderReportList();
+    updateFilterCounts(reports);
 }
 
 function setupTabNavigation() {

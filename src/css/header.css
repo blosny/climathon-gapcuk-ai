@@ -2,6 +2,58 @@
    GAPÇUK AI - HEADER & NAVIGATION CONTROLS
    ============================================================ */
 
+/* Top System Status Bar */
+.system-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(11, 23, 27, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 18px;
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.status-badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #6EE7B7;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 10px #10B981;
+    animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.status-partners {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.74rem;
+    color: #94A3B8;
+}
+
+.status-partners .sep {
+    color: rgba(255, 255, 255, 0.2);
+}
+
 .app-header {
     display: flex;
     justify-content: space-between;
@@ -145,6 +197,40 @@
     background: var(--primary);
     color: #FFFFFF;
     box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+/* Language Toggle Switcher (TR / EN) */
+.lang-toggle-container {
+    display: inline-flex;
+    background: rgba(15, 23, 42, 0.7);
+    padding: 3px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 2px;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+    color: #FFFFFF;
+}
+
+.lang-btn.active {
+    background: rgba(16, 185, 129, 0.25);
+    color: #6EE7B7;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    box-shadow: 0 1px 4px rgba(16, 185, 129, 0.2);
 }
 
 /* Weather Chip (Header) */
