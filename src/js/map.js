@@ -22,28 +22,48 @@ export function initMap(containerId, reports) {
         zoomControl: true
     });
 
-    // 1. Sokak Haritası (OpenStreetMap - Hızlı & Açık)
+    // 1. Obsidian Dark B2B Haritası (Sıfır Token, Filigransız OpenStreetMap Koyu Tema)
+    const darkLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        className: 'dark-osm-tiles',
+        maxZoom: 19
+    });
+
+    // 2. Sokak Haritası (OpenStreetMap - Standart)
     const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap',
         maxZoom: 19
     });
 
-    // 2. Gerçek Uydu Görüntüsü (Esri World Imagery)
+    // 3. Gerçek Uydu Görüntüsü (Esri World Imagery)
     const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri',
         maxZoom: 18
     });
 
-    // Varsayılan: Sokak Haritası
-    streetLayer.addTo(mapInstance);
+    // Varsayılan: Obsidian Dark Matter (AI Studio ile %100 Uyumlu)
+    darkLayer.addTo(mapInstance);
 
     const baseMaps = {
+        "Obsidian Dark (B2B)": darkLayer,
         "Sokak & Köy Yolları": streetLayer,
         "Uydu & Bahçeler": satelliteLayer
     };
     L.control.layers(baseMaps, null, { position: 'topright' }).addTo(mapInstance);
 
+    // Markers katmanını haritaya bağla (KRİTİK)
     markersLayer = L.layerGroup().addTo(mapInstance);
+
+    // Haritayı ortala butonu desteği
+    const recenterBtn = document.getElementById('btn-recenter-map');
+    if (recenterBtn) {
+        recenterBtn.addEventListener('click', () => {
+            mapInstance.setView(CONFIG.unyeCenter, CONFIG.defaultZoom, { animate: true });
+        });
+    }
+
+    // Durak filtre çiplerini bağla
+    setupFilterChips(reports);
 
     // İlk çizim
     renderReports(reports);
@@ -109,6 +129,37 @@ export async function renderReports(reports) {
         .bindPopup(`<b>Başlangıç: Ünye Ziraat Odası</b><br/>Toplama aracı buradan hareket eder.`)
         .addTo(markersLayer);
 
+    // Hedef: Oltan & Köleoğlu Çarşamba BES (27 MWe) Kantar Teslim Noktası
+    const plant = CONFIG.buyerFacility;
+    const besIcon = L.divIcon({
+        className: 'custom-bes-marker',
+        html: `
+            <div class="marker-hq-badge" style="background:#0F172A; border-color:#F59E0B; box-shadow:0 0 16px rgba(245,158,11,0.45);">
+                <span class="hq-icon" style="background:#F59E0B; color:#0F172A;">
+                    <svg class="icon-svg sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </span>
+                <span class="hq-title" style="color:#FCD34D;">Oltan & Köleoğlu BES (27 MWe)</span>
+            </div>
+        `,
+        iconSize: [250, 48],
+        iconAnchor: [125, 48]
+    });
+
+    L.marker(plant.coords, { icon: besIcon })
+        .bindPopup(`
+            <div class="map-popup-card">
+                <div class="popup-header">
+                    <span class="stop-badge" style="background:rgba(245,158,11,0.2); color:#FCD34D; border-color:#F59E0B;">Hedef Santral Kantarı</span>
+                    <h4>${plant.name}</h4>
+                </div>
+                <p><b>Konum:</b> ${plant.location}</p>
+                <p><b>Kapasite:</b> ${plant.capacity} (Biyokütle Enerji Santrali)</p>
+                <p><b>Alım Şartı:</b> 2.000 TL/Ton + KDV (Max %35 Nem)</p>
+                <p><b>Tedarik Doğrulaması:</b> Satın Alma Md. Yasin Öz Onaylı</p>
+            </div>
+        `)
+        .addTo(markersLayer);
+
     // Durakları coğrafi ve aciliyet sırasına göre optimize et
     const orderedStops = optimizeStopSequence(CONFIG.unyeCenter, reports);
 
@@ -145,9 +196,11 @@ export async function renderReports(reports) {
             </div>
         `;
 
-        L.marker([item.lat, item.lon], { icon: markerIcon })
+        const marker = L.marker([item.lat, item.lon], { icon: markerIcon })
             .bindPopup(popupContent)
             .addTo(markersLayer);
+
+        markerMap[item.village] = marker;
     });
 
     // OSRM ile Gerçek Yol Çizgilerini Çek ve Çiz
@@ -156,6 +209,16 @@ export async function renderReports(reports) {
     // Durak listesini sağ paneldeki tabloya sıra numaralarıyla güncelle
     updateRouteTimeline(orderedStops);
 }
+
+let markerMap = {};
+
+window.panToVillage = function(village) {
+    const marker = markerMap[village];
+    if (marker && mapInstance) {
+        mapInstance.flyTo(marker.getLatLng(), 14, { duration: 0.8 });
+        marker.openPopup();
+    }
+};
 
 /**
  * OSRM API ile gerçek viraj ve asfalt koordinatlarını çeker
@@ -166,10 +229,11 @@ async function drawRealRoadRoute(orderedStops) {
 
     if (orderedStops.length === 0) return;
 
-    // Koordinat listesi: [lon, lat] formatında OSRM URL'si
+    // Koordinat listesi: Ünye HQ -> Sıralı Köyler -> Çarşamba BES Kantar
     const waypoints = [
         `${CONFIG.unyeCenter[1]},${CONFIG.unyeCenter[0]}`,
-        ...orderedStops.map(s => `${s.lon},${s.lat}`)
+        ...orderedStops.map(s => `${s.lon},${s.lat}`),
+        `${CONFIG.buyerFacility.coords[1]},${CONFIG.buyerFacility.coords[0]}`
     ];
 
     const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${waypoints.join(';')}?overview=full&geometries=geojson`;
@@ -203,6 +267,21 @@ async function drawRealRoadRoute(orderedStops) {
                 const totalKm = (route.distance / 1000).toFixed(1);
                 const durationMin = Math.round(route.duration / 60);
                 
+                // Canlı Telemetri Çubuğunu Güncelle
+                const elemCycle = document.getElementById('telemetry-cycle-time');
+                const elemDist = document.getElementById('telemetry-distance');
+                const elemFuel = document.getElementById('telemetry-diesel');
+                const elemTruck = document.getElementById('telemetry-truck-load');
+
+                if (elemDist) elemDist.innerText = `${totalKm} km`;
+                if (elemCycle) elemCycle.innerText = `${durationMin} Dakika`;
+                if (elemFuel) elemFuel.innerText = `${(totalKm * 0.36).toFixed(1)} Litre`;
+                if (elemTruck) {
+                    const totalTons = orderedStops.reduce((a, c) => a + c.sacks * (CONFIG.kgPerSack / 1000), 0);
+                    const pct = Math.min(100, Math.round((totalTons / 25) * 100));
+                    elemTruck.innerText = `${totalTons.toFixed(1)} Ton / 25t Tır (%${pct})`;
+                }
+
                 const routeInfoElem = document.getElementById('ai-route-info');
                 if (routeInfoElem) {
                     routeInfoElem.innerHTML = `
@@ -218,8 +297,12 @@ async function drawRealRoadRoute(orderedStops) {
         console.warn("OSRM servisi yanıt vermedi, düzeltilmiş sıralı rota kullanılıyor:", e);
     }
 
-    // Fallback: OSRM yanıt vermezse bile sıralı çizgileri çiz (asla zikzak yapmaz)
-    const fallbackPoints = [CONFIG.unyeCenter, ...orderedStops.map(s => [s.lat, s.lon])];
+    // Fallback: OSRM yanıt vermezse bile sıralı çizgileri çiz (Çarşamba BES dahil)
+    const fallbackPoints = [
+        CONFIG.unyeCenter, 
+        ...orderedStops.map(s => [s.lat, s.lon]),
+        CONFIG.buyerFacility.coords
+    ];
     routePolyline = L.polyline(fallbackPoints, {
         color: '#10B981',
         weight: 4,
@@ -240,7 +323,7 @@ function updateRouteTimeline(orderedStops) {
             : `<span class="badge-road-open">Yol Açık (Harman Önü)</span>`;
 
         html += `
-            <div class="timeline-step ${isBlocked ? 'step-urgent' : ''}">
+            <div class="timeline-step ${isBlocked ? 'step-urgent' : ''}" onclick="window.panToVillage('${stop.village}')" style="cursor:pointer;" title="Haritada ${stop.village} noktasına odaklan">
                 <span class="step-circle ${isBlocked ? 'circle-urgent' : ''}">#${idx + 1}</span>
                 <div class="step-details">
                     <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
@@ -256,4 +339,51 @@ function updateRouteTimeline(orderedStops) {
         `;
     });
     timelineContainer.innerHTML = html;
+}
+
+let allReportsCache = [];
+
+export function setupFilterChips(reports) {
+    allReportsCache = [...reports];
+    updateFilterCounts(allReportsCache);
+
+    const filterRow = document.querySelector('.sidebar-filter-row');
+    if (!filterRow) return;
+
+    const chips = filterRow.querySelectorAll('.filter-chip');
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            chips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+
+            const filterType = chip.getAttribute('data-filter') || 'all';
+            let filtered = [...allReportsCache];
+            if (filterType === 'blocked') {
+                filtered = allReportsCache.filter(r => r.roadBlocked);
+            } else if (filterType === 'open') {
+                filtered = allReportsCache.filter(r => !r.roadBlocked);
+            }
+            renderReports(filtered);
+        });
+    });
+}
+
+export function updateFilterCounts(reports) {
+    allReportsCache = [...reports];
+    const filterRow = document.querySelector('.sidebar-filter-row');
+    if (!filterRow) return;
+
+    const allCount = reports.length;
+    const blockedCount = reports.filter(r => r.roadBlocked).length;
+    const openCount = reports.filter(r => !r.roadBlocked).length;
+
+    const chips = filterRow.querySelectorAll('.filter-chip');
+    if (chips.length >= 3) {
+        chips[0].setAttribute('data-filter', 'all');
+        chips[0].textContent = `Tümü (${allCount})`;
+        chips[1].setAttribute('data-filter', 'blocked');
+        chips[1].textContent = `Tek Şerit Kapalı (${blockedCount})`;
+        chips[2].setAttribute('data-filter', 'open');
+        chips[2].textContent = `Açık (${openCount})`;
+    }
 }
