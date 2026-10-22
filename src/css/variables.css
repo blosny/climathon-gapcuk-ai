@@ -4,12 +4,13 @@
    ============================================================ */
 
 :root {
-    /* Primary Emerald / Ecological Bio-Green */
-    --primary: #10B981;
-    --primary-hover: #059669;
-    --primary-light: rgba(16, 185, 129, 0.14);
-    --primary-border: rgba(16, 185, 129, 0.32);
-    --primary-glow: rgba(16, 185, 129, 0.25);
+    /* Primary Emerald / Ecological Bio-Green (Refined Deep Emerald) */
+    --primary: #059669;
+    --primary-light: rgba(5, 150, 105, 0.12);
+    --primary-border: rgba(16, 185, 129, 0.28);
+    --primary-glow: rgba(5, 150, 105, 0.20);
+    --primary-gradient: linear-gradient(135deg, #059669 0%, #047857 100%);
+    --primary-gradient-hover: linear-gradient(135deg, #10B981 0%, #059669 100%);
 
     /* Amber / Hazelnut Züruf Accent */
     --accent-amber: #F59E0B;

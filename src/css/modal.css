@@ -1,18 +1,18 @@
 /* ============================================================
    GAPÇUK AI - FAQ & ONBOARDING KNOWLEDGE MODAL
-   Jüri ve Değerlendirici 6 Soruda Bölgesel Biyokütle Bilgi Merkezi
+   Girişte 3 Temel Soru, Genişletilebilir 8 Saha Gerçeği
    ============================================================ */
 
 .btn-faq-trigger {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.10);
+    border: 1px solid rgba(16, 185, 129, 0.28);
     color: #6EE7B7;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    padding: 7px 14px;
+    padding: 6px 13px;
     border-radius: var(--radius-full);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -20,11 +20,11 @@
 }
 
 .btn-faq-trigger:hover {
-    background: rgba(16, 185, 129, 0.22);
-    border-color: #10B981;
+    background: rgba(16, 185, 129, 0.18);
+    border-color: rgba(16, 185, 129, 0.45);
     color: #FFFFFF;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
 
 .modal-overlay {
@@ -52,11 +52,11 @@
 
 .modal-dialog {
     background: #0B171B;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    border: 1px solid rgba(16, 185, 129, 0.25);
     border-radius: var(--radius-lg);
-    max-width: 1100px;
+    max-width: 1080px;
     width: 100%;
-    max-height: 92vh;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
@@ -73,7 +73,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 24px;
+    padding: 14px 20px;
     background: #0E2025;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -81,22 +81,22 @@
 .modal-title-wrap {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 }
 
 .modal-title-wrap h3 {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #FFFFFF;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .modal-title-wrap p {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-secondary);
     margin: 2px 0 0 0;
 }
@@ -105,11 +105,11 @@
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: #94A3B8;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,18 +120,18 @@
     background: rgba(239, 68, 68, 0.2);
     border-color: #EF4444;
     color: #FFFFFF;
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
 .modal-body {
-    padding: 22px 24px;
+    padding: 18px 20px;
     overflow-y: auto;
 }
 
 .faq-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
 }
 
 .faq-card {
@@ -145,13 +145,13 @@
 }
 
 .faq-card:hover {
-    border-color: rgba(16, 185, 129, 0.45);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    border-color: rgba(16, 185, 129, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .faq-card-media {
-    height: 180px;
+    height: 145px;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -171,7 +171,7 @@
 }
 
 .faq-card:hover .faq-card-media img {
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
 
 /* Vector Infographic Canvas for Cards 4, 5, 6 */
@@ -182,7 +182,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: 14px;
     position: relative;
 }
 
@@ -200,21 +200,21 @@
 
 .faq-card-badge {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(7, 18, 21, 0.92);
+    bottom: 8px;
+    left: 8px;
+    background: rgba(7, 18, 21, 0.88);
     backdrop-filter: blur(6px);
-    color: #6EE7B7;
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    border-radius: var(--radius-full);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 4px 10px;
+    color: #E2E8F0;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 7px;
     letter-spacing: 0.2px;
 }
 
 .faq-card-content {
-    padding: 16px;
+    padding: 13px 15px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -222,32 +222,91 @@
 
 .faq-card-content h4 {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 700;
     color: #FFFFFF;
-    margin-bottom: 8px;
-    line-height: 1.4;
+    margin-bottom: 6px;
+    line-height: 1.35;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .faq-card-content p {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     color: #CBD5E1;
-    line-height: 1.55;
-    margin-bottom: 12px;
+    line-height: 1.5;
+    margin-bottom: 8px;
 }
 
 .faq-card-content .ref-citation {
-    font-size: 0.74rem;
+    font-size: 0.7rem;
     color: #F59E0B;
     margin-top: auto;
-    padding-top: 10px;
+    padding-top: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+/* Extra Questions Hidden by Default */
+.faq-card-extra {
+    display: none !important;
+}
+
+.faq-expanded .faq-card-extra {
+    display: flex !important;
+    animation: fadeInFaq 0.3s ease forwards;
+}
+
+@keyframes fadeInFaq {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.faq-expand-wrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    padding: 8px 0 4px 0;
+}
+
+.btn-faq-expand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #CBD5E1;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-faq-expand:hover {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.35);
+    color: #6EE7B7;
+    transform: translateY(-1px);
+}
+
+#faq-expand-icon {
+    transition: transform 0.25s ease;
+}
+
+.faq-expanded #faq-expand-icon {
+    transform: rotate(180deg);
 }
 
 /* Modal Bottom Action Footer */
@@ -255,25 +314,26 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 24px;
+    padding: 12px 20px;
     background: #0E2025;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .modal-footer-note {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
 .btn-modal-action {
-    background: var(--primary);
-    color: #061A14;
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: #FFFFFF;
     font-family: var(--font-heading);
-    font-size: 0.88rem;
-    font-weight: 700;
-    padding: 10px 22px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    padding: 9px 20px;
     border-radius: var(--radius-full);
-    border: none;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
     cursor: pointer;
     transition: all 0.2s ease;
     display: inline-flex;
@@ -282,9 +342,9 @@
 }
 
 .btn-modal-action:hover {
-    background: #34D399;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 6px 18px rgba(5, 150, 105, 0.35);
 }
 
 @media (max-width: 768px) {

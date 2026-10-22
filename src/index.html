@@ -65,7 +65,7 @@
             <div class="header-right-controls">
                 <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
                     <!-- Bilgi Merkezi & SSS Butonu -->
-                    <button class="btn-faq-trigger" id="btn-open-faq" onclick="window.openFaqModal()">
+                    <button class="btn-faq-trigger" id="btn-open-faq" onclick="window.openFaqModal(true)">
                         <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                         <span data-i18n="btn_faq">Gapçuk Rehberi & SSS (8 Soru)</span>
                     </button>
@@ -443,81 +443,81 @@
                         <img src="assets/faq/faq5_kompost.jpg" alt="21 Günde Trichoderma Fermente Organik Kompost" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
                     </div>
 
-                    <div style="background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); padding:16px; border-radius:var(--radius-md); margin-bottom:20px;">
-                        <h4 style="color:#6EE7B7; font-size:0.95rem; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                    <div style="background:rgba(15, 23, 42, 0.6); border:1px solid rgba(255, 255, 255, 0.08); border-left:3px solid #059669; padding:14px 16px; border-radius:var(--radius-md); margin-bottom:14px;">
+                        <h4 style="color:#6EE7B7; font-size:0.9rem; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
                             <svg class="icon-svg sm accent-green" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                             <span>Trichoderma Biyo-Kompost Reçetesi</span>
                         </h4>
-                        <ol style="font-size:0.82rem; color:#E2E8F0; padding-left:18px; line-height:1.6;">
+                        <ol style="font-size:0.8rem; color:#E2E8F0; padding-left:18px; line-height:1.55;">
                             <li><strong>Faydalı Mantar Aşısı:</strong> Gapçuk yığınının üstüne 100L suya 100g <em>Trichoderma</em> mikroorganizması suyla pülverize edilir.</li>
                             <li><strong>Külleme Avcısı:</strong> Trichoderma, zararlı külleme mantarını doğrudan parazitler ve yok eder.</li>
                             <li><strong>21 Günde Organik Gübre:</strong> 6 ay süren kireçleme yerine 3 haftada kokusuz siyah kompost elde edilir.</li>
                         </ol>
                     </div>
 
-                    <div style="background:rgba(217, 119, 6, 0.12); border:1px solid rgba(217, 119, 6, 0.35); padding:16px; border-radius:var(--radius-md);">
-                        <h4 style="color:#FCD34D; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+                    <div style="background:rgba(15, 23, 42, 0.6); border:1px solid rgba(255, 255, 255, 0.08); border-left:3px solid #D97706; padding:14px 16px; border-radius:var(--radius-md);">
+                        <h4 style="color:#FCD34D; font-size:0.9rem; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
                             <svg class="icon-svg sm accent-amber" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                             <span>Fındık Kabuğu Piyasası & Ekonomik Kanıt</span>
                         </h4>
-                        <p style="font-size:0.82rem; color:#E2E8F0; line-height:1.5;">
+                        <p style="font-size:0.8rem; color:#E2E8F0; line-height:1.5;">
                             Güncel olarak sert fındık kabuğunun kilogram fiyatı yakıt talebi nedeniyle fındık fiyatını geçmiş, marketlerde paketle satılmaktadır. Toplanan gapçuk (züruf); Oltan Köleoğlu BES ve seralar için tonu <strong>~2.200 TL</strong> değerinde hazır pelet biyoyakıtı hammaddesidir.
                         </p>
                     </div>
                 </div>
             <!-- Çiftçi & BES Kazan-Kazan Adil Matematik Modeli (Bölüm 5 Hesabı) -->
-            <div class="panel-card" style="margin-top: 24px; border: 1px solid rgba(16, 185, 129, 0.35); background: linear-gradient(135deg, rgba(11,23,27,0.95) 0%, rgba(6,78,59,0.2) 100%);">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
-                    <h3 class="panel-title" style="margin:0;">
+            <div class="panel-card" style="margin-top: 18px; border: 1px solid rgba(255, 255, 255, 0.08); background: var(--bg-card);">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+                    <h3 class="panel-title" style="margin:0; font-size:1.05rem;">
                         <svg class="icon-svg accent-green" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                         <span>40 Çuval Gapçuk: Adil Çiftçi Teşviki & Birim Ekonomi Analizi</span>
                     </h3>
-                    <span class="badge badge-cop" style="font-size:0.78rem;">Sıfır Mağduriyet • %100 Kazan-Kazan</span>
+                    <span class="badge badge-cop" style="font-size:0.75rem;">Sıfır Mağduriyet • %100 Kazan-Kazan</span>
                 </div>
-                <p class="panel-desc">
+                <p class="panel-desc" style="margin-bottom:12px;">
                     Çiftçiyi atığı yakmaya veya dereye dökmeye mecbur bırakmayan, 4 bileşenli adil değer takas modeli (Bölüm 5 Hesabı):
                 </p>
 
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin-bottom:18px;">
-                    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:14px; border-radius:var(--radius-sm);">
-                        <div style="font-size:0.75rem; color:#94A3B8; text-transform:uppercase; font-weight:700;">Girdi (Üretici Katkısı)</div>
-                        <div style="font-size:1.2rem; font-weight:800; color:#FFFFFF; margin:4px 0;">40 Çuval Gapçuk</div>
-                        <div style="font-size:0.78rem; color:#A7F3D0;">~1.800 kg çiğ harman zürufu yol kenarından teslim alınır.</div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; margin-bottom:14px;">
+                    <div style="background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:var(--radius-sm);">
+                        <div style="font-size:0.72rem; color:#94A3B8; text-transform:uppercase; font-weight:700;">Girdi (Üretici Katkısı)</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:#FFFFFF; margin:3px 0;">40 Çuval Gapçuk</div>
+                        <div style="font-size:0.75rem; color:#A7F3D0;">~1.800 kg çiğ harman zürufu yol kenarından teslim alınır.</div>
                     </div>
-                    <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); padding:14px; border-radius:var(--radius-sm);">
-                        <div style="font-size:0.75rem; color:#6EE7B7; text-transform:uppercase; font-weight:700;">1. Doğrudan Biyo-Gübre</div>
-                        <div style="font-size:1.2rem; font-weight:800; color:#34D399; margin:4px 0;">2 Çuval (100 kg) Kompost</div>
-                        <div style="font-size:0.78rem; color:#D1FAE5;">Ücretsiz kapıya teslim (Piyasa değeri: <strong>~1.200 ₺</strong>).</div>
+                    <div style="background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.08); border-top:2px solid #059669; padding:12px 14px; border-radius:var(--radius-sm);">
+                        <div style="font-size:0.72rem; color:#6EE7B7; text-transform:uppercase; font-weight:700;">1. Doğrudan Biyo-Gübre</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:#34D399; margin:3px 0;">2 Çuval (100 kg) Kompost</div>
+                        <div style="font-size:0.75rem; color:#D1FAE5;">Ücretsiz kapıya teslim (Piyasa değeri: <strong>~1.200 ₺</strong>).</div>
                     </div>
-                    <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); padding:14px; border-radius:var(--radius-sm);">
-                        <div style="font-size:0.75rem; color:#FCD34D; text-transform:uppercase; font-weight:700;">2. Ziraat Odası Kuponu</div>
-                        <div style="font-size:1.2rem; font-weight:800; color:#FBBF24; margin:4px 0;">%30 İndirim Kuponu</div>
-                        <div style="font-size:0.78rem; color:#FEF3C7;">Hepsiburada 2.331 ₺ taban gübre endeksi ile <strong>~700 ₺</strong> tasarruf.</div>
+                    <div style="background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.08); border-top:2px solid #D97706; padding:12px 14px; border-radius:var(--radius-sm);">
+                        <div style="font-size:0.72rem; color:#FCD34D; text-transform:uppercase; font-weight:700;">2. Ziraat Odası Kuponu</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:#FBBF24; margin:3px 0;">%30 İndirim Kuponu</div>
+                        <div style="font-size:0.75rem; color:#FEF3C7;">Hepsiburada 2.331 ₺ taban gübre endeksi ile <strong>~700 ₺</strong> tasarruf.</div>
                     </div>
-                    <div style="background:rgba(2,132,199,0.08); border:1px solid rgba(2,132,199,0.25); padding:14px; border-radius:var(--radius-sm);">
-                        <div style="font-size:0.75rem; color:#7DD3FC; text-transform:uppercase; font-weight:700;">3. Nakliye & İlaç Tasarrufu</div>
-                        <div style="font-size:1.2rem; font-weight:800; color:#38BDF8; margin:4px 0;">2.300 ₺ Dolaylı Kazanç</div>
-                        <div style="font-size:0.78rem; color:#E0F2FE;">Harman taşıma (800 ₺) + Külleme ilaç tasarrufu (1.500 ₺).</div>
+                    <div style="background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.08); border-top:2px solid #0284C7; padding:12px 14px; border-radius:var(--radius-sm);">
+                        <div style="font-size:0.72rem; color:#7DD3FC; text-transform:uppercase; font-weight:700;">3. Nakliye & İlaç Tasarrufu</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:#38BDF8; margin:3px 0;">2.300 ₺ Dolaylı Kazanç</div>
+                        <div style="font-size:0.75rem; color:#E0F2FE;">Harman taşıma (800 ₺) + Külleme ilaç tasarrufu (1.500 ₺).</div>
                     </div>
                 </div>
 
-                <div style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:12px 18px; border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+                <div style="background:rgba(15,23,42,0.85); border:1px solid rgba(16,185,129,0.3); padding:10px 16px; border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
                     <div>
-                        <strong style="color:#FFFFFF; font-size:0.95rem;">Toplam Net Çiftçi Katma Değeri:</strong>
-                        <span style="color:#6EE7B7; font-size:1.25rem; font-weight:800; margin-left:8px;">4.200 ₺ / Harman Sezonu</span>
+                        <strong style="color:#FFFFFF; font-size:0.88rem;">Toplam Net Çiftçi Katma Değeri:</strong>
+                        <span style="color:#6EE7B7; font-size:1.15rem; font-weight:800; margin-left:8px;">4.200 ₺ / Harman Sezonu</span>
                     </div>
-                    <div style="font-size:0.8rem; color:#CBD5E1;">
+                    <div style="font-size:0.75rem; color:#CBD5E1;">
                         Çarşamba BES Değeri: <strong>~3.960 ₺</strong> • Önlenen Sera Gazı: <strong>2.61 Ton CO₂e</strong>
                     </div>
                 </div>
 
                 <!-- 2. Kasa Analizi: Toplama Filosu & Santral Nakit Akışı (10 Tonluk Günlük Ring) -->
-                <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,158,11,0.35); padding:14px 18px; border-radius:var(--radius-sm);">
+                <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(255,255,255,0.08); padding:12px 16px; border-radius:var(--radius-sm);">
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
-                        <span style="font-size:0.78rem; font-weight:700; color:#FCD34D; text-transform:uppercase; letter-spacing:0.4px;">
+                        <span style="font-size:0.75rem; font-weight:700; color:#FCD34D; text-transform:uppercase; letter-spacing:0.3px;">
                             Filo İşletme Nakit Akışı (10 Tonluk / 220 Çuval Sefer Özeti)
                         </span>
-                        <span style="background:rgba(245,158,11,0.18); color:#FCD34D; font-size:0.72rem; padding:2px 8px; border-radius:10px; border:1px solid rgba(245,158,11,0.3);">
+                        <span style="color:#FCD34D; font-size:0.72rem; padding:2px 6px;">
                             Kendi Kendini Finanse Eden Model
                         </span>
                     </div>
@@ -629,7 +629,7 @@
                     <svg class="icon-svg md accent-green" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     <div>
                         <h3>Gapçuk AI Bilgi Merkezi & Saha Gerçekleri</h3>
-                        <p>Jüri ve Değerlendiriciler İçin 8 Soruda Bölgesel Biyokütle Döngüselliği</p>
+                        <p id="modal-faq-subtitle">Jüri ve Değerlendiriciler İçin 3 Temel Saha Gerçeği (Giriş Rehberi)</p>
                     </div>
                 </div>
                 <button class="modal-close-btn" onclick="closeFaqModal()">&times;</button>
@@ -647,7 +647,7 @@
                         <div class="faq-card-content">
                             <h4>1. Gapçuk (Züruf) Nedir ve Neden Değerlidir?</h4>
                             <p>
-                                Fındığın hasat sonrası harman patozunda sert kabuktan ayrılan yeşil/kahverengi dış kabuğudur. Yüksek lignin ve selüloz lifi içerir. Kuru halde linyit kömürünü geride bırakan <strong>3.850 kcal/kg alt ısıl değere</strong> sahip temiz bir sanayi biyoyakıtı hammaddesidir. Doğru kompostlandığında ise bölgenin organik maddece fakir topraklarını besleyen A sınıfı doğal gübreye dönüşür.
+                                Fındığın hasat sonrası harman patozunda sert kabuktan ayrılan yeşil/kahverengi dış kabuğudur. Zengin doğal lif ve selüloz yapısına sahiptir. Kuru halde linyit kömürünü geride bırakan <strong>3.850 kcal/kg alt ısıl değere</strong> sahip temiz bir sanayi biyoyakıtı hammaddesidir. Doğru kompostlandığında ise bölgenin organik maddece fakir topraklarını besleyen A sınıfı doğal gübreye dönüşür.
                             </p>
                             <div class="ref-citation">
                                 <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
@@ -692,8 +692,16 @@
                         </div>
                     </div>
 
+                    <!-- Diğer Soruları Aç / Kapat Butonu -->
+                    <div class="faq-expand-wrapper">
+                        <button type="button" class="btn-faq-expand" id="btn-faq-expand" onclick="window.toggleFaqCards()">
+                            <span id="faq-expand-text">Tüm Saha & Operasyonel Soruları Gör (5 Ek Soru)</span>
+                            <svg class="icon-svg sm" id="faq-expand-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+
                     <!-- Soru 4 -->
-                    <div class="faq-card">
+                    <div class="faq-card faq-card-extra">
                         <div class="faq-card-media">
                             <div class="faq-infographic-banner faq-banner-gps">
                                 <div style="display:flex; align-items:center; justify-content:center; gap:20px; width:100%; margin-bottom:12px;">
@@ -727,7 +735,7 @@
                     </div>
 
                     <!-- Soru 5 -->
-                    <div class="faq-card">
+                    <div class="faq-card faq-card-extra">
                         <div class="faq-card-media">
                             <div class="faq-infographic-banner faq-banner-incentive">
                                 <div style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%; margin-bottom:8px;">
@@ -760,7 +768,7 @@
                     </div>
 
                     <!-- Soru 6 -->
-                    <div class="faq-card">
+                    <div class="faq-card faq-card-extra">
                         <div class="faq-card-media">
                             <div class="faq-infographic-banner faq-banner-scale">
                                 <div style="display:flex; align-items:center; justify-content:center; gap:16px; width:100%; margin-bottom:8px;">
@@ -795,7 +803,7 @@
                     </div>
 
                     <!-- Soru 7 -->
-                    <div class="faq-card">
+                    <div class="faq-card faq-card-extra">
                         <div class="faq-card-media">
                             <div class="faq-infographic-banner" style="background:linear-gradient(135deg, rgba(2,132,199,0.3) 0%, rgba(15,23,42,0.95) 100%);">
                                 <div style="display:flex; align-items:center; justify-content:center; gap:14px; width:100%; margin-bottom:8px;">
@@ -828,7 +836,7 @@
                     </div>
 
                     <!-- Soru 8 -->
-                    <div class="faq-card">
+                    <div class="faq-card faq-card-extra">
                         <div class="faq-card-media">
                             <div class="faq-infographic-banner" style="background:linear-gradient(135deg, rgba(245,158,11,0.3) 0%, rgba(15,23,42,0.95) 100%);">
                                 <div style="display:flex; align-items:center; justify-content:center; gap:14px; width:100%; margin-bottom:8px;">
