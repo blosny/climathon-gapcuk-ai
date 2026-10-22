@@ -17,19 +17,46 @@ export function initChatSimulator(weatherData, onReportAdded) {
             e.preventDefault();
 
             const villageSelect = document.getElementById('form-village');
+            const customVillageInput = document.getElementById('form-custom-village');
             const sacksInput = document.getElementById('form-sacks');
             const farmerInput = document.getElementById('form-farmer');
             const roadRadio = document.querySelector('input[name="road-status"]:checked');
 
-            const village = villageSelect.value;
-            const sacks = parseInt(sacksInput.value, 10) || 25;
-            const farmer = farmerInput.value.trim() || 'Yerel Üretici';
+            let village = villageSelect.value;
+            if (village === '__custom__' || (customVillageInput && customVillageInput.value.trim())) {
+                village = customVillageInput.value.trim() || 'Dereköy / Kadıhan Mah.';
+                // Seçeneklerde yoksa yeni eklenen köyü dinamik olarak ekle
+                let exists = false;
+                for (let i = 0; i < villageSelect.options.length; i++) {
+                    if (villageSelect.options[i].value.toLowerCase() === village.toLowerCase()) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    const newOpt = document.createElement('option');
+                    newOpt.value = village;
+                    newOpt.innerText = village;
+                    villageSelect.insertBefore(newOpt, villageSelect.lastElementChild);
+                    villageSelect.value = village;
+                }
+            }
+
+            const sacks = parseInt(sacksInput.value, 10) || 40;
+            const farmer = farmerInput.value.trim() || 'Taha Buğra Çiçek';
             const isBlocked = roadRadio ? roadRadio.value === 'blocked' : true;
 
-            // Koordinat hesaplama (Ünye havza sapması)
-            const baseCoords = CONFIG.unyeCenter;
-            const lat = baseCoords[0] + (Math.random() - 0.5) * 0.15;
-            const lon = baseCoords[1] + (Math.random() - 0.5) * 0.15;
+            // Koordinat hesaplama (Dereköy / Kadıhan için gerçek Ünye kırsal vadisi)
+            let lat, lon;
+            const lower = village.toLowerCase();
+            if (lower.includes('dereköy') || lower.includes('kadıhan')) {
+                lat = 41.0825;
+                lon = 37.2885;
+            } else {
+                const baseCoords = CONFIG.unyeCenter;
+                lat = baseCoords[0] - 0.03 - Math.random() * 0.08;
+                lon = baseCoords[1] + (Math.random() - 0.5) * 0.10;
+            }
 
             const newReport = {
                 id: Date.now(),
@@ -58,11 +85,40 @@ export function initChatSimulator(weatherData, onReportAdded) {
 
             // Form alanlarını sıfırla
             farmerInput.value = '';
-            sacksInput.value = '30';
+            sacksInput.value = '40';
+            if (customVillageInput) customVillageInput.value = '';
+            const wrap = document.getElementById('custom-village-wrap');
+            if (wrap) wrap.style.display = 'none';
         });
     }
 
-    // 2. Global Hızlı Soru Fonksiyonu Bağlantısı
+    // 2. Global Hızlı Soru ve Köy Değiştirici Fonksiyonları
+    window.handleVillageSelectChange = function(select) {
+        const wrap = document.getElementById('custom-village-wrap');
+        const input = document.getElementById('form-custom-village');
+        if (select.value === '__custom__') {
+            if (wrap) wrap.style.display = 'block';
+            if (input) input.focus();
+        } else {
+            if (wrap) wrap.style.display = 'none';
+        }
+    };
+
+    window.toggleCustomVillageInput = function() {
+        const wrap = document.getElementById('custom-village-wrap');
+        const select = document.getElementById('form-village');
+        const input = document.getElementById('form-custom-village');
+        if (wrap) {
+            if (wrap.style.display === 'none' || !wrap.style.display) {
+                wrap.style.display = 'block';
+                if (select) select.value = '__custom__';
+                if (input) input.focus();
+            } else {
+                wrap.style.display = 'none';
+                if (select) select.value = 'Dereköy / Kadıhan Mah.';
+            }
+        }
+    };
     window.askBotQuestion = (type) => handleQuickQuestion(type);
 }
 

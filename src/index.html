@@ -292,8 +292,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="form-village">Bulunduğunuz Köy / Mahalle</label>
-                            <select id="form-village" class="form-control">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                                <label for="form-village" style="margin-bottom:0;">Bulunduğunuz Köy / Mahalle</label>
+                                <button type="button" id="btn-toggle-custom-village" onclick="window.toggleCustomVillageInput()" style="background:transparent; border:none; color:#6EE7B7; font-size:0.75rem; font-weight:600; cursor:pointer; text-decoration:underline;">+ Farklı Köy Yaz</button>
+                            </div>
+                            <select id="form-village" class="form-control" onchange="window.handleVillageSelectChange(this)">
+                                <option value="Dereköy / Kadıhan Mah." selected>Dereköy / Kadıhan Mah.</option>
                                 <option value="Yazkonağı Köyü">Yazkonağı Köyü</option>
                                 <option value="Tekkiraz Mahallesi">Tekkiraz Mahallesi</option>
                                 <option value="Yeşilkent Köyü">Yeşilkent Köyü</option>
@@ -301,7 +305,11 @@
                                 <option value="İnkur Mahallesi">İnkur Mahallesi</option>
                                 <option value="Erenyurt Köyü">Erenyurt Köyü</option>
                                 <option value="Fevzi Çakmak Mah.">Fevzi Çakmak Mah.</option>
+                                <option value="__custom__">+ Listede Olmayan Köy Ekle...</option>
                             </select>
+                            <div id="custom-village-wrap" style="display:none; margin-top:8px;">
+                                <input type="text" id="form-custom-village" class="form-control" placeholder="Örn: Dereköy / Kadıhan Mahallesi">
+                            </div>
                         </div>
 
                         <div class="form-group">
