@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="https://climathon-gapcuk-ai.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-Vercel%20Production-10B981?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
   <a href="#"><img src="https://img.shields.io/badge/COP31-Cutting%20Waste%20by%20Half%20by%202035-10B981.svg" alt="COP31"></a>
   <a href="#"><img src="https://img.shields.io/badge/Siemens-Resource%20Efficiency%20%26%20Circularity-0284C7.svg" alt="Siemens"></a>
   <a href="#"><img src="https://img.shields.io/badge/UN%20SDG-12%20Responsible%20Consumption-F59E0B.svg" alt="SDG 12"></a>
@@ -19,10 +20,11 @@
 ---
 
 ## 📌 Problem ve Saha Gerçeği (Ordu / Ünye)
-Türkiye, dünya fındık üretiminin **%70'ini** karşılamaktadır. Her yıl hasat sonrasında açığa çıkan yaklaşık **175.000 ton fındık zürufu (yöresel adıyla *gapçuk*)**, plansız yönetim nedeniyle iki büyük çevre ve tarım krizine yol açmaktadır:
+Türkiye, dünya fındık üretiminin **%70'ini** karşılamaktadır. Her yıl hasat sonrasında açığa çıkan yaklaşık **175.000 ton fındık zürufu (yöresel adıyla *gapçuk*)**, plansız yönetim ve kırsal lojistik eksikliği nedeniyle iki büyük çevre ve tarım krizine yol açmaktadır:
 
-1. **Çiğ Olarak Fındık Ocaklarına Saçılması (%80-90):** Üreticiler iyi niyetle gübre olsun diye çiğ gapçuğu bahçeye sermektedir. Bu durum hem topraktaki azotu tüketmekte (*azot hırsızlığı*) hem de fındıkta %30'a varan rekolte kaybına yol açan **Külleme Hastalığı (*Erysiphe corylacea*)** mantarı için kışlama yatağı oluşturmaktadır. Çiftçiler yoğun kimyasal fungisit kullanmak zorunda kalmaktadır.
-2. **Açıkta Yakma ve Yol Kapanmaları (%5-10):** Dar köy yollarını kapatan dev gapçuk yığınları ateşe verilmekte; yoğun duman, PM2.5 partikül maddesi ve sera gazı salımı yaratmaktadır.
+1. **Çiğ Olarak Fındık Ocaklarına Saçılması (%80-90):** Üreticiler iyi niyetle gübre olsun diye çiğ gapçuğu bahçeye sermektedir. Bu durum hem topraktaki azotu tüketmekte (*C:N 50:1 Azot Hırsızlığı*) hem de fındıkta %30'a varan rekolte kaybına yol açan **Külleme Hastalığı (*Erysiphe corylacea*)** mantarı için kışlama yatağı oluşturmaktadır.
+2. **Açıkta Yakma ve Yol Kapanmaları (%5-10):** Dar köy yollarını kapatan dev gapçuk yığınları ateşe verilmekte; her 1 tonu için **1.45 ton CO₂e sera gazı**, yoğun PM2.5 partikül maddesi salınmakta ve yangın/menfez tıkanması riskleri doğmaktadır.
+3. **Pazar Tıkanıklığı (Market Failure):** Bölgedeki biyokütle enerji santralleri (Çarşamba BES - 27 MWe) sınırsız hammadde talep etmekte ve tonuna 2.000 TL + KDV ödemektedir. Ancak santral araç göndermemekte (*santral teslim*), küçük üretici ise 40 çuval için tek başına 50 km nakliye tutamamaktadır. **Gapçuk AI, bu lojistik ve koordinasyon açığını kapatan köprüdür.**
 
 ---
 
@@ -30,46 +32,56 @@ Türkiye, dünya fındık üretiminin **%70'ini** karşılamaktadır. Her yıl h
 
 Gapçuk AI; fındık zürufunu bir çevre felaketi ve hastalık yuvası olmaktan çıkarıp, **biyokütle enerjisi ve yüksek değerli biyo-komposta** dönüştüren uçtan uca karar destek sistemidir.
 
-### 1. 🗺️ GapçukRoute™ (Gerçek Yol Takibi & Dinamik BES Sevk Paneli)
-* **OSRM (*Open Source Routing Machine*) Entegrasyonu:** Kuş uçuşu düz çizgiler yerine; Ünye merkezden başlayarak Tekkiraz, Yazkonağı, Pelitliyatak gibi dağ köylerinin virajlı asfalt yollarını ve D010 karayolunu birebir takip eden gerçek rotalama motoru.
-* **Nearest-Neighbor TSP Optimizasyonu:** Çöp/züruf nakliye kamyonu için duraklar mantıksal sıralamayla (`#1`, `#2`, `#3`...) dizilir; plansız turlamaya kıyasla **%34 yakıt tasarrufu** sağlanır.
-* **Hedef Biyokütle Alıcısı:** Toplanan gapçuk, Samsun Çarşamba'da yer alan **Oltan & Köleoğlu Biyokütle Enerji Santrali'ne (27 MWe)** ve yerel seralara tonu **~2.200 TL** değerinde hammadde olarak sevk edilir.
-
-<p align="center">
-  <img src="src/assets/screenshots/tab1_route.png" alt="GapçukRoute OSRM Haritası ve Durak Sıralaması" width="90%">
-</p>
+### 1. 🗺️ GapçukRoute™ (Gerçek Yol Takibi & 2 Kademeli Hibrit Lojistik)
+* **OSRM (*Open Source Routing Machine*) Entegrasyonu:** Kuş uçuşu düz çizgiler yerine; Ünye Ziraat Odası'ndan başlayarak Tekkiraz, Yazkonağı, Pelitliyatak ve Erenyurt dağ köylerinin virajlı asfalt yollarını ve D010 arterini birebir takip eden gerçek rotalama motoru.
+* **Aciliyet Ağırlıklı TSP Optimizasyonu:** Çöp/züruf nakliye filosu için duraklar aciliyet ve coğrafi mesafeye göre (`#1`, `#2`, `#3`...) dizilir; plansız turlamaya kıyasla **%34 yakıt tasarrufu** sağlanır.
+* **2 Kademeli Hibrit Lojistik (Hub & Spoke):** Dik dağ yollarında züruf **10-12 tonluk kırsal damperli ring araçlarıyla** toplanır. Ünye Ziraat Odası merkezinde konsolide edilerek Samsun Çarşamba BES kantar teslimine **tek bir 25 tonluk tırla** sevk edilir.
+* **Hedef Biyokütle Alıcısı:** Oltan & Köleoğlu Çarşamba BES (27 MWe) kantar teslimi (42 km).
 
 ---
 
 ### 2. 📱 GapçukBot™ (Sıfır Dirençli Çiftçi WhatsApp AI Asistanı)
 * **Uygulama İndirme Zorunluluğu Yok:** Karadenizli üretici karmaşık mobil uygulamalar indirmeden patoz bittiğinde WhatsApp üzerinden tek tıkla konum ve çuval adedi bildirir.
 * **Canlı Mikroklimaya Göre Durumsal Yanıtlar:** Open-Meteo API'den çekilen canlı sıcaklık ve nem durumuna göre bot çiftçiye özel akıllı yanıt üretir:
-  * *Yüksek Nem / Yağmur Varsa:* *"Nem %84, külleme riski yüksek. Atığı fındık ocaklarına atma, üzerini hava alacak brandayla ört veya kireçle. Sis nedeniyle kamyonumuz 1-2 saat gecikmeli gelecek."*
-  * *Hava Açık / Güneşli İse:* *"Hava güneşli, mantar riski düşük, kireç atmana gerek yok. Ekiplerimiz yolda, 45 dk içinde harmanındayız."*
+  * *Yüksek Nem / Yağmur Varsa:* *"Nem %84, külleme riski yüksek. Atığı fındık ocaklarına atma, üzerini hava alacak brandayla ört. Sis nedeniyle toplama ekibimiz 1-2 saat gecikmeli gelecek."*
+  * *Hava Açık / Güneşli İse:* *"Hava güneşli, mantar riski düşük. Ekiplerimiz yolda, 45 dk içinde harmanındayız."*
 * **Acil Yol Açma Protokolü:** Tek şerit köy yolu kapandığında sistem kırmızı alarm verir ve kepçeli öncü araç doğrudan o koordinata sevk edilir.
-
-<p align="center">
-  <img src="src/assets/screenshots/tab2_whatsapp.png" alt="GapçukBot WhatsApp Simülasyonu ve Hızlı Sorular" width="90%">
-</p>
 
 ---
 
 ### 3. 🍄 GapçukBio™ (Külleme Erken Uyarısı & Biyomimikri Kompostlama)
 * **Biyolojik Risk Algoritması:** Sıcaklık (18-26°C) ve nem (>%70) verileriyle *Erysiphe corylacea* mantar sporlarının kuluçka riski canlı hesaplanır.
-* **Trichoderma Biyo-Kompost Reçetesi:** Kamyonun hemen ulaşamadığı uzak mahallelerde, gapçuk yığınına faydalı *Trichoderma* mantarı aşılanarak zararlı külleme mantarı biyolojik olarak yok edilir; 6 aylık çürüme 21 günde kokusuz organik komposta dönüştürülür.
-* **Bilimsel Doğrulama (Scientific Grounding):** Platformdaki parametreler **TÜBİTAK/KTAE (Proje No: 118O452)**, **Ordu Üniversitesi Ziraat Fakültesi**, **Oltan & Köleoğlu BES Teknik Raporu** ve **IPCC 2019 Biyokütle Emisyon Metodolojisi**'ne dayandırılmıştır.
+* **Trichoderma Biyo-Kompost Reçetesi:** Gapçuk yığınına faydalı *Trichoderma spp.* mikroorganizmaları pülverize edilerek zararlı külleme mantarı parazitlenir; 6 aylık çürüme 21 günde kokusuz A sınıfı organik komposta dönüştürülür.
+* **Sıfır Boş Kilometre (Backhauling):** Toplama araçları köye giderken kasasında bir önceki partinin olgun kompostunu taşır, üreticinin kapısına bırakır; dönüşte boşalan kasaya taze zürufu yükler.
+* **Bilimsel Doğrulama (Scientific Grounding):** Platform parametreleri **TÜBİTAK/KTAE (Proje No: 118O452)**, **Ordu Üniversitesi Ziraat Fakültesi**, **Oltan & Köleoğlu BES Şartnamesi** ve **IPCC 2019 Biyokütle Emisyon Metodolojisi**'ne dayandırılmıştır.
 
-<p align="center">
-  <img src="src/assets/screenshots/tab3_bio.png" alt="GapçukBio Külleme Riski ve Bilimsel Kaynakça" width="90%">
-</p>
+---
+
+## 💰 Birim Ekonomi & Kendi Kendini Finanse Eden İş Modeli
+
+| Kalem | Çiftçi Boyutu (40 Çuval / 1.8t) | Filo İşletme Boyutu (10 Tonluk Günlük Sefer) |
+|---|---|---|
+| **Girdi** | 40 Çuval Ham Gapçuk Teslimi | 220 Çuval Konsolide Biyokütle (9.9 Ton) |
+| **Doğrudan Kazanç** | 2 Çuval (100 kg) Ücretsiz Biyo-Kompost (~1.200 ₺) | Çarşamba BES Satış Hasılatı: **+22.000 ₺** |
+| **İndirim & Teşvik** | %30 Ziraat Odası Gübre Kuponu (~700 ₺) | Kompost Üretim Maliyeti (Trichoderma): **-100 ₺** |
+| **Masraf Tasarrufu** | Harman Temizleme (800 ₺) + Külleme İlacı (1.500 ₺) | Dizel Sarfiyatı (28.5L) & Şoför: **-3.500 ₺** |
+| **NET DEĞER** | **4.200 ₺ / Harman Sezonu Tasarruf** | **+18.400 ₺ / Gün Net Kasa Kârı** |
+
+---
+
+## 🏭 Endüstriyel Satın Alma Doğrulaması (Market Validation)
+Oltan & Köleoğlu Biyokütle Enerji Santrali (Çarşamba BES - 27 MWe) Satın Alma Yönetimi ile yapılan doğrudan temaslar sonucunda aşağıdaki operasyonel kabul kriterleri teyit edilmiştir:
+* **Fiyatlandırma:** 2.000 TL / Ton + KDV (Kantar Teslim)
+* **Nem Kabul Sınırı:** Maksimum %35 (Şoförlerimiz el tipi dijital nem probu ile sahada test yapar; %35 altı santrale, %35 üstü biyo-kompost tesisine sevk edilir).
+* **Alım Kapasitesi:** Sezon boyunca sınırsız tarımsal biyokütle alımı.
 
 ---
 
 ## 🛠️ Mimari & Teknoloji Altyapısı
-* **Arayüz (Frontend):** Modern Semantik HTML5, Glassmorphism Vanilla CSS (Yeşil Biyo-Zümrüt & Sıcak Gapçuk Sarısı Renk Paleti), Responsive Tasarım.
-* **Harita & Navigasyon:** Leaflet.js, OpenStreetMap & Esri World Imagery Uydu Katmanı, **OSRM Driving Routing API** (Sıfır ticari token, %100 açık kaynak).
+* **Arayüz (Frontend):** Modern Semantik HTML5, Glassmorphism Vanilla CSS (Yeşil Biyo-Zümrüt & Sıcak Gapçuk Sarısı), Çoklu Dil Desteği (`[ TR | EN ]`).
+* **Harita & Navigasyon:** Leaflet.js, OpenStreetMap Obsidian Dark Filtresi, Esri World Imagery Uydu Katmanı, **OSRM Driving Routing API** (Sıfır ticari token, %100 açık kaynak).
 * **Veri & Mikroklima:** Open-Meteo Canlı Meteoroloji API (Ünye koordinatları 41.13°K, 37.28°D).
-* **AI Karar Destek:** Google Gemini / AI Studio tabanlı karar modeli + ES6 modüler durum yöneticisi.
+* **AI Karar Destek:** Google Gemini tabanlı karar modelleri + ES6 modüler mimari.
 
 ---
 
