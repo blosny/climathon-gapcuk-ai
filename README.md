@@ -1,18 +1,17 @@
 # 🌰 Gapçuk AI: Fındık Zürufu Biyokütle Döngüselliği & Külleme Erken Uyarı Platformu
 
 <p align="center">
-  <img src="src/assets/logo.png" alt="Gapçuk AI Logo" width="150" style="border-radius:50%; box-shadow:0 0 25px rgba(16,185,129,0.5);">
+  <img src="src/assets/logo.png" alt="Gapçuk AI Logo" width="160" style="border-radius:50%; box-shadow:0 0 30px rgba(16,185,129,0.5);">
 </p>
 
 <p align="center">
-  <strong>Ordu / Ünye Pilot Havzası • Biyokütle Atık Yönetimi, OSRM Dinamik Rota Optimizasyonu, Claude Döngü Simülasyonu ve Gemini Destekli Külleme Tahmini</strong>
+  <strong>Ordu / Ünye Pilot Havzası • Biyokütle Atık Yönetimi, OSRM Dinamik Rota Optimizasyonu, İnteraktif Döngü Simülasyonu ve Gemini Destekli Külleme Tahmini</strong>
 </p>
 
 <p align="center">
-  <a href="https://climathon-gapcuk-ai.vercel.app"><img src="https://img.shields.io/badge/Canlı%20Uygulama-Vercel%20Production-10B981?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
-  <a href="https://climathon-gapcuk-ai.vercel.app/simulasyon.html"><img src="https://img.shields.io/badge/İnteraktif%20Simülasyon-Döngüyü%20İncele-059669?style=for-the-badge&logo=html5" alt="Simulation"></a>
-  <a href="https://youtu.be/QbHFIkmQRew"><img src="https://img.shields.io/badge/YouTube%20Demo-Videoyu%20İzle-FF0000?style=for-the-badge&logo=youtube" alt="YouTube Demo"></a>
-  <a href="https://github.com/blosny/climathon-gapcuk-ai"><img src="https://img.shields.io/badge/GitHub-Açık%20Kaynak%20Repo-181717?style=for-the-badge&logo=github" alt="GitHub"></a>
+  <a href="https://climathon-gapcuk-ai.vercel.app"><img src="https://img.shields.io/badge/Canlı%20Uygulama-Vercel%20Production-10B981?style=for-the-badge&logo=vercel" alt="Vercel Live Demo"></a>
+  <a href="https://climathon-gapcuk-ai.vercel.app/simulasyon.html"><img src="https://img.shields.io/badge/İnteraktif%20Simülasyon-Döngüyü%20Başlat-059669?style=for-the-badge&logo=html5" alt="Interactive Simulation"></a>
+  <a href="https://github.com/blosny/climathon-gapcuk-ai"><img src="https://img.shields.io/badge/GitHub-Açık%20Kaynak%20Repo-181717?style=for-the-badge&logo=github" alt="GitHub Repo"></a>
 </p>
 
 <p align="center">
@@ -25,35 +24,49 @@
 
 ---
 
-## 🎬 2 Dakikalık Final Demo Videosu
+## 🔄 Gapçuk Döngüsü: Canlı Biyokütle & Döngüsel Ekonomi Simülasyonu
 
-[![Gapçuk AI Final Video Demosu](https://img.youtube.com/vi/QbHFIkmQRew/maxresdefault.jpg)](https://youtu.be/QbHFIkmQRew)
+Proje kapsamında; fındık zürufunun dağ köyü harmanından çıkıp enerji santraline ve organik gübreye dönüşüm serüvenini uçtan uca simüle eden tek sayfalık reaktif bir **İnteraktif Döngü Simülatörü** (`src/simulasyon.html`) geliştirilmiştir.
 
-> 📺 **[Videoyu YouTube üzerinden izlemek için tıklayın (Liste Dışı)](https://youtu.be/QbHFIkmQRew)**  
-> *Video İçeriği: Karadeniz züruf krizi, canlı çiftçi bildirimi (Dereköy/Kadıhan Mah.), anlık WhatsApp yapay zekâ mikroklima yanıtı, OSRM gerçek rota telemetrisi ve Çarşamba BES birim ekonomi doğrulaması.*
+<div align="center">
 
----
+👉 **[İnteraktif Simülatörü Tarayıcıda Tam Ekran Başlatın ↗](https://climathon-gapcuk-ai.vercel.app/simulasyon.html)**
 
-## 🔄 Claude ile Geliştirilen İnteraktif Döngü Simülasyonu
+</div>
 
-Proje kapsamında zürufun bahçeden toplanıp enerji santraline ve organik biyo-komposta dönüşüm serüvenini adım adım görselleştiren **İnteraktif Döngü Simülatörü** (`simulasyon.html`) tasarlanmıştır.
-
-* 🌐 **[Simülasyonu Tarayıcıda Canlı Deneyimleyin ↗](https://climathon-gapcuk-ai.vercel.app/simulasyon.html)**
-* **Döngü Adımları:**
-  1. **Hasat & Patoz:** Karadeniz bahçelerinde fındık zurufunun açığa çıkışı.
-  2. **WhatsApp & Lojistik:** Dağ köylerinden OSRM ile optimize edilmiş rotayla toplama.
-  3. **Çarşamba BES Enerji Santrali:** Biyokütleden temiz elektrik üretimi (3.820 kcal/kg).
-  4. **Trichoderma Biyo-Kompost:** Külleme mantarını yok eden 21 günlük fermantasyon.
-  5. **Toprağa Geri Dönüş:** Çiftçiye ücretsiz gübre olarak dağıtım ve kapalı döngü.
+### 🧬 Simülasyonda Canlandırılan 4 Temel Aşama:
+1. **Harman & Patoz (Atık Ayrışması):** 350.000 ton zürufun köylerde yığılması, 50:1 C/N oranıyla topraktan azot çalması ve külleme mantarı kuluçkası.
+2. **GapçukRoute™ & Lojistik (Akıllı Toplama):** Ziraat Odası araçlarının OSRM rota optimizasyonuyla dik dağ yollarında %34 yakıt tasarrufu sağlayarak köy yollarını açması.
+3. **Çarşamba BES (Enerji Dönüşümü):** 3.820 kcal/kg alt ısıl değerli temiz biyokütlenin 27 MWe kurulu güçteki santralde 2.200 TL/ton ile elektriğe dönüştürülmesi.
+4. **Trichoderma Biyo-Kompost (Toprağa Geri Dönüş):** Külleme sporlarını parazitleyen faydalı mikroorganizmalarla 21 günde A-sınıfı kompost üretimi ve çiftçiye ücretsiz dağıtımı.
 
 ---
 
-## 📸 Canlı Platform Ekran Görüntüleri
+## 📸 Canlı Platform Arayüzleri
 
-| 1. GapçukRoute™ (OSRM Lojistik Rota) | 2. GapçukBot™ (Çiftçi WhatsApp & AI) | 3. GapçukBio™ (Mikroklima & BES) |
-|:---:|:---:|:---:|
-| ![GapçukRoute](src/assets/screenshots/tab1_route.png) | ![GapçukBot](src/assets/screenshots/tab2_whatsapp.png) | ![GapçukBio](src/assets/screenshots/tab3_bio.png) |
-| *Gerçek yol geometrisi ile %34 yakıt tasarrufu* | *Mikroklime uyarılarıyla çalışan canlı AI asistanı* | *Çarşamba BES kabulü & kompost birim ekonomisi* |
+Platformun tüm modülleri gerçek veriler, dinamik OSRM yol ağı ve canlı hava durumu telemetrisi ile tam fonksiyonel olarak çalışmaktadır:
+
+### 1. 🗺️ GapçukRoute™ · Dinamik Rota & Filo Telemetrisi
+<p align="center">
+  <img src="src/assets/screenshots/tab1_route.png" alt="GapçukRoute OSRM Canlı Haritası" width="100%" style="border-radius:10px; border:1px solid rgba(16,185,129,0.3); box-shadow:0 4px 20px rgba(0,0,0,0.4);">
+</p>
+<p align="center"><em>Ordu/Ünye kırsalındaki gerçek asfalt ve köy yolları geometrisi, aciliyet ağırlıklı TSP rotalama ve %34 dizel tasarrufu.</em></p>
+
+<br>
+
+### 2. 📱 GapçukBot™ · WhatsApp AI & Canlı Mikroklima Asistanı
+<p align="center">
+  <img src="src/assets/screenshots/tab2_whatsapp.png" alt="GapçukBot WhatsApp Canlı Çiftçi Bildirimi" width="100%" style="border-radius:10px; border:1px solid rgba(16,185,129,0.3); box-shadow:0 4px 20px rgba(0,0,0,0.4);">
+</p>
+<p align="center"><em>Çiftçinin WhatsApp bildirimine Open-Meteo anlık bağıl nem ve sıcaklık verileriyle üretilen mikroklima & külleme mantarı erken uyarısı.</em></p>
+
+<br>
+
+### 3. 🍄 GapçukBio™ · Çarşamba BES & Biyomimikri Kompost Paneli
+<p align="center">
+  <img src="src/assets/screenshots/tab3_bio.png" alt="GapçukBio Çarşamba BES ve Kompost Paneli" width="100%" style="border-radius:10px; border:1px solid rgba(16,185,129,0.3); box-shadow:0 4px 20px rgba(0,0,0,0.4);">
+</p>
+<p align="center"><em>Oltan & Köleoğlu Çarşamba BES kantar şartnamesi, Trichoderma 21 günlük kompost fermantasyonu ve doğrulanmış birim ekonomi tablosu.</em></p>
 
 ---
 
@@ -115,6 +128,7 @@ Oltan & Köleoğlu Biyokütle Enerji Santrali (Çarşamba BES - 27 MWe) Satın A
 * **Harita & Navigasyon:** Leaflet.js, OpenStreetMap Obsidian Dark Filtresi, Esri World Imagery Uydu Katmanı, **OSRM Driving Routing API** (Sıfır ticari bağımlılık, %100 açık kaynak).
 * **Veri & Mikroklima:** Open-Meteo Canlı Meteoroloji API (Ünye koordinatları 41.13°K, 37.28°D).
 * **AI Karar Destek:** Google AI Studio / Gemini Prompting Engine & WhatsApp simülatörü.
+* **İnteraktif Simülasyon:** React 18, Babel Standalone, Lucide React (Tek dosya reaktif mimari).
 * **Barındırma & CI/CD:** Vercel Global Edge Network.
 
 ---
@@ -132,7 +146,8 @@ cd climathon-gapcuk-ai
 python -m http.server 3000 --directory src
 
 # 3. Tarayıcınızda açın:
-http://localhost:3000
+# Ana Platform: http://localhost:3000
+# Simülasyon:   http://localhost:3000/simulasyon.html
 ```
 
 ---
