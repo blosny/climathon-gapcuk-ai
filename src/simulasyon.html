@@ -1,0 +1,933 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Gapçuk Döngüsü</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>html,body{background:#071215;color:#F4F1E8;margin:0;color-scheme:dark}</style>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>window.react = window.React;</script>
+<script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef } = React;
+const {  Play, Pause, RotateCcw, Leaf, Truck, Factory, Sprout,  Coins, Wallet, ShieldCheck, AlertTriangle, FileCheck, FlaskConical,} = LucideReact;
+
+/* Gapçuk AI · Canlı Biyokütle Döngüsü Simülasyonu
+   Tek dosya: React + lucide-react + saf CSS/SVG. */
+
+const STEP_SECONDS = 7; // 1x hızda her aşamanın süresi
+
+// Aşama başına telemetri katkısı (tek köy rotası, bir sefer)
+const CO2 = [1.8, 2.7, 6.3, 3.6];        // ton CO2e  → toplam 14,4
+const VALUE = [0, 0, 21780, 0];          // ₺ (9,9 t × 2.200 ₺)
+const SAVING = [0, 1400, 0, 2800];       // ₺ / sezon → toplam 4.200
+
+const PILL_ICON = { risk: AlertTriangle, spec: FileCheck, bio: FlaskConical };
+
+const STEPS = [
+  {
+    key: "harman",
+    title: "Harman & Patoz",
+    sub: "Atık ayrışması",
+    icon: Leaf,
+    tone: "amber",
+    lead: "Patozdan ayrılan züruf gidecek yer bulamayınca köy yoluna yığılır.",
+    hero: { value: "350.000", unit: "ton / yıl", label: "Karadeniz'de açığa çıkan atık" },
+    stats: [
+      { value: "50:1", label: "C/N oranı · azot hırsızlığı" },
+      { value: "1 şerit", label: "köy yolu kapanıyor" },
+    ],
+    pills: [
+      { kind: "risk", text: "Külleme (Erysiphe corylacea) yığında kışlar" },
+      { kind: "risk", text: "Açıkta yakma CO ve PM2.5 salar" },
+      { kind: "spec", text: "Kaymakamlık yakma yasağı · 2872 s. Kanun" },
+    ],
+  },
+  {
+    key: "rota",
+    title: "GapçukRoute™",
+    sub: "Dağ lojistiği",
+    icon: Truck,
+    tone: "amber",
+    lead: "Yolu tıkayan yığınlar öne alınır, kamyon OSRM rotasıyla tek seferde toplar.",
+    hero: { value: "%34", unit: "yakıt tasarrufu", label: "Dağınık toplamaya göre" },
+    stats: [
+      { value: "9,9 t", label: "bu seferde toplanan" },
+      { value: "0 ₺", label: "donanım maliyeti" },
+    ],
+    pills: [
+      { kind: "spec", text: "OSRM çok duraklı rota, boş dönüş yok" },
+      { kind: "spec", text: "Öncelik: yol kapanması, eğim, yağış" },
+      { kind: "bio", text: "Konum paylaşımı + SMS bildirimi yeterli" },
+    ],
+  },
+  {
+    key: "bes",
+    title: "Çarşamba BES",
+    sub: "27 MWe temiz enerji",
+    icon: Factory,
+    tone: "mint",
+    lead: "Gapçuk santralde kontrollü yakılır, elektrik şebekeye verilir.",
+    hero: { value: "3.850", unit: "kcal / kg", label: "Temiz ısıl değer, linyitin üzerinde" },
+    stats: [
+      { value: "27 MWe", label: "kurulu güç" },
+      { value: "2.200 ₺", label: "ton başına teslim" },
+    ],
+    pills: [
+      { kind: "spec", text: "EPDK üretim lisansı · YEKDEM biyokütle" },
+      { kind: "spec", text: "Kabul şartı: kuru, taşsız züruf" },
+      { kind: "bio", text: "Filtreli baca, kontrollü yanma" },
+    ],
+  },
+  {
+    key: "kompost",
+    title: "Trichoderma Biyo-Kompost",
+    sub: "Doğaya dönüş",
+    icon: Sprout,
+    tone: "mint",
+    lead: "Aşılı yığında külleme etmeni ölür, siyah gübre fındık ocağına döner.",
+    hero: { value: "21", unit: "günde biyo-kompost", label: "A sınıfı organik gübre" },
+    stats: [
+      { value: "50 → 30", label: "C/N dengesi" },
+      { value: "0 ₺", label: "çiftçiye maliyet" },
+    ],
+    pills: [
+      { kind: "bio", text: "Trichoderma harzianum · 2 kg / ton" },
+      { kind: "spec", text: "Nem %55–60 · termofilik 55–65 °C" },
+      { kind: "bio", text: "Ocaklara bedelsiz dağıtım" },
+    ],
+  },
+];
+
+const ROAD =
+  "M200 318 C 300 318 334 338 304 360 C 266 386 300 402 380 396 C 470 390 500 360 560 372 C 640 388 664 418 762 421";
+const COMPOST =
+  "M838 432 C 838 470 822 498 782 502 C 622 516 462 512 332 503 C 262 498 202 494 150 488";
+const POWER = "M872 372 Q 904 384 936 362 Q 962 376 986 362 L 1000 366";
+const SPOUT = "M168 294 Q 186 296 204 314";
+
+const AMBER = "#F59E0B";
+const MINT = "#34D399";
+const SKY = "#38BDF8";
+
+const ease = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
+
+// CSS cubic-bezier() eğrisinin JS karşılığı (Newton yöntemiyle x → y)
+const cubicBezier = (x1, y1, x2, y2) => {
+  const bez = (t, a, b) => 3 * a * (1 - t) * (1 - t) * t + 3 * b * (1 - t) * t * t + t * t * t;
+  const dBez = (t, a, b) => 3 * a * (1 - t) * (1 - t) + 6 * (b - a) * (1 - t) * t + 3 * (1 - b) * t * t;
+  return (x) => {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    let t = x;
+    for (let i = 0; i < 8; i++) {
+      const d = dBez(t, x1, x2);
+      if (Math.abs(d) < 1e-6) break;
+      t = Math.max(0, Math.min(1, t - (bez(t, x1, x2) - x) / d));
+    }
+    return bez(t, y1, y2);
+  };
+};
+const drive = cubicBezier(0.45, 0.05, 0.15, 1); // yumuşak kalkış, uzun ve sakin yanaşma
+const soft = cubicBezier(0.4, 0, 0.2, 1);
+const clamp = (x) => Math.max(0, Math.min(1, x));
+const fmtInt = (n) => Math.round(n).toLocaleString("tr-TR");
+const fmtDec = (n) => n.toLocaleString("tr-TR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const sum = (arr, step, t) => arr.slice(0, step).reduce((a, b) => a + b, 0) + arr[step] * t;
+
+function GapcukDongu() {
+  const reduced =
+    typeof window !== "undefined" && window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const [sim, setSim] = useState({ step: 0, t: 0, clock: 0 });
+  const [playing, setPlaying] = useState(!reduced);
+  const [speed, setSpeed] = useState(1);
+  const [cycle, setCycle] = useState(1);
+  const [lens, setLens] = useState(null);
+  const simRef = useRef(sim);
+  const paths = { spout: useRef(null), road: useRef(null), power: useRef(null), compost: useRef(null) };
+
+  useEffect(() => {
+    const l = {};
+    for (const k in paths) l[k] = paths[k].current ? paths[k].current.getTotalLength() : 0;
+    setLens(l);
+  }, []);
+
+  // Zaman çizelgesi motoru: aşama ilerlemesi (t) ve partiküller için sürekli saat (clock)
+  useEffect(() => {
+    if (!playing) return;
+    let raf;
+    let last = performance.now();
+    const tick = (now) => {
+      const dt = Math.min(0.1, (now - last) / 1000) * speed;
+      last = now;
+      let { step, t, clock } = simRef.current;
+      t += dt / STEP_SECONDS;
+      clock += dt;
+      if (t >= 1) {
+        t = 0;
+        step += 1;
+        if (step > 3) {
+          step = 0;
+          setCycle((c) => c + 1);
+        }
+      }
+      simRef.current = { step, t, clock };
+      setSim(simRef.current);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [playing, speed]);
+
+  const goTo = (s) => {
+    simRef.current = { ...simRef.current, step: s, t: 0 };
+    setSim(simRef.current);
+  };
+  const reset = () => {
+    goTo(0);
+    setCycle(1);
+    setPlaying(true);
+  };
+
+  const { step, t, clock } = sim;
+
+  // Sahne durumu
+  // Kamyon: 0–0.22 yükleme, 0.22–0.9 yol, 0.9–1 santral kapısında bekleme
+  const heap = step === 0 ? 0.35 + 0.65 * soft(t) : step === 1 ? 1 - soft(clamp(t / 0.22)) : 0;
+  const load = step === 1 ? soft(clamp(t / 0.22)) : step === 2 ? 1 - soft(clamp(t / 0.6)) : 0;
+  const truckU = step === 1 ? drive(clamp((t - 0.22) / 0.68)) : 1;
+  const moving = step === 1 && t > 0.22 && t < 0.9 ? Math.sin(Math.PI * clamp((t - 0.22) / 0.68)) : 0;
+  const truckOpacity = step === 1 ? soft(clamp(t / 0.1)) : step === 2 ? 1 - soft(clamp((t - 0.65) / 0.35)) : 0;
+  const spores = step < 3 ? 1 : 1 - ease(t);
+  const plantOn = step === 2 ? clamp(t / 0.15) : step === 3 ? 0.4 : 0;
+  const roots = step === 3 ? ease(t) : 0;
+
+  const pointAt = (k, u) => {
+    const el = paths[k].current;
+    if (!el || !lens) return { x: 0, y: 0 };
+    return el.getPointAtLength(lens[k] * u);
+  };
+
+  let truckTransform = "translate(200 318)";
+  if (lens) {
+    const L = lens.road;
+    const p = pointAt("road", truckU);
+    // Geniş pencereli teğet: virajlarda yön dönüşü titremeden yumuşar
+    const a = pointAt("road", Math.max(0, truckU - 8 / L));
+    const b = pointAt("road", Math.min(1, truckU + 8 / L));
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const bob = Math.sin(clock * 22) * 0.45 * moving; // süspansiyon salınımı
+    truckTransform =
+      dx >= 0
+        ? `translate(${p.x} ${p.y + bob}) rotate(${(Math.atan2(dy, dx) * 180) / Math.PI})`
+        : `translate(${p.x} ${p.y + bob}) scale(-1 1) rotate(${(Math.atan2(dy, -dx) * 180) / Math.PI})`;
+  }
+
+  // Parlayan ışık tanecikleri
+  const particles = (k, n, pxPerSec, color, strength, size = 2.2) => {
+    if (!lens || strength <= 0.01) return null;
+    const L = lens[k];
+    return Array.from({ length: n }).map((_, i) => {
+      const u = (((clock * pxPerSec) / L + i / n) % 1 + 1) % 1;
+      const p = pointAt(k, u);
+      const fade = Math.sin(Math.PI * u) * strength;
+      const r = size * (0.75 + 0.5 * ((i * 7) % 3) / 2);
+      return (
+        <g key={i} opacity={fade}>
+          <circle cx={p.x} cy={p.y} r={r * 3.2} fill={color} opacity=".18" />
+          <circle cx={p.x} cy={p.y} r={r} fill={color} filter="url(#gx-glowf)" />
+          <circle cx={p.x} cy={p.y} r={r * 0.45} fill="#FFFBEB" />
+        </g>
+      );
+    });
+  };
+
+  // Santralden şebekeye yayılan enerji halkaları
+  const rings = [0, 1, 2].map((k) => {
+    const ph = (clock * 0.55 + k / 3) % 1;
+    return { r: 14 + 78 * ph, o: (1 - ph) * 0.7 * plantOn };
+  });
+  const pylonRings = [0, 1].map((k) => {
+    const ph = (clock * 0.8 + k / 2) % 1;
+    return { r: 4 + 22 * ph, o: (1 - ph) * 0.8 * (step === 2 ? plantOn : 0) };
+  });
+
+  const co2 = sum(CO2, step, t);
+  const value = sum(VALUE, step, t);
+  const saving = sum(SAVING, step, t);
+  const S = STEPS[step];
+
+  return (
+    <div className={`gx ${playing ? "" : "gx-paused"}`} style={{ "--spd": speed }}>
+      <style>{CSS}</style>
+
+      <header className="gx-head">
+        <div className="gx-brand">
+          <p className="gx-eyebrow">
+            <span className="gx-dot" /> Gapçuk AI · Climathon 2026 · Siemens × UP School
+          </p>
+          <h1 className="gx-title">
+            Gapçuk <span>Döngüsü</span>
+          </h1>
+          <p className="gx-deck">
+            Bir köy rotasında fındık zürufunun patozdan santrale, oradan fındık ocağının köküne dönüşü.
+          </p>
+        </div>
+        <div className="gx-controls" role="group" aria-label="Simülasyon kontrolleri">
+          <button className="gx-btn gx-btn-primary" onClick={() => setPlaying((p) => !p)} aria-pressed={playing}>
+            {playing ? <Pause size={15} /> : <Play size={15} />}
+            <span>{playing ? "Duraklat" : "Oynat"}</span>
+          </button>
+          <div className="gx-seg gx-glass" role="radiogroup" aria-label="Hız">
+            {[1, 2].map((v) => (
+              <button key={v} role="radio" aria-checked={speed === v} className={speed === v ? "on" : ""} onClick={() => setSpeed(v)}>
+                {v}x
+              </button>
+            ))}
+          </div>
+          <button className="gx-btn gx-btn-icon gx-glass" onClick={reset} aria-label="Baştan başlat" title="Baştan başlat">
+            <RotateCcw size={15} />
+          </button>
+        </div>
+      </header>
+
+      <section className="gx-tele" aria-label="Canlı telemetri">
+        <Counter icon={ShieldCheck} label="Önlenen CO₂e" value={`+${fmtDec(co2)}`} unit="t" target="14,4 t" frac={co2 / 14.4} tone="mint" />
+        <Counter icon={Coins} label="Biyokütle değeri" value={`+${fmtInt(value)}`} unit="₺" target="21.780 ₺" frac={value / 21780} tone="amber" />
+        <Counter icon={Wallet} label="Çiftçi net tasarrufu" value={`+${fmtInt(saving)}`} unit="₺/sezon" target="4.200 ₺" frac={saving / 4200} tone="sky" />
+        <div className="gx-cycle gx-glass">
+          <span className="gx-mono">Döngü</span>
+          <strong>{String(cycle).padStart(2, "0")}</strong>
+          <span className="gx-live">
+            <i className={playing ? "on" : ""} /> {playing ? "canlı" : "durdu"}
+          </span>
+        </div>
+      </section>
+
+      <div className="gx-main">
+        <figure className="gx-scene gx-glass">
+          <svg viewBox="0 140 1000 400" role="img" aria-label={`Döngü sahnesi, aşama ${step + 1}: ${S.title}`}>
+            <defs>
+              <linearGradient id="gx-sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#071215" />
+                <stop offset="1" stopColor="#0b1f22" />
+              </linearGradient>
+              <linearGradient id="gx-sea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#0c3448" />
+                <stop offset="1" stopColor="#13566e" />
+              </linearGradient>
+              <linearGradient id="gx-mtn" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#0f3a30" />
+                <stop offset="1" stopColor="#09191b" />
+              </linearGradient>
+              <linearGradient id="gx-fogband" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#d9f3ec" stopOpacity="0" />
+                <stop offset=".5" stopColor="#d9f3ec" stopOpacity=".09" />
+                <stop offset="1" stopColor="#d9f3ec" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="gx-soil" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#1a1712" />
+                <stop offset="1" stopColor="#0d0b08" />
+              </linearGradient>
+              <linearGradient id="gx-glass-tr" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#38BDF8" />
+                <stop offset="1" stopColor="#0369a1" />
+              </linearGradient>
+              <radialGradient id="gx-glow">
+                <stop offset="0" stopColor={MINT} stopOpacity=".45" />
+                <stop offset="1" stopColor={MINT} stopOpacity="0" />
+              </radialGradient>
+              <radialGradient id="gx-rootglow">
+                <stop offset="0" stopColor={MINT} stopOpacity=".55" />
+                <stop offset="1" stopColor={MINT} stopOpacity="0" />
+              </radialGradient>
+              <radialGradient id="gx-beam" cx="0" cy=".5" r="1">
+                <stop offset="0" stopColor="#FDE68A" stopOpacity=".55" />
+                <stop offset="1" stopColor="#FDE68A" stopOpacity="0" />
+              </radialGradient>
+              <filter id="gx-glowf" x="-200%" y="-200%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="2.2" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            {/* Gökyüzü ve Karadeniz kıyısı */}
+            <rect y="0" width="1000" height="540" fill="url(#gx-sky)" />
+            <rect y="150" width="1000" height="90" fill="url(#gx-sea)" />
+            <g className="gx-drift">
+              {[166, 180, 196].map((y, i) => (
+                <path
+                  key={y}
+                  d={`M-200 ${y} ${Array.from({ length: 14 }).map((_, j) => `q 50 ${i % 2 ? 4 : -4} 100 0`).join(" ")}`}
+                  fill="none"
+                  stroke={SKY}
+                  strokeOpacity={0.22 - i * 0.05}
+                />
+              ))}
+            </g>
+            <path
+              d="M0 214 C 60 206 120 220 180 212 S 300 204 360 214 S 480 222 540 212 S 660 204 720 214 S 840 222 900 212 S 980 206 1000 210"
+              fill="none"
+              stroke="#E0F2FE"
+              strokeOpacity=".35"
+              className="gx-foam"
+            />
+            <text x="984" y="174" className="gx-svglabel" textAnchor="end">KARADENİZ</text>
+
+            {/* Katmanlı sisli tepeler */}
+            <path d="M0 226 C 70 208 140 222 210 210 C 290 196 350 224 430 214 C 520 202 590 226 680 214 C 770 202 850 222 1000 210 L1000 540 L0 540Z" fill="#1b5b47" opacity=".45" />
+            <rect y="208" width="1000" height="44" fill="url(#gx-fogband)" className="gx-fog" />
+            <path d="M0 244 C 90 226 170 246 260 234 C 360 220 420 250 520 242 C 620 234 700 256 800 244 C 880 234 940 246 1000 240 L1000 540 L0 540Z" fill="#144a3b" opacity=".7" />
+            <rect y="230" width="1000" height="50" fill="url(#gx-fogband)" className="gx-fog gx-fog-2" />
+            <path d="M0 268 C 110 252 200 270 320 262 C 430 254 520 282 640 276 C 760 270 860 290 1000 282 L1000 540 L0 540Z" fill="#103b31" opacity=".85" />
+
+            {/* Ana yamaç ve eş yükselti çizgileri */}
+            <path d="M0 250 C 70 236 120 240 170 232 C 240 222 290 244 350 256 C 430 272 480 280 540 310 C 600 345 660 380 720 400 C 760 412 800 425 1000 428 L1000 540 L0 540Z" fill="url(#gx-mtn)" />
+            <rect y="282" width="1000" height="40" fill="url(#gx-fogband)" className="gx-fog" opacity=".6" />
+            {[0, 1, 2, 3].map((i) => (
+              <path key={i} d={`M0 ${268 + i * 32} C 120 ${252 + i * 32} 260 ${262 + i * 32} 380 ${286 + i * 28} S 600 ${372 + i * 15} 760 ${416 + i * 7}`} fill="none" stroke="#a7f3d0" strokeOpacity=".05" />
+            ))}
+
+            {/* Üst bahçe ağaçları */}
+            {[[30, 258, 0.8], [84, 252, 0.92], [250, 284, 0.8], [294, 296, 0.7]].map(([x, y, s], i) => (
+              <Ocak key={i} x={x} y={y} s={s} health={roots} />
+            ))}
+
+            {/* Külleme sporları */}
+            <g opacity={spores * 0.75}>
+              {[[70, 228], [104, 222], [250, 252], [218, 290], [232, 300], [196, 296], [60, 246]].map(([x, y], i) => (
+                <circle key={i} cx={x} cy={y} r={i % 2 ? 1.6 : 2.2} fill="#e2e8f0" className="gx-spore" style={{ animationDelay: `${i * -0.6}s` }} />
+              ))}
+            </g>
+
+            {/* Toplama yolu */}
+            <path d={ROAD} fill="none" stroke="#1f3437" strokeWidth="12" strokeLinecap="round" />
+            <path d={ROAD} fill="none" stroke="#0c181a" strokeWidth="9" strokeLinecap="round" />
+            <path ref={paths.road} d={ROAD} fill="none" stroke="#e7ece9" strokeOpacity=".2" strokeWidth="1" strokeDasharray="6 8" />
+            {particles("road", 16, 70, AMBER, step === 1 ? 1 : 0)}
+
+            {/* Patoz */}
+            <g>
+              <path d="M108 280 L120 262 L150 262 L156 280Z" fill="#17282b" stroke={AMBER} strokeOpacity=".55" />
+              <rect x="98" y="280" width="72" height="30" rx="5" fill="#122326" stroke="#e7ece9" strokeOpacity=".25" />
+              <g className={step === 0 ? "gx-spin" : ""} style={{ transformOrigin: "120px 295px" }}>
+                <circle cx="120" cy="295" r="10" fill="none" stroke={AMBER} strokeWidth="1.5" />
+                <path d="M110 295 H130 M120 285 V305 M113 288 L127 302 M127 288 L113 302" stroke={AMBER} strokeOpacity=".7" />
+              </g>
+              <rect x="138" y="288" width="22" height="4" rx="2" fill="#e7ece9" opacity=".25" />
+              <rect x="138" y="296" width="14" height="4" rx="2" fill="#e7ece9" opacity=".18" />
+              <circle cx="110" cy="314" r="5" fill="#0b171b" stroke="#e7ece9" strokeOpacity=".35" />
+              <circle cx="158" cy="314" r="5" fill="#0b171b" stroke="#e7ece9" strokeOpacity=".35" />
+              <path ref={paths.spout} d={SPOUT} fill="none" stroke="#e7ece9" strokeOpacity=".25" strokeWidth="5" strokeLinecap="round" />
+              {particles("spout", 5, 26, AMBER, step === 0 ? 1 : 0, 1.8)}
+              <text x="98" y="334" className="gx-svglabel">PATOZ</text>
+            </g>
+
+            {/* Gapçuk yığını */}
+            <g transform={`translate(214 320) scale(${Math.max(heap, 0.001)})`}>
+              <ellipse cx="0" cy="-6" rx="30" ry="14" fill={AMBER} opacity=".12" />
+              <path d="M-22 0 C -18 -10 -8 -18 0 -18 C 8 -18 18 -10 22 0Z" fill="#b45309" />
+              <path d="M-14 0 C -10 -8 -4 -12 2 -12 C 8 -12 12 -6 14 0Z" fill={AMBER} opacity=".9" />
+              {[[-10, -5], [-3, -9], [5, -6], [11, -3], [-15, -2], [0, -14]].map(([x, y], i) => (
+                <circle key={i} cx={x} cy={y} r="1.2" fill="#fde68a" opacity=".75" />
+              ))}
+            </g>
+            <Chip x={258} y={232} text="C/N 50:1 · YOL KAPALI" tone={AMBER} show={step === 0} />
+
+            {/* Elektrikli toplama kamyonu */}
+            <g transform={truckTransform} opacity={truckOpacity}>
+              <EvTruck load={load} />
+            </g>
+            <Chip x={430} y={352} text="9,9 t · OSRM · −%34 yakıt" tone={AMBER} show={step === 1 && t > 0.3} />
+
+            {/* Çarşamba BES */}
+            <g>
+              <circle cx="840" cy="390" r={80 + 24 * plantOn} fill="url(#gx-glow)" opacity={plantOn} />
+              {rings.map((g, i) => (
+                <circle key={i} cx="872" cy="372" r={g.r} fill="none" stroke={MINT} strokeWidth="1.4" opacity={g.o} />
+              ))}
+              <rect x="770" y="378" width="76" height="52" rx="2" fill="#0f2226" stroke="#e7ece9" strokeOpacity=".3" />
+              <path d="M770 378 L 790 366 L 810 378 L 830 366 L 846 378" fill="none" stroke="#e7ece9" strokeOpacity=".3" />
+              <rect x="846" y="352" width="26" height="78" rx="2" fill="#132a2f" stroke="#e7ece9" strokeOpacity=".3" />
+              <rect x="884" y="300" width="12" height="130" fill="#17282b" stroke="#e7ece9" strokeOpacity=".35" />
+              <rect x="884" y="306" width="12" height="4" fill={MINT} opacity={0.3 + 0.7 * plantOn} />
+              {[0, 1, 2, 3].map((i) => (
+                <rect key={i} x={780 + i * 16} y="392" width="8" height="12" rx="1" fill={AMBER} opacity={0.12 + 0.8 * plantOn} />
+              ))}
+              {[0, 1].map((i) => (
+                <rect key={i} x="852" y={364 + i * 18} width="14" height="6" rx="1" fill={MINT} opacity={0.12 + 0.8 * plantOn} />
+              ))}
+              <g className="gx-steam" opacity={0.15 + 0.85 * plantOn}>
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <circle key={i} cx="890" cy="296" r="6" fill="#e7ece9" style={{ animationDelay: `${i * -0.64}s` }} />
+                ))}
+              </g>
+              <text x="770" y="448" className="gx-svglabel">ÇARŞAMBA BES · 27 MWe</text>
+            </g>
+
+            {/* Şebeke hattı */}
+            <Pylon x={936} />
+            <Pylon x={986} />
+            <path ref={paths.power} d={POWER} fill="none" stroke="#e7ece9" strokeOpacity=".25" />
+            {particles("power", 7, 90, MINT, step === 2 ? plantOn : 0, 2)}
+            {pylonRings.map((g, i) => (
+              <g key={i} opacity={g.o}>
+                <circle cx="936" cy="362" r={g.r} fill="none" stroke={MINT} />
+                <circle cx="986" cy="362" r={g.r} fill="none" stroke={MINT} />
+              </g>
+            ))}
+            <Chip x={830} y={262} text="3.850 kcal/kg → şebeke" tone={MINT} show={step === 2} />
+
+            {/* Toprak kesiti */}
+            <rect x="0" y="466" width="1000" height="74" fill="url(#gx-soil)" />
+            <path d="M0 466 H1000" stroke={MINT} strokeOpacity=".22" />
+            {Array.from({ length: 46 }).map((_, i) => (
+              <circle key={i} cx={(i * 97) % 1000} cy={476 + ((i * 37) % 58)} r={(i % 3) * 0.5 + 0.6} fill="#e7ece9" opacity=".07" />
+            ))}
+            <text x="16" y="530" className="gx-svglabel">TOPRAK KESİTİ · KÖK BÖLGESİ</text>
+
+            {/* Alt bahçe ve kökler */}
+            <ellipse cx="150" cy="500" rx="120" ry="36" fill="url(#gx-rootglow)" opacity={roots} />
+            {[[70, 1.05], [150, 1.2], [236, 1.0]].map(([x, s], i) => (
+              <g key={i}>
+                <Roots x={x} active={roots} />
+                <Ocak x={x} y={466} s={s} health={roots} />
+              </g>
+            ))}
+            <path ref={paths.compost} d={COMPOST} fill="none" stroke={MINT} strokeOpacity=".1" strokeWidth="6" strokeLinecap="round" />
+            {particles("compost", 18, 85, MINT, step === 3 ? 1 : 0, 2.2)}
+            <Chip x={470} y={482} text="21 gün · Trichoderma · A sınıfı" tone={MINT} show={step === 3} />
+
+            {/* Aşama işaretleri */}
+            {[[134, 244], [430, 410], [840, 340], [110, 400]].map(([x, y], i) => (
+              <g key={i} transform={`translate(${x} ${y})`} className="gx-node" onClick={() => goTo(i)}>
+                {i === step && <circle r="16" fill="#F4F1E8" opacity=".12" className="gx-halo" />}
+                <circle r="11" fill={i === step ? "#F4F1E8" : "#0B171B"} stroke="#F4F1E8" strokeOpacity={i === step ? 1 : 0.35} />
+                <text y="4" textAnchor="middle" className="gx-nodenum" fill={i === step ? "#071215" : "#e7ece9"}>
+                  {i + 1}
+                </text>
+              </g>
+            ))}
+          </svg>
+          <figcaption className="gx-caption">Değerler tek bir köy rotası ve bir sefer için örnek simülasyondur.</figcaption>
+        </figure>
+
+        <aside className={`gx-card gx-glass tone-${S.tone}`} aria-live="polite">
+          <div className="gx-cardbody" key={S.key}>
+          <div className="gx-cardhead gx-fade">
+            <span className="gx-kicker">
+              Aşama {step + 1}/4 · {S.sub}
+            </span>
+            <h2 className="gx-cardtitle">{S.title}</h2>
+            <p className="gx-lead">{S.lead}</p>
+          </div>
+
+          <div className="gx-hero gx-fade" style={{ animationDelay: ".06s" }}>
+            <strong>{S.hero.value}</strong>
+            <span className="gx-hero-unit">{S.hero.unit}</span>
+            <span className="gx-hero-label">{S.hero.label}</span>
+          </div>
+
+          <div className="gx-stats gx-fade" style={{ animationDelay: ".12s" }}>
+            {S.stats.map((s) => (
+              <div className="gx-stat" key={s.label}>
+                <strong>{s.value}</strong>
+                <span>{s.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <ul className="gx-pills gx-fade" style={{ animationDelay: ".18s" }}>
+            {S.pills.map((p) => {
+              const Icon = PILL_ICON[p.kind];
+              return (
+                <li className={`gx-pill pill-${p.kind}`} key={p.text}>
+                  <Icon size={13} />
+                  <span>{p.text}</span>
+                </li>
+              );
+            })}
+          </ul>
+          </div>
+        </aside>
+      </div>
+
+      <nav className="gx-timeline" aria-label="Döngü aşamaları">
+        {STEPS.map((st, i) => {
+          const Icon = st.icon;
+          const fill = i < step ? 1 : i === step ? t : 0;
+          return (
+            <button
+              key={st.key}
+              className={`gx-stepbtn gx-glass tone-${st.tone} ${i === step ? "active" : ""} ${i < step ? "done" : ""}`}
+              onClick={() => goTo(i)}
+              aria-current={i === step ? "step" : undefined}
+            >
+              <span className="gx-stepicon">
+                <Icon size={15} />
+              </span>
+              <span className="gx-steptext">
+                <span className="gx-steptitle">
+                  {i + 1}. {st.title}
+                </span>
+                <span className="gx-stepsub">{st.sub}</span>
+              </span>
+              <span className="gx-bar">
+                <i style={{ transform: `scaleX(${fill})` }} />
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+    </div>
+  );
+}
+
+function Counter({ icon: Icon, label, value, unit, target, frac, tone }) {
+  return (
+    <div className={`gx-counter gx-glass tone-${tone}`}>
+      <span className="gx-counter-icon">
+        <Icon size={15} />
+      </span>
+      <span className="gx-counter-body">
+        <span className="gx-counter-label">{label}</span>
+        <span className="gx-counter-value">
+          {value} <small>{unit}</small>
+        </span>
+      </span>
+      <span className="gx-counter-meta">
+        <span className="gx-counter-track">
+          <i style={{ transform: `scaleX(${Math.min(1, frac)})` }} />
+        </span>
+        <span className="gx-counter-target">{target}</span>
+      </span>
+    </div>
+  );
+}
+
+function EvTruck({ load }) {
+  return (
+    <g transform="translate(0 -4) scale(1.3)">
+      <ellipse cx="-2" cy="4" rx="30" ry="3" fill="#000" opacity=".35" />
+      {/* farın ışık hüzmesi */}
+      <path d="M25 -9 L 52 -15 L 52 -1 Z" fill="url(#gx-beam)" />
+      {/* kasa */}
+      <rect x="-30" y="-21" width="34" height="16" rx="3" fill="#0f1e22" stroke="#e7ece9" strokeOpacity=".55" strokeWidth=".8" />
+      <rect x="-28.5" y={-6.5 - 13 * load} width="31" height={13 * load} rx="1.5" fill={AMBER} filter="url(#gx-glowf)" opacity=".95" />
+      <path d="M-19 -17 L -22 -12 H -19 L -21 -8 L -15 -14 H -18 L -16 -17Z" fill={load > 0.4 ? "#071215" : MINT} />
+      {/* kabin */}
+      <path d="M6 -5 V -18 Q 6 -21 9 -21 H 16 Q 19 -21 21 -17 L 24.5 -11 Q 25.5 -9 25.5 -7 V -5 Z" fill="#F4F1E8" />
+      <path d="M15 -19 H 17 Q 18.5 -19 19.5 -17 L 22.5 -11.5 H 15 Z" fill="url(#gx-glass-tr)" />
+      <rect x="8" y="-19" width="5" height="7" rx="1" fill="url(#gx-glass-tr)" opacity=".8" />
+      <circle cx="24.6" cy="-8.4" r="1.2" fill="#FDE68A" />
+      {/* şasi ve LED şerit */}
+      <rect x="-31" y="-5.5" width="57" height="3" rx="1.5" fill="#1d2e31" />
+      <rect x="-30" y="-5.5" width="34" height="1.2" fill={MINT} filter="url(#gx-glowf)" />
+      {[-20, 16].map((x) => (
+        <g key={x}>
+          <circle cx={x} cy="-1" r="4.4" fill="#0b171b" stroke="#e7ece9" strokeWidth="1.2" />
+          <circle cx={x} cy="-1" r="1.4" fill={MINT} />
+        </g>
+      ))}
+    </g>
+  );
+}
+
+// Fındık ocağı: tek kök merkezinden V / çanak biçiminde açılan ince gövdeler ve çalımsı yaprak tacı
+const OCAK_STEMS = [-38, -24, -10, 3, 16, 29, 40]; // derece
+const OCAK_LEAVES = (() => {
+  const out = [];
+  const add = (n, from, step, r0, dr, rx, ry, layer) => {
+    for (let i = 0; i < n; i++) out.push({ a: from + i * step, r: r0 + (i % 3) * dr, rx, ry, layer });
+  };
+  add(12, -80, 14.5, 22, 2.4, 7, 4.6, 0); // dış taç
+  add(9, -64, 16, 16, 2.6, 6.2, 4.1, 1);  // iç taç
+  add(6, -50, 20, 26, 1.8, 4.8, 3.2, 2);  // ışık alan uçlar
+  return out.map((l) => {
+    const rad = (l.a * Math.PI) / 180;
+    return { ...l, x: Math.sin(rad) * l.r * 1.12, y: -Math.cos(rad) * l.r - 5 };
+  });
+})();
+const OCAK_NUTS = [[-24, 21], [3, 24], [29, 20]];
+const LEAF_TONES = ["#0e382d", "#155440", "#20755a"];
+
+function Ocak({ x, y, s = 1, health = 0 }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <ellipse cx="0" cy="0" rx="9" ry="2.4" fill="#2a2016" />
+      {OCAK_STEMS.map((a, i) => {
+        const rad = (a * Math.PI) / 180;
+        const L = 24 + (i % 2) * 3;
+        const tx = Math.sin(rad) * L * 1.1;
+        const ty = -Math.cos(rad) * L;
+        return (
+          <path
+            key={a}
+            d={`M${(i - 3) * 0.7} 0 Q ${tx * 0.25} ${ty * 0.55} ${tx} ${ty}`}
+            fill="none"
+            stroke={i % 2 ? "#7a5a3c" : "#5e452e"}
+            strokeWidth={1.5 - Math.abs(i - 3) * 0.12}
+            strokeLinecap="round"
+          />
+        );
+      })}
+      {OCAK_LEAVES.map((l, i) => (
+        <ellipse
+          key={i}
+          cx={l.x}
+          cy={l.y}
+          rx={l.rx}
+          ry={l.ry}
+          transform={`rotate(${l.a * 0.6} ${l.x} ${l.y})`}
+          fill={LEAF_TONES[l.layer]}
+          opacity={l.layer === 2 ? 0.9 : 1}
+        />
+      ))}
+      <g opacity={health * 0.35}>
+        {OCAK_LEAVES.filter((l) => l.layer === 2).map((l, i) => (
+          <ellipse key={i} cx={l.x} cy={l.y} rx={l.rx + 1} ry={l.ry + 1} fill={MINT} />
+        ))}
+      </g>
+      {OCAK_NUTS.map(([a, r]) => {
+        const rad = (a * Math.PI) / 180;
+        return (
+          <g key={a} transform={`translate(${Math.sin(rad) * r * 1.1} ${-Math.cos(rad) * r + 2})`}>
+            <path d="M-3 0 Q -2.4 -3.2 -0.6 -2 Q 0 -3.6 0.6 -2 Q 2.4 -3.2 3 0 Q 1.4 0.9 0 0.5 Q -1.4 0.9 -3 0Z" fill="#8fb25e" />
+            <circle cx="-1.1" cy="1.5" r="1.5" fill="#b7793a" />
+            <circle cx="1.2" cy="1.7" r="1.35" fill="#d08f48" />
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
+function Roots({ x, active }) {
+  return (
+    <g transform={`translate(${x} 466)`} fill="none" strokeLinecap="round">
+      <path d="M0 0 C 0 12 -6 20 -16 30 M0 0 C 2 14 10 22 20 28 M0 0 V 40 M0 18 C -6 26 -4 34 -8 44 M0 20 C 6 28 6 36 12 42" stroke="#5b4630" strokeWidth="1.6" />
+      <path d="M0 0 C 0 12 -6 20 -16 30 M0 0 C 2 14 10 22 20 28 M0 0 V 40" stroke={MINT} strokeWidth="1.6" opacity={active} filter="url(#gx-glowf)" />
+    </g>
+  );
+}
+
+function Pylon({ x }) {
+  return (
+    <g transform={`translate(${x} 430)`} stroke="#e7ece9" strokeOpacity=".35" fill="none">
+      <path d="M-8 0 L -2 -68 L 2 -68 L 8 0 M-6 -20 L 6 -20 M-4 -44 L 4 -44 M-6 -20 L 4 -44 M6 -20 L -4 -44 M-12 -62 H 12" />
+    </g>
+  );
+}
+
+function Chip({ x, y, text, tone, show }) {
+  const w = text.length * 6.2 + 22;
+  return (
+    <g transform={`translate(${x - w / 2} ${y})`} className={`gx-chip ${show ? "show" : ""}`}>
+      <rect width={w} height="20" rx="10" fill="#071215" fillOpacity=".82" stroke={tone} strokeOpacity=".75" />
+      <circle cx="11" cy="10" r="2.8" fill={tone} filter="url(#gx-glowf)" />
+      <text x="19" y="13.5" className="gx-chiptext">
+        {text}
+      </text>
+    </g>
+  );
+}
+
+const CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Yerleşim: başlık + kontroller, 3 cam sayaç, solda sahne / sağda metrik paneli, altta 4'lü zaman çizelgesi */
+.gx {
+  --bg: #071215;
+  --glass: rgba(18, 38, 42, 0.42);
+  --glass-hi: rgba(26, 52, 56, 0.55);
+  --stroke: rgba(255, 255, 255, 0.08);
+  --stroke-hi: rgba(255, 255, 255, 0.16);
+  --fg: #F4F1E8;
+  --muted: #8FA6A6;
+  --amber: #F59E0B;
+  --amber-hi: #FCD34D;
+  --mint: #34D399;
+  --mint-hi: #A7F3D0;
+  --sky: #38BDF8;
+  --sky-hi: #BAE6FD;
+  --sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color-scheme: dark;
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(900px 420px at 12% -6%, rgba(52, 211, 153, 0.10), transparent 70%),
+    radial-gradient(700px 380px at 92% 8%, rgba(245, 158, 11, 0.07), transparent 70%),
+    radial-gradient(800px 500px at 50% 110%, rgba(56, 189, 248, 0.06), transparent 70%),
+    var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding-block: 28px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.gx *, .gx *::before, .gx *::after { box-sizing: border-box; }
+:where(.gx) button { font: inherit; color: inherit; }
+.gx button:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+
+.gx-glass {
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* Başlık */
+.gx-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px; }
+.gx-brand { min-width: 0; max-width: 60ch; display: flex; flex-direction: column; gap: 10px; }
+.gx-eyebrow { margin: 0; display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.gx-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px var(--mint); }
+.gx-title { margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.035em; text-wrap: balance; }
+.gx-title span { background: linear-gradient(100deg, var(--amber-hi), var(--amber) 45%, var(--mint) 110%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gx-deck { margin: 0; color: var(--muted); font-size: 14.5px; max-width: 56ch; }
+
+.gx-controls { display: flex; align-items: center; gap: 8px; }
+.gx-btn { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--stroke); cursor: pointer; font-size: 13.5px; font-weight: 600; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.gx-btn:hover { border-color: var(--stroke-hi); }
+.gx-btn:active { transform: scale(.97); }
+.gx-btn-primary { background: var(--fg); color: #071215 !important; border-color: var(--fg); box-shadow: 0 0 0 4px rgba(244, 241, 232, .06), 0 8px 24px -8px rgba(244, 241, 232, .35); }
+.gx-btn-icon { width: 36px; padding: 0; justify-content: center; }
+.gx-seg { display: inline-flex; height: 36px; padding: 3px; border-radius: 999px; }
+.gx-seg button { border: 0; background: transparent; padding: 0 12px; border-radius: 999px; font-family: var(--mono); font-size: 12px; cursor: pointer; color: var(--muted); }
+.gx-seg button.on { background: rgba(255, 255, 255, .1); color: var(--fg); }
+
+/* Sayaçlar */
+.gx-tele { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; gap: 10px; }
+.gx-counter { position: relative; overflow: hidden; border-radius: 14px; padding: 12px 14px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; gap: 8px 12px; align-items: center; min-width: 0; }
+.gx-counter::after { content: ""; position: absolute; inset: auto -20% -60% auto; width: 140px; height: 140px; border-radius: 50%; background: currentColor; opacity: .08; filter: blur(30px); pointer-events: none; }
+.gx-counter-icon { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: rgba(255, 255, 255, .05); border: 1px solid var(--stroke); }
+.gx-counter-body { display: flex; flex-direction: column; min-width: 0; }
+.gx-counter-label { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gx-counter-value { font-family: var(--mono); font-weight: 500; font-size: clamp(18px, 2vw, 22px); line-height: 1.2; font-variant-numeric: tabular-nums; letter-spacing: -.02em; color: var(--fg); white-space: nowrap; }
+.gx-counter-value small { font-size: 11px; color: var(--muted); letter-spacing: 0; }
+.gx-counter-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; }
+.gx-counter-track { flex: 1; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .07); overflow: hidden; }
+.gx-counter-track i, .gx-bar i { display: block; height: 100%; transform-origin: left; background: currentColor; box-shadow: 0 0 10px currentColor; border-radius: inherit; }
+.gx-counter-target { font-family: var(--mono); font-size: 10.5px; color: var(--muted); white-space: nowrap; }
+.tone-mint { color: var(--mint); } .tone-amber { color: var(--amber); } .tone-sky { color: var(--sky); }
+.gx-cycle { border-radius: 14px; padding: 12px 18px; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+.gx-cycle strong { font-family: var(--mono); font-weight: 500; font-size: 22px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.gx-live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.gx-live i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.gx-live i.on { background: var(--mint); animation: gx-ping 1.6s infinite; }
+.gx-mono { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* Sahne */
+.gx-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 360px); gap: 16px; align-items: start; }
+.gx-scene { margin: 0; min-width: 0; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
+.gx-scene svg { display: block; width: 100%; height: auto; }
+.gx-caption { margin-top: auto; padding: 10px 16px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--stroke); }
+.gx-svglabel { font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; fill: #8FA6A6; }
+.gx-nodenum { font-family: var(--mono); font-size: 11px; font-weight: 500; }
+.gx-node { cursor: pointer; }
+.gx-node circle { transition: fill .3s; }
+.gx-chiptext { font-family: var(--mono); font-size: 10px; fill: #F4F1E8; }
+.gx-chip { opacity: 0; transition: opacity .5s ease-out; pointer-events: none; }
+.gx-chip.show { opacity: 1; }
+.gx-stepbtn, .gx-stepicon { transition: border-color .4s ease-out, background .4s ease-out, box-shadow .4s ease-out; }
+.gx-bar i, .gx-counter-track i { transition: transform .25s linear; }
+
+.gx-spin { animation: gx-spin calc(.9s / var(--spd)) linear infinite; }
+@keyframes gx-spin { to { transform: rotate(360deg); } }
+.gx-steam circle { transform-box: fill-box; transform-origin: center; animation: gx-steam calc(3.2s / var(--spd)) ease-out infinite; opacity: 0; }
+@keyframes gx-steam { 0% { transform: translateY(0) scale(.5); opacity: 0; } 15% { opacity: .45; } 100% { transform: translate(18px, -80px) scale(2.6); opacity: 0; } }
+.gx-spore { animation: gx-float 3.6s ease-in-out infinite alternate; }
+@keyframes gx-float { from { transform: translate(0, 0); } to { transform: translate(4px, -8px); } }
+.gx-drift { animation: gx-drift 14s linear infinite; }
+@keyframes gx-drift { to { transform: translateX(100px); } }
+.gx-foam { stroke-dasharray: 40 14; animation: gx-foam 9s linear infinite; }
+@keyframes gx-foam { to { stroke-dashoffset: -108; } }
+.gx-fog { animation: gx-fog 18s ease-in-out infinite alternate; }
+.gx-fog-2 { animation-duration: 24s; animation-direction: alternate-reverse; }
+@keyframes gx-fog { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
+.gx-halo { transform-box: fill-box; transform-origin: center; animation: gx-halo 1.8s ease-out infinite; }
+@keyframes gx-halo { from { transform: scale(.8); opacity: .35; } to { transform: scale(1.6); opacity: 0; } }
+@keyframes gx-ping { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .6); } 70%, 100% { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); } }
+.gx-paused *, .gx-paused *::before, .gx-paused *::after { animation-play-state: paused !important; }
+
+/* Bilgi paneli */
+.gx-card { min-width: 0; border-radius: 18px; padding: 26px 24px; line-height: 1.6; transition: color .5s ease; }
+.gx-cardbody { display: flex; flex-direction: column; gap: 22px; }
+.gx-fade { animation: gx-in .4s ease-out both; }
+@keyframes gx-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.gx-cardhead { display: flex; flex-direction: column; gap: 8px; }
+.gx-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.gx-cardtitle { margin: 0; font-weight: 700; font-size: 22px; line-height: 1.25; letter-spacing: -.02em; color: var(--fg); text-wrap: balance; }
+.gx-lead { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); max-width: 38ch; }
+.gx-hero { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 12px; padding: 24px 0; border-block: 1px solid var(--stroke); }
+.gx-hero strong { font-weight: 800; font-size: clamp(48px, 5.4vw, 64px); line-height: .95; letter-spacing: -.045em; font-variant-numeric: tabular-nums; background: linear-gradient(180deg, var(--hi), var(--c)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 22px var(--glow)); }
+.gx-hero-unit { font-size: 15px; font-weight: 600; color: var(--fg); }
+.gx-hero-label { flex-basis: 100%; font-size: 12.5px; color: var(--muted); }
+.gx-card.tone-amber { --c: var(--amber); --hi: var(--amber-hi); --glow: rgba(245, 158, 11, .35); }
+.gx-card.tone-mint { --c: var(--mint); --hi: var(--mint-hi); --glow: rgba(52, 211, 153, .35); }
+.gx-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gx-stat { padding: 14px 16px; border-radius: 14px; background: rgba(255, 255, 255, .03); border: 1px solid var(--stroke); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.gx-stat strong { font-weight: 700; font-size: 20px; line-height: 1.2; letter-spacing: -.02em; color: var(--fg); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.gx-stat span { font-size: 12px; line-height: 1.5; color: var(--muted); }
+.gx-pills { margin: 0; padding: 4px 0 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+.gx-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 12px; border-radius: 999px; font-size: 12.5px; line-height: 1.45; color: var(--fg); background: rgba(255, 255, 255, .04); border: 1px solid var(--stroke); }
+.gx-pill svg { flex: none; }
+.pill-risk { border-color: rgba(245, 158, 11, .35); background: rgba(245, 158, 11, .08); }
+.pill-risk svg { color: var(--amber); }
+.pill-spec { border-color: rgba(56, 189, 248, .3); background: rgba(56, 189, 248, .07); }
+.pill-spec svg { color: var(--sky); }
+.pill-bio { border-color: rgba(52, 211, 153, .35); background: rgba(52, 211, 153, .08); }
+.pill-bio svg { color: var(--mint); }
+
+/* Zaman çizelgesi */
+.gx-timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.gx-stepbtn { position: relative; overflow: hidden; text-align: left; display: flex; align-items: center; gap: 12px; padding: 12px 14px 15px; border-radius: 14px; cursor: pointer; transition: border-color .25s, background .25s; }
+.gx-stepbtn:hover { border-color: var(--stroke-hi); }
+.gx-stepbtn.active { background: var(--glass-hi); border-color: currentColor; box-shadow: 0 0 0 1px currentColor inset, 0 0 28px -10px currentColor; }
+.gx-stepicon { flex: none; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: rgba(255, 255, 255, .05); border: 1px solid var(--stroke); }
+.gx-stepbtn.active .gx-stepicon, .gx-stepbtn.done .gx-stepicon { background: currentColor; border-color: transparent; }
+.gx-stepbtn.active .gx-stepicon svg, .gx-stepbtn.done .gx-stepicon svg { color: #071215; }
+.gx-steptext { min-width: 0; display: flex; flex-direction: column; }
+.gx-steptitle { font-size: 13.5px; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gx-stepsub { font-size: 12px; color: var(--muted); }
+.gx-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; }
+
+@media (max-width: 1080px) {
+  .gx-main { grid-template-columns: minmax(0, 1fr); }
+  .gx-tele { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .gx-cycle { display: none; }
+}
+@media (max-width: 760px) {
+  .gx-tele { grid-template-columns: minmax(0, 1fr); }
+  .gx-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gx-controls { width: 100%; }
+  .gx-btn-primary { flex: 1; justify-content: center; }
+}
+@media (max-width: 420px) {
+  .gx-timeline { grid-template-columns: minmax(0, 1fr); }
+  .gx-card { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gx *, .gx *::before, .gx *::after { animation: none !important; transition: none !important; }
+}
+`;
+ReactDOM.createRoot(document.getElementById("root")).render(<GapcukDongu />);
+</script>
+
+</body></html>

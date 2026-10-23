@@ -10,6 +10,7 @@
 
 <p align="center">
   <a href="https://climathon-gapcuk-ai.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-Vercel%20Production-10B981?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
+  <a href="https://climathon-gapcuk-ai.vercel.app/simulasyon.html"><img src="https://img.shields.io/badge/Döngü%20Simülasyonu-Canlı%20İncele-059669?style=for-the-badge" alt="Simulation"></a>
   <a href="#"><img src="https://img.shields.io/badge/COP31-Cutting%20Waste%20by%20Half%20by%202035-10B981.svg" alt="COP31"></a>
   <a href="#"><img src="https://img.shields.io/badge/Siemens-Resource%20Efficiency%20%26%20Circularity-0284C7.svg" alt="Siemens"></a>
   <a href="#"><img src="https://img.shields.io/badge/UN%20SDG-12%20Responsible%20Consumption-F59E0B.svg" alt="SDG 12"></a>
