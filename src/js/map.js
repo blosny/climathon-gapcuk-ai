@@ -173,7 +173,7 @@ export async function renderReports(reports) {
                 </div>
                 <p><b>Konum:</b> ${plant.location}</p>
                 <p><b>Kapasite:</b> ${plant.capacity} (Biyokütle Enerji Santrali)</p>
-                <p><b>Alım bilgisi:</b> ~2.200 TL/ton, azami nem %35 (santral görüşmesi)</p>
+                <p><b>Alım bilgisi:</b> 2.000 TL/ton + KDV, azami nem %35 (santral yazışması)</p>
                 <p><a href="kaynakca.html#d-fiyat" target="_blank" rel="noopener noreferrer">Doğrulama durumu ↗</a></p>
             </div>
         `)

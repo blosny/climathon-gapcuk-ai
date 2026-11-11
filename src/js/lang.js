@@ -19,7 +19,7 @@ export const TRANSLATIONS = {
         kpi_sacks_sub: "Kapasite Hedefi: 300 Çuval/Gün",
         kpi_sacks_footer: "Örnek bildirimler (demo verisi)",
         kpi_value_title: "Biyokütle Enerji Değeri",
-        kpi_value_sub: "Çarşamba BES: 2.200 ₺/Ton (santral bilgisi)",
+        kpi_value_sub: "Çarşamba BES: 2.000 ₺/Ton (KDV hariç)",
         kpi_value_footer: "Yenilenebilir Biyo-Elektrik Satış Değeri",
         kpi_roads_title: "Tıkalı Köy Yolu",
         kpi_roads_sub: "Öncelikli Tahliye Sırasında",
@@ -34,7 +34,7 @@ export const TRANSLATIONS = {
         recenter_btn: "Görünümü Ortala",
         sidebar_sequence_title: "OSRM Toplama & Müdahale Sırası",
         bes_dest_tag: "Hedef Santral Kantar Teslimi",
-        bes_dest_desc: "Samsun / Çarşamba (OSRM ≈ 53 km) • Alım koşulları doğrulama aşamasında"
+        bes_dest_desc: "Samsun / Çarşamba (OSRM ≈ 53 km) • Alım koşulları santral yazışmasına dayanır"
     },
     en: {
         system_status: "SYSTEM ACTIVE: Ordu / Ünye Pilot Basin • Clean Energy & Biosecurity Infrastructure",
@@ -51,7 +51,7 @@ export const TRANSLATIONS = {
         kpi_sacks_sub: "Capacity Target: 300 Sacks/Day",
         kpi_sacks_footer: "Sample reports (demo data)",
         kpi_value_title: "Biomass Energy Value",
-        kpi_value_sub: "Çarşamba BES: 2,200 ₺/Ton (plant-reported)",
+        kpi_value_sub: "Çarşamba BES: 2,000 ₺/Ton (excl. VAT)",
         kpi_value_footer: "Renewable Bio-Electricity Market Value",
         kpi_roads_title: "Blocked Village Roads",
         kpi_roads_sub: "In Priority Evacuation Queue",
@@ -66,7 +66,7 @@ export const TRANSLATIONS = {
         recenter_btn: "Recenter View",
         sidebar_sequence_title: "OSRM Collection & Dispatch Queue",
         bes_dest_tag: "Target Power Plant Weighbridge Delivery",
-        bes_dest_desc: "Samsun / Çarşamba (OSRM ≈ 53 km) • Intake terms being verified"
+        bes_dest_desc: "Samsun / Çarşamba (OSRM ≈ 53 km) • Intake terms from plant correspondence"
     }
 };
 

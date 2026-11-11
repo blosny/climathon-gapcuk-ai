@@ -31,7 +31,7 @@ Fındık zürufunu (yöresel adıyla **gapçuk**) yakılan bir atıktan temiz en
 - Patoz çoğu zaman tek şeritli köy yollarında yapılır; çıkan zürufun düzenli bir toplama mekanizması yoktur.
 - Çiftçi yolu açmak için atığı ya **yakar** ya da bahçeye **çiğ serer**. Zürufun C/N oranı yüksektir (yaklaşık 33:1) ve literatürde doğrudan tarlaya uygulanması uygun bulunmaz [K3]. Açıkta yakma ise CH₄ ve N₂O açığa çıkarır [K5].
 - Yılda yaklaşık 200 bin ile 500 bin ton züruf açığa çıktığı bildirilmektedir; iki kaynak arasında fark vardır [K2, K3].
-- Bu biyokütle için biyokütle enerji santralleri olası alıcıdır. Eksik olan, küçük üreticiyle alıcıyı buluşturacak lojistik.
+- Bölgedeki biyokütle enerji santrali zürufu satın alıyor, ancak satın alma sorumlusuna göre ürün sonbahara geç geldiği ve bölge yağışlı olduğu için istenen tonajı alamıyor [K13]. Eksik olan, küçük üreticiyle alıcıyı buluşturacak lojistik.
 
 ## GapçukRoute: Rota Motoru
 
@@ -58,8 +58,8 @@ Fındık zürufunu (yöresel adıyla **gapçuk**) yakılan bir atıktan temiz en
 
 ## İş Modeli
 
-- Gelir, toplanan biyokütlenin santrale satışından gelir. Pilot bölgeye en yakın alıcı adayı Samsun Çarşamba'daki biyokütle enerji santralidir (27 MWe) [K4].
-- Santral görüşmesine göre alım kantar teslimdir: ton başına yaklaşık **2.200 TL**, azami nem **%35**. Bu bilgi yazılı ve kamuya açık bir kaynakla doğrulanamadı; santralin zürufu yakıt olarak kabul ettiği de sahada teyit edilecek.
+- Gelir, toplanan biyokütlenin santrale satışından gelir. Pilot bölgeye en yakın alıcı Samsun Çarşamba'daki biyokütle enerji santralidir (27 MWe) [K4].
+- Santralin satın alma sorumlusuyla yapılan e-posta yazışmasına göre (22 Ekim 2026) zürufun alım fiyatı Ordu–Giresun bölgesi için **2.000 TL/ton + KDV**, azami nem **%35**'tir. Alım santralin kendi kantarında yapılır, nakliyeyi tedarikçi üstlenir ve alım miktarı sınırsızdır [K13]. Yazışma kurumsal bir şartname değildir; kurumsal yazılı teyit alınacaktır. Gelir hesapları KDV hariç tutarla yapılır.
 - Çiftçiye ücretsiz kompost geri döner. Birim ekonomi varsayımlara dayanır ve saha pilotunda gerçek maliyetlerle doğrulanacak.
 
 ## Etki Hesabı
@@ -107,3 +107,4 @@ Her kaynağın hangi rakamı desteklediği [Kaynakça ve Doğrulama](src/kaynakc
 - **K10** Komolafe, A. F. vd. (2020). Maturity indices of composting plant materials with Trichoderma asperellum as activator. *Agricultura Tropica et Subtropica*, 53 (1), 19–27. [doi:10.2478/ats-2020-0003](https://doi.org/10.2478/ats-2020-0003)
 - **K11** T.C. 2872 sayılı Çevre Kanunu, madde 8. [mevzuat.gov.tr](https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=2872&MevzuatTur=1&MevzuatTertip=5)
 - **K12** Servisler: [OpenStreetMap](https://www.openstreetmap.org/copyright) · [OSRM](https://project-osrm.org/) · [Open-Meteo](https://open-meteo.com/)
+- **K13** Çarşamba biyokütle santralinin satın alma sorumlusu ile e-posta yazışması, 22 Ekim 2026 (fındık zürufu tedarik bilgisi). Kamuya açık değildir.

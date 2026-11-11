@@ -45,6 +45,7 @@
         .range { color: var(--blue); border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.1); }
         .calc { color: #A5B4FC; border-color: rgba(165, 180, 252, 0.45); background: rgba(165, 180, 252, 0.1); }
         .assume { color: var(--amber); border-color: rgba(251, 191, 36, 0.45); background: rgba(251, 191, 36, 0.1); }
+        .mail { color: #C4B5FD; border-color: rgba(196, 181, 253, 0.45); background: rgba(196, 181, 253, 0.1); }
         .no { color: var(--red); border-color: rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.1); }
         .refs { padding-left: 0; list-style: none; counter-reset: ref; }
         .refs li { position: relative; padding: 12px 14px 12px 56px; margin-bottom: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
@@ -64,6 +65,7 @@
         <li><span class="pill ok">Doğrulandı</span> değer kaynakta yazıyor</li>
         <li><span class="pill range">Aralık</span> kaynaklar arasında fark var</li>
         <li><span class="pill calc">Hesaplandı</span> kaynaklı değerlerden türetildi</li>
+        <li><span class="pill mail">Yazışma</span> santralden e-postayla alınan bilgi, kamuya açık değil</li>
         <li><span class="pill assume">Varsayım</span> pilotta doğrulanacak</li>
         <li><span class="pill no">Doğrulanamadı</span> açık kaynakta bulunamadı</li>
     </ul>
@@ -114,14 +116,20 @@
                 <tr id="d-santral">
                     <td>Çarşamba biyokütle santrali</td>
                     <td>27 MWe; yılda yaklaşık 250 bin ton tarımsal ve ormancılık atığı</td>
-                    <td><a href="#k4">K4</a>. Haber 2019 tarihli ve devreye alma planını anlatıyor. Zürufun yakıt olarak adı geçmiyor.</td>
+                    <td><a href="#k4">K4</a>. Haber 2019 tarihli ve devreye alma planını anlatıyor. Haberde zürufun adı geçmiyor; zürufun satın alındığı <a href="#k13">K13</a>'te belirtiliyor.</td>
                     <td><span class="pill ok">Doğrulandı</span></td>
                 </tr>
                 <tr id="d-fiyat">
-                    <td>Santralin zürufu alması, 2.200 TL/ton, azami nem %35</td>
-                    <td>2.200 TL/ton, kantar teslim, nem ≤ %35</td>
-                    <td>Santral satın alma birimiyle yapılan görüşme. Yazılı şartname kamuya açık değil. Açık kaynaklarda santralin zürufu yakıt olarak kabul ettiğine dair kayıt bulunamadı; sahada teyit edilecek.</td>
-                    <td><span class="pill no">Doğrulanamadı</span></td>
+                    <td>Santralin zürufu alması, fiyat ve nem sınırı</td>
+                    <td>2.000 TL/ton + KDV (Ordu–Giresun bölgesi), nem ≤ %35, santral kantarında teslim, alım miktarı sınırsız</td>
+                    <td><a href="#k13">K13</a>: kendisini Samsun bölgesi satın alma sorumlusu olarak tanıtan yetkili ile e-posta yazışması, 22 Ekim 2026. Yanıt kurumsal bir alan adından gelmiyor ve santralin adını anmıyor; kurumsal yazılı teyit alınmalı. KDV oranı bilinmediği için gelir hesapları KDV hariç tutarla yapıldı.</td>
+                    <td><span class="pill mail">Yazışma</span></td>
+                </tr>
+                <tr id="d-tedarik">
+                    <td>Santralin tedarik sorunu</td>
+                    <td>Ürünün sonbahara gelmesi ve yağışlı bölge olduğu için istenen tonajın alınamaması</td>
+                    <td><a href="#k13">K13</a>. Santralin tedarikçileri nem sorununu, yağıştan sonra güneş açıp ürün kuruyunca sevk ederek çözüyor; toplama ve erken uyarı bu boşluğa yönelik.</td>
+                    <td><span class="pill mail">Yazışma</span></td>
                 </tr>
                 <tr id="d-emisyon">
                     <td>Açıkta yakma emisyon faktörleri</td>
@@ -149,8 +157,8 @@
                 </tr>
                 <tr id="d-ekonomi">
                     <td>Sefer ekonomisi (9,9 ton)</td>
-                    <td>Satış 21.780 ₺, dizel ve şoför 3.500 ₺, kompost 100 ₺, net 18.180 ₺</td>
-                    <td>Satış kalemi 9,9 t × 2.200 ₺ aritmetiğidir ve santral fiyatına bağlıdır (yukarıdaki satır). Maliyet kalemleri varsayımdır.</td>
+                    <td>Satış 19.800 ₺, dizel ve şoför 3.500 ₺, kompost 100 ₺, net 16.200 ₺</td>
+                    <td>Satış kalemi 9,9 t × 2.000 ₺ (KDV hariç) aritmetiğidir ve <a href="#k13">K13</a>'teki fiyata bağlıdır. Maliyet kalemleri varsayımdır.</td>
                     <td><span class="pill assume">Varsayım</span></td>
                 </tr>
                 <tr>
@@ -215,6 +223,7 @@
     <ul>
         <li>Önlenen emisyon, IPCC 2006 Denklem 2.27 mantığıyla hesaplanmıştır: yakılan kütle × yanma faktörü × emisyon faktörü × küresel ısınma potansiyeli. Biyokütle yanmasından çıkan CO₂ bu hesaba dahil değildir.</li>
         <li>Ton cinsinden tüm miktarlar çuval sayısından türetilir (çuval × 45 kg). Atığın nemi bilinmediği için kuru madde düzeltmesi yapılmamıştır.</li>
+        <li>Gelirler KDV hariç alım fiyatıyla hesaplanır; KDV, alıcı ile satıcı arasında geçen bir tutardır ve gelir sayılmaz.</li>
         <li>Harita, rota ve hava verisi canlı servislerden gelir; değerler her açılışta değişebilir.</li>
     </ul>
 
@@ -234,6 +243,7 @@
         <li id="k10">Komolafe, A. F., Adejuyigbe, C. O., Soretire, A. A., Aiyelaagbe, I. O. O. (2020). Maturity indices of composting plant materials with Trichoderma asperellum as activator. <i>Agricultura Tropica et Subtropica</i>, 53 (1), 19–27. <a href="https://doi.org/10.2478/ats-2020-0003" target="_blank" rel="noopener noreferrer">doi:10.2478/ats-2020-0003</a></li>
         <li id="k11">T.C. 2872 sayılı Çevre Kanunu, madde 8 (Kirletme yasağı). <a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=2872&amp;MevzuatTur=1&amp;MevzuatTertip=5" target="_blank" rel="noopener noreferrer">mevzuat.gov.tr</a></li>
         <li id="k12">Açık veri ve servisler: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>, <a href="https://project-osrm.org/" target="_blank" rel="noopener noreferrer">OSRM</a>, <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>.</li>
+        <li id="k13">Çarşamba biyokütle santralinin satın alma sorumlusu (kendisini "Samsun bölgesi satın alma sorumlusu" olarak tanıtıyor) ile e-posta yazışması, 22 Ekim 2026. Konu: fındık zürufu tedarik bilgisi. Kamuya açık değildir.</li>
     </ol>
 </main>
 </body>
