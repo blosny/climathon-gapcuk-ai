@@ -1,6 +1,6 @@
 # Gapçuk AI
 
-<img src="src/assets/logo.png" alt="Gapçuk AI logosu" width="120" align="right">
+<img src="src/assets/logo-readme.png" alt="Gapçuk AI logosu" width="120" align="right">
 
 ![Climathon 2026](https://img.shields.io/badge/Climathon%202026-Siemens%20%C2%B7%20YGA%20%C2%B7%20UP%20School-0F766E)
 ![Sonuç](https://img.shields.io/badge/Sonu%C3%A7-5.%20s%C4%B1ra-D97706)
@@ -11,7 +11,9 @@ Fındık zürufunu (yöresel adıyla **gapçuk**) yakılan bir atıktan temiz en
 
 **Stack:** HTML · CSS · Vanilla JavaScript · Leaflet · OpenStreetMap · OSRM · Open-Meteo · React 18 · GitHub Pages
 
-**Canlı demo:** [blosny.github.io/climathon-gapcuk-ai](https://blosny.github.io/climathon-gapcuk-ai/) · **Simülasyon:** [simulasyon.html](https://blosny.github.io/climathon-gapcuk-ai/simulasyon.html)
+**Canlı demo:** [blosny.github.io/climathon-gapcuk-ai](https://blosny.github.io/climathon-gapcuk-ai/) · **Simülasyon:** [Döngüyü başlat](https://blosny.github.io/climathon-gapcuk-ai/simulasyon.html)
+
+<img src="src/assets/screenshots/tab1_route.png" alt="GapçukRoute: Ünye köylerinden Çarşamba'ya gerçek yol rotası ve toplama sırası" width="100%">
 
 ---
 
@@ -60,8 +62,6 @@ Fındık zürufunu (yöresel adıyla **gapçuk**) yakılan bir atıktan temiz en
 - Çiftçiye ücretsiz kompost geri döner. Birim ekonomi saha pilotunda gerçek maliyetlerle doğrulanacak.
 
 ## Ekran Görüntüleri
-
-<img src="src/assets/screenshots/tab1_route.png" alt="GapçukRoute harita ve rota paneli" width="100%">
 
 <img src="src/assets/screenshots/tab2_whatsapp.png" alt="GapçukBot WhatsApp simülatörü" width="100%">
 
