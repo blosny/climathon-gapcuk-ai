@@ -1,98 +1,80 @@
+<img src="src/assets/logo.png" alt="Gapçuk AI logosu" width="120" align="right">
+
 # Gapçuk AI
 
-<p align="center">
-  <img src="src/assets/logo.png" alt="Gapçuk AI logosu" width="140">
-</p>
+![Climathon 2026](https://img.shields.io/badge/Climathon%202026-Siemens%20%C2%B7%20YGA%20%C2%B7%20UP%20School-0F766E)
+![Sonuç](https://img.shields.io/badge/Sonu%C3%A7-5.%20s%C4%B1ra-D97706)
+![Pilot](https://img.shields.io/badge/Pilot-Ordu%20%2F%20%C3%9Cnye-15803D)
+[![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-2563EB)](https://blosny.github.io/climathon-gapcuk-ai/)
 
-<p align="center">
-  Fındık zürufunu (yöresel adıyla <i>gapçuk</i>) yakılan bir atıktan temiz enerjiye ve komposta dönüştüren döngüsel lojistik platformu.<br>
-  Ordu / Ünye pilot bölgesi · Siemens, YGA ve UP School Climathon 2026
-</p>
+Fındık zürufunu (yöresel adıyla **gapçuk**) yakılan bir atıktan temiz enerjiye ve komposta dönüştüren döngüsel bir lojistik platformu. **Siemens, YGA ve UP School Climathon 2026** programında Ordu / Ünye pilot bölgesi için geliştirildi.
 
-<p align="center">
-  <a href="https://blosny.github.io/climathon-gapcuk-ai/"><b>Canlı demo</b></a> ·
-  <a href="https://blosny.github.io/climathon-gapcuk-ai/simulasyon.html"><b>Döngü simülasyonu</b></a>
-</p>
+**Stack:** HTML · CSS · Vanilla JavaScript · Leaflet · OpenStreetMap · OSRM · Open-Meteo · React 18 · GitHub Pages
 
-<p align="center"><sub>Yedek adres: <a href="https://climathon-gapcuk-ai.vercel.app">climathon-gapcuk-ai.vercel.app</a> (vercel.app bazı Türkiye internet sağlayıcılarında açılmıyor)</sub></p>
+**Canlı demo:** [blosny.github.io/climathon-gapcuk-ai](https://blosny.github.io/climathon-gapcuk-ai/) · **Simülasyon:** [simulasyon.html](https://blosny.github.io/climathon-gapcuk-ai/simulasyon.html)
 
 ---
 
+## Modüller
+
+| Modül | Ne yapar | Durum |
+|---|---|---|
+| GapçukRoute | Çiftçi bildirimlerinden durak sırası ve gerçek yol rotası çıkarır | Çalışıyor |
+| GapçukBot | WhatsApp üzerinden bildirim alır, hava durumuna göre yanıt verir | Kural tabanlı |
+| GapçukBio | Külleme riskini hesaplar, atığı santrale ya da komposta yönlendirir | Çalışıyor |
+| Döngü simülasyonu | Atığın harmandan santrale ve toprağa dönüşünü canlandırır | Çalışıyor |
+
 ## Problem
 
-Fındık hasadında patozdan çıkan zürufun düzenli bir toplama mekanizması yok. Patoz çoğu zaman tek şeritli köy yollarında yapıldığı için atık yolu tıkıyor ve çiftçi yolu açmak için atığı ya yakıyor ya da bahçeye çiğ seriyor. Yakma hava kirliliğine, çiğ serme ise külleme mantarının (*Erysiphe corylacea*) bahçede kışlamasına yol açıyor.
+- Patoz çoğu zaman tek şeritli köy yollarında yapılır; çıkan zürufun düzenli bir toplama mekanizması yoktur.
+- Çiftçi yolu açmak için atığı ya **yakar** ya da bahçeye **çiğ serer**. Yakma hava kirliliğine, çiğ serme külleme mantarının (*Erysiphe corylacea*) bahçede kışlamasına yol açar.
+- Bu biyokütlenin bölgede hazır alıcıları var (biyokütle santralleri, pelet üreticileri). Eksik olan, küçük üreticiyle alıcıyı buluşturacak lojistik.
 
-Ünye'deki üreticilerle yaptığım görüşmelerde iki şey öne çıktı:
+## GapçukRoute: Rota Motoru
 
-- Toplayacak biri olsa üreticilerin büyük çoğunluğu atığı vermeye hazır.
-- Bu biyokütlenin bölgede hazır bir alıcısı var: biyokütle enerji santralleri ve pelet üreticileri.
+- Her bildirim haritada numaralı bir durak olur. Sıralama en yakın komşu yöntemiyle yapılır ve **yolu kapalı** köyler öne alınır (`optimizeStopSequence`).
+- Rota kuş uçuşu değil, **OSRM** `route/v1/driving` ile gerçek köy yolu geometrisi üzerinden çizilir.
+- OSRM yanıt vermezse sıralı noktalarla yedek bir rota çizilir.
 
-Eksik olan, küçük üreticiyle alıcıyı buluşturacak lojistik ve koordinasyon. Gapçuk AI bu boşluğu kapatmayı hedefliyor.
+## GapçukBot: Çiftçi Asistanı
 
-## Çözüm
+- Çiftçi uygulama indirmeden konumunu, çuval sayısını ve yol durumunu tek mesajla bildirir.
+- Yanıt, **Open-Meteo**'dan gelen anlık sıcaklık ve nem verisine göre değişir: nem yüksekse atığı örtme ve yakmama uyarısı, yol kapalıysa öncelikli toplama bilgisi.
+- Şu an yanıtlar kural tabanlı; bir dil modeline taşınması yol haritasında.
 
-Platform birbirini besleyen üç modülden oluşuyor:
+## GapçukBio: Erken Uyarı ve Kompost
 
-| Modül | Ne yapar |
-|---|---|
-| **GapçukRoute** | Çiftçi bildirimlerini haritada numaralı duraklara çevirir. Yolu kapalı köyleri öne alan bir sıralama yapar ve rotayı OSRM ile gerçek köy yolu geometrisi üzerinden çizer. |
-| **GapçukBot** | Çiftçi, uygulama indirmeden WhatsApp akışıyla konumunu ve çuval sayısını bildirir. Yanıtlar anlık sıcaklık ve nem verisine göre şekillenir. |
-| **GapçukBio** | Sıcaklık ve nemden külleme mantarı için bir risk skoru hesaplar. Kuru atığı santrale, ıslak atığı Trichoderma ile kompostlama hattına yönlendirir. |
+- Sıcaklık ve nemden külleme mantarı için bir risk skoru hesaplanır (`calculateMildewRisk`).
+- Nem sınırının altındaki atık **biyokütle santraline**, üstündeki atık **Trichoderma** ile kompostlama hattına gider.
+- Araç köye bir önceki partinin kompostunu götürür, dönüşte gapçuk yükler: boş dönüş olmaz.
 
-Toplama aracı köye giderken bir önceki partinin kompostunu götürür, dönüşte taze gapçuğu yükler. Böylece araç boş dönmez ve çiftçiye somut bir fayda geri döner.
+## Döngü Simülasyonu
 
-## Döngü simülasyonu
+- [`src/simulasyon.html`](src/simulasyon.html): harman ve patoz, dağ lojistiği, enerji santrali ve biyo-kompost aşamalarını anlatan interaktif simülasyon.
+- React 18 ve lucide-react ile tek dosya; build adımı yok. Değerler tek bir köy rotası için örnektir.
 
-[`src/simulasyon.html`](src/simulasyon.html), atığın harmandan santrale, oradan tekrar toprağa dönüşünü dört aşamada anlatan interaktif bir simülasyon: harman ve patoz, dağ lojistiği, enerji santrali, biyo-kompost. Simülasyondaki değerler tek bir köy rotası için hazırlanmış örnek değerlerdir.
+## İş Modeli
 
-**[Simülasyonu tarayıcıda aç](https://blosny.github.io/climathon-gapcuk-ai/simulasyon.html)**
+- Gelir, toplanan biyokütlenin santrale satışından gelir. Pilot bölgeye en yakın alıcı Samsun Çarşamba'daki biyokütle enerji santralidir.
+- Santral kantar teslim alır: ton başına **2.200 TL**, azami nem **%35**<sup>[1]</sup>.
+- Çiftçiye ücretsiz kompost geri döner. Birim ekonomi saha pilotunda gerçek maliyetlerle doğrulanacak.
 
-## Ekran görüntüleri
-
-**GapçukRoute:** Rota ve filo paneli
+## Ekran Görüntüleri
 
 <img src="src/assets/screenshots/tab1_route.png" alt="GapçukRoute harita ve rota paneli" width="100%">
 
-**GapçukBot:** Çiftçi bildirimi ve WhatsApp asistanı
-
 <img src="src/assets/screenshots/tab2_whatsapp.png" alt="GapçukBot WhatsApp simülatörü" width="100%">
-
-**GapçukBio:** Külleme riski ve kompost paneli
 
 <img src="src/assets/screenshots/tab3_bio.png" alt="GapçukBio risk ve kompost paneli" width="100%">
 
-## İş modeli
+## Yol Haritası
 
-Gelir, toplanan biyokütlenin santrale satışından gelir. Pilot bölgeye en yakın alıcı Samsun Çarşamba'daki biyokütle enerji santrali. Santral alımı kantar teslim yapıyor, yani nakliye satıcıya ait. Santralin satın alma şartnamesine göre ton başına alım fiyatı 2.200 TL, kabul edilen azami nem oranı %35<sup>[1]</sup>. Nem sınırını aşan atık kompostlama hattına gider ve çiftçiye ücretsiz kompost olarak geri döner.
-
-Bu birim ekonomi, saha pilotunda gerçek maliyetlerle doğrulanacak.
-
-## Teknoloji
-
-- **Arayüz:** HTML, CSS ve Vanilla JavaScript (ES modülleri). Build adımı yok.
-- **Harita ve rota:** Leaflet, OpenStreetMap, Esri World Imagery, OSRM
-- **Hava verisi:** Open-Meteo
-- **Simülasyon:** React 18 ve lucide-react, tek dosya
-- **Yayın:** GitHub Pages (GitHub Actions ile), Vercel
-
-## Durum ve yol haritası
-
-Çalışan kısımlar:
-- OSRM ile gerçek yol rotası ve filo telemetrisi
-- Open-Meteo ile canlı hava verisi ve külleme risk skoru
-- Çiftçi bildirim formu ve WhatsApp akışı simülasyonu
-- İnteraktif döngü simülasyonu
-
-Sıradaki adımlar:
-- Bot yanıtlarını kural tabanlı akıştan bir dil modeline taşımak
-- WhatsApp Business API ile gerçek mesajlaşma
+- Bot yanıtlarını bir dil modeline taşımak, WhatsApp Business API ile gerçek mesajlaşma
 - Ünye'de üreticiler, ziraat odası ve santralle saha görüşmeleri
 - Rota tasarrufunu saha verisiyle ölçmek
 - Sistemi fındık dışındaki tarımsal atıklara uyarlamak
 
-## Yerel ortamda çalıştırma
-
-Paket kurulumu gerekmez:
+## Yerel Çalıştırma
 
 ```bash
 git clone https://github.com/blosny/climathon-gapcuk-ai.git
@@ -100,14 +82,13 @@ cd climathon-gapcuk-ai
 python -m http.server 3000 --directory src
 ```
 
-Ana platform `http://localhost:3000`, simülasyon `http://localhost:3000/simulasyon.html` adresinde açılır.
+Ana platform `http://localhost:3000`, simülasyon `http://localhost:3000/simulasyon.html` adresinde açılır. Yedek yayın: [climathon-gapcuk-ai.vercel.app](https://climathon-gapcuk-ai.vercel.app) (vercel.app bazı Türkiye internet sağlayıcılarında açılmıyor).
 
 ## Kaynaklar
 
-1. Oltan & Köleoğlu Çarşamba Biyokütle Enerji Santrali, biyokütle satın alma şartnamesi (alım fiyatı ve nem kabul sınırı).
-2. Harita ve rota verisi: [OpenStreetMap](https://www.openstreetmap.org/copyright), [OSRM](https://project-osrm.org/). Hava verisi: [Open-Meteo](https://open-meteo.com/).
+1. Oltan & Köleoğlu Çarşamba Biyokütle Enerji Santrali, biyokütle satın alma şartnamesi.
+2. [OpenStreetMap](https://www.openstreetmap.org/copyright) · [OSRM](https://project-osrm.org/) · [Open-Meteo](https://open-meteo.com/)
 
 ---
 
-**Geliştirici:** Taha Buğra Çiçek · Ünye, Ordu
-Siemens, YGA ve UP School Climathon 2026 kapsamında geliştirildi.
+Taha Buğra Çiçek · Ünye, Ordu
