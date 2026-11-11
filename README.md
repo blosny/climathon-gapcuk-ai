@@ -1,6 +1,6 @@
-<img src="src/assets/logo.png" alt="Gapçuk AI logosu" width="120" align="right">
-
 # Gapçuk AI
+
+<img src="src/assets/logo.png" alt="Gapçuk AI logosu" width="120" align="right">
 
 ![Climathon 2026](https://img.shields.io/badge/Climathon%202026-Siemens%20%C2%B7%20YGA%20%C2%B7%20UP%20School-0F766E)
 ![Sonuç](https://img.shields.io/badge/Sonu%C3%A7-5.%20s%C4%B1ra-D97706)
