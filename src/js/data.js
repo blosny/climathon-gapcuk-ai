@@ -7,15 +7,16 @@ export const CONFIG = {
     unyeCenter: [41.1328, 37.2844],
     defaultZoom: 11,
     kgPerSack: 45, // 1 çuval yaş gapçuk ortalama 45 kg
-    pricePerTonTL: 2200, // Fındık kabuğu endeksli ton biyokütle piyasa değeri
-    usdRate: 34.5,
-    co2OffsetPerTon: 1.45, // Yakılmayan biyokütle + linyit ikamesi
+    pricePerTonTL: 2200, // Santral satın alma birimiyle görüşme; açık kaynakta doğrulanamadı (kaynakca.html#d-fiyat)
+    // Açıkta yakmanın önlenen CH4 + N2O emisyonu: 0,80 × (2,7 × 28 + 0,07 × 265) g/kg ≈ 75 kg CO2e / t kuru madde.
+    // Faktörler: IPCC 2006 Vol.4 Tablo 2.5-2.6; GWP100: IPCC AR5 Tablo 8.7. Nem düzeltmesi yok, üst sınırdır (kaynakca.html#d-co2).
+    co2OffsetPerTon: 0.075,
     buyerFacility: {
         name: "Oltan & Köleoğlu Biyokütle Enerji Santrali",
-        location: "Samsun / Çarşamba (Eğercili)",
+        location: "Samsun / Çarşamba",
         capacity: "27 MWe",
         coords: [41.1980, 36.7260],
-        distanceKm: 42
+        distanceKm: 53 // OSRM: Ünye merkezi → Çarşamba ilçe merkezi (kaynakca.html#d-mesafe)
     }
 };
 

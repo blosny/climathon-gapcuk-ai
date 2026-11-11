@@ -7,7 +7,7 @@ export const TRANSLATIONS = {
     tr: {
         system_status: "SİSTEM AKTİF: Ordu / Ünye Pilot Sahası • Temiz Enerji & Biyo-Güvenlik Altyapısı",
         partner_bes: "Hedef: Oltan & Köleoğlu Çarşamba BES (27 MWe)",
-        protocol: "Protokol: COP31 & TÜBİTAK-TOVAG-121O442",
+        protocol: "Climathon 2026 · Siemens × YGA × UP School",
         brand_subtitle: "<span>Ordu / Ünye Pilot Havzası</span><span>•</span><span>Fındık Zürufu Döngüsel Lojistik & Külleme Önleme Konsolu</span>",
         btn_faq: "Gapçuk Rehberi & SSS (8 Soru)",
         role_operator: "Operatör Paneli",
@@ -17,16 +17,16 @@ export const TRANSLATIONS = {
         tab_bio: "GapçukBio & Trichoderma",
         kpi_sacks_title: "Toplam Toplanan Züruf",
         kpi_sacks_sub: "Kapasite Hedefi: 300 Çuval/Gün",
-        kpi_sacks_footer: "Ordu/Ünye 4 Pilot Köy Toplamı",
+        kpi_sacks_footer: "Örnek bildirimler (demo verisi)",
         kpi_value_title: "Biyokütle Enerji Değeri",
-        kpi_value_sub: "Çarşamba BES: 2.200 ₺/Ton Alım Garantisi",
+        kpi_value_sub: "Çarşamba BES: 2.200 ₺/Ton (santral bilgisi)",
         kpi_value_footer: "Yenilenebilir Biyo-Elektrik Satış Değeri",
         kpi_roads_title: "Tıkalı Köy Yolu",
         kpi_roads_sub: "Öncelikli Tahliye Sırasında",
         kpi_roads_footer: "Patoz Sonrası Daralan Asfalt & Köy Hatları",
         kpi_co2_title: "Karbon Yutak Kazancı",
         kpi_co2_sub: "Açıkta Yakma ve Çürüme Önleme",
-        kpi_co2_footer: "IPCC 2019 Biyokütle Emisyon Faktörü",
+        kpi_co2_footer: "IPCC 2006 · yalnızca CH₄ + N₂O",
         telemetry_cycle: "Döngü Süresi",
         telemetry_distance: "Toplam Mesafe",
         telemetry_diesel: "Dizel Sarfiyatı",
@@ -34,12 +34,12 @@ export const TRANSLATIONS = {
         recenter_btn: "Görünümü Ortala",
         sidebar_sequence_title: "OSRM Toplama & Müdahale Sırası",
         bes_dest_tag: "Hedef Santral Kantar Teslimi",
-        bes_dest_desc: "Samsun / Çarşamba (42 km) • Günlük Fındık Zürufu Kabulü Aktif"
+        bes_dest_desc: "Samsun / Çarşamba (OSRM ≈ 53 km) • Alım koşulları doğrulama aşamasında"
     },
     en: {
         system_status: "SYSTEM ACTIVE: Ordu / Ünye Pilot Basin • Clean Energy & Biosecurity Infrastructure",
         partner_bes: "Target: Oltan & Köleoğlu Çarşamba Biomass Plant (27 MWe)",
-        protocol: "Protocol: COP31 & TÜBİTAK-TOVAG-121O442",
+        protocol: "Climathon 2026 · Siemens × YGA × UP School",
         brand_subtitle: "<span>Ordu / Ünye Pilot Basin</span><span>•</span><span>Hazelnut Husk Circular Logistics & Mildew Prevention Console</span>",
         btn_faq: "Gapçuk Field Guide & FAQ (8 Qs)",
         role_operator: "Operator Console",
@@ -49,16 +49,16 @@ export const TRANSLATIONS = {
         tab_bio: "GapçukBio & Trichoderma",
         kpi_sacks_title: "Total Collected Husk",
         kpi_sacks_sub: "Capacity Target: 300 Sacks/Day",
-        kpi_sacks_footer: "Ordu/Ünye 4 Pilot Villages Total",
+        kpi_sacks_footer: "Sample reports (demo data)",
         kpi_value_title: "Biomass Energy Value",
-        kpi_value_sub: "Çarşamba BES: 2,200 ₺/Ton PPA Guarantee",
+        kpi_value_sub: "Çarşamba BES: 2,200 ₺/Ton (plant-reported)",
         kpi_value_footer: "Renewable Bio-Electricity Market Value",
         kpi_roads_title: "Blocked Village Roads",
         kpi_roads_sub: "In Priority Evacuation Queue",
         kpi_roads_footer: "Post-Threshing Blocked Rural Corridors",
         kpi_co2_title: "Carbon Offset Gain",
         kpi_co2_sub: "Roadside Burning & Decay Prevention",
-        kpi_co2_footer: "IPCC 2019 Biomass Emission Factor",
+        kpi_co2_footer: "IPCC 2006 · CH₄ + N₂O only",
         telemetry_cycle: "Cycle Time",
         telemetry_distance: "Total Distance",
         telemetry_diesel: "Diesel Consumption",
@@ -66,7 +66,7 @@ export const TRANSLATIONS = {
         recenter_btn: "Recenter View",
         sidebar_sequence_title: "OSRM Collection & Dispatch Queue",
         bes_dest_tag: "Target Power Plant Weighbridge Delivery",
-        bes_dest_desc: "Samsun / Çarşamba (42 km) • Daily Hazelnut Husk Intake Active"
+        bes_dest_desc: "Samsun / Çarşamba (OSRM ≈ 53 km) • Intake terms being verified"
     }
 };
 

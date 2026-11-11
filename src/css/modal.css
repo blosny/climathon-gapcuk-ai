@@ -239,6 +239,11 @@
     margin-bottom: 8px;
 }
 
+.faq-card-content .ref-citation a {
+    color: #FCD34D;
+    text-decoration: underline;
+}
+
 .faq-card-content .ref-citation {
     font-size: 0.7rem;
     color: #F59E0B;

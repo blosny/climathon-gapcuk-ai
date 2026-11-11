@@ -106,6 +106,25 @@ function optimizeStopSequence(startCoord, items) {
     return ordered;
 }
 
+function stopPopupHtml(item, stopNum, etaMin) {
+    const eta = etaMin === null
+        ? 'Sürüş süresi rota yüklenince hesaplanır'
+        : `Ünye'den sürüş süresi: <strong>~${etaMin} dk</strong> <small>(OSRM, yükleme hariç)</small>`;
+    return `
+        <div class="map-popup-card">
+            <div class="popup-header">
+                <span class="stop-badge">Durak #${stopNum}</span>
+                <h4>${item.village}</h4>
+            </div>
+            <p><b>Çiftçi:</b> ${item.farmer}</p>
+            <p><b>Atık Miktarı:</b> <span class="badge-sacks">${item.sacks} Çuval (~${item.sacks * CONFIG.kgPerSack} kg)</span></p>
+            <p><b>Durum:</b> ${item.status}</p>
+            ${item.roadBlocked ? '<p class="tag-road-blocked">Tek Şerit Köy Yolu Tıkalı</p>' : ''}
+            <div class="popup-eta">${eta}</div>
+        </div>
+    `;
+}
+
 export async function renderReports(reports) {
     if (!markersLayer) return;
     markersLayer.clearLayers();
@@ -154,8 +173,8 @@ export async function renderReports(reports) {
                 </div>
                 <p><b>Konum:</b> ${plant.location}</p>
                 <p><b>Kapasite:</b> ${plant.capacity} (Biyokütle Enerji Santrali)</p>
-                <p><b>Alım Şartı:</b> 2.000 TL/Ton + KDV (Max %35 Nem)</p>
-                <p><b>Tedarik Doğrulaması:</b> Satın Alma Md. Yasin Öz Onaylı</p>
+                <p><b>Alım bilgisi:</b> ~2.200 TL/ton, azami nem %35 (santral görüşmesi)</p>
+                <p><a href="kaynakca.html#d-fiyat" target="_blank" rel="noopener noreferrer">Doğrulama durumu ↗</a></p>
             </div>
         `)
         .addTo(markersLayer);
@@ -164,6 +183,7 @@ export async function renderReports(reports) {
     const orderedStops = optimizeStopSequence(CONFIG.unyeCenter, reports);
 
     // Her köye sıra numarası vererek pin ekle
+    const stopMarkers = [];
     orderedStops.forEach((item, index) => {
         const stopNum = index + 1;
         const isCritical = item.urgency === 'critical';
@@ -182,29 +202,16 @@ export async function renderReports(reports) {
             iconAnchor: [22, 22]
         });
 
-        const popupContent = `
-            <div class="map-popup-card">
-                <div class="popup-header">
-                    <span class="stop-badge">Durak #${stopNum}</span>
-                    <h4>${item.village}</h4>
-                </div>
-                <p><b>Çiftçi:</b> ${item.farmer}</p>
-                <p><b>Atık Miktarı:</b> <span class="badge-sacks">${item.sacks} Çuval (~${item.sacks * CONFIG.kgPerSack} kg)</span></p>
-                <p><b>Durum:</b> ${item.status}</p>
-                ${item.roadBlocked ? '<p class="tag-road-blocked">Tek Şerit Köy Yolu Tıkalı</p>' : ''}
-                <div class="popup-eta">Tahmini Varış: <strong>+${stopNum * 22} dk</strong></div>
-            </div>
-        `;
-
         const marker = L.marker([item.lat, item.lon], { icon: markerIcon })
-            .bindPopup(popupContent)
+            .bindPopup(stopPopupHtml(item, stopNum, null))
             .addTo(markersLayer);
 
         markerMap[item.village] = marker;
+        stopMarkers.push({ marker, item, stopNum });
     });
 
     // OSRM ile Gerçek Yol Çizgilerini Çek ve Çiz
-    await drawRealRoadRoute(orderedStops);
+    await drawRealRoadRoute(orderedStops, stopMarkers);
 
     // Durak listesini sağ paneldeki tabloya sıra numaralarıyla güncelle
     updateRouteTimeline(orderedStops);
@@ -223,7 +230,7 @@ window.panToVillage = function(village) {
 /**
  * OSRM API ile gerçek viraj ve asfalt koordinatlarını çeker
  */
-async function drawRealRoadRoute(orderedStops) {
+async function drawRealRoadRoute(orderedStops, stopMarkers = []) {
     if (routePolyline) mapInstance.removeLayer(routePolyline);
     if (routeShadowPolyline) mapInstance.removeLayer(routeShadowPolyline);
 
@@ -266,6 +273,15 @@ async function drawRealRoadRoute(orderedStops) {
                 // Rota metriklerini güncelle
                 const totalKm = (route.distance / 1000).toFixed(1);
                 const durationMin = Math.round(route.duration / 60);
+
+                // Durak popup'larına OSRM bacak sürelerinden kümülatif sürüş süresini yaz
+                let elapsedSec = 0;
+                stopMarkers.forEach(({ marker, item, stopNum }, idx) => {
+                    const leg = route.legs && route.legs[idx];
+                    if (!leg) return;
+                    elapsedSec += leg.duration;
+                    marker.setPopupContent(stopPopupHtml(item, stopNum, Math.round(elapsedSec / 60)));
+                });
                 
                 // Canlı Telemetri Çubuğunu Güncelle
                 const elemCycle = document.getElementById('telemetry-cycle-time');
@@ -275,7 +291,7 @@ async function drawRealRoadRoute(orderedStops) {
 
                 if (elemDist) elemDist.innerText = `${totalKm} km`;
                 if (elemCycle) elemCycle.innerText = `${durationMin} Dakika`;
-                if (elemFuel) elemFuel.innerText = `${(totalKm * 0.36).toFixed(1)} Litre`;
+                if (elemFuel) elemFuel.innerText = `~${Math.round(totalKm * 0.36)} Litre (tahmini)`;
                 if (elemTruck) {
                     const totalTons = orderedStops.reduce((a, c) => a + c.sacks * (CONFIG.kgPerSack / 1000), 0);
                     const pct = Math.min(100, Math.round((totalTons / 25) * 100));

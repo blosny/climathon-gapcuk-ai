@@ -163,8 +163,8 @@ function generateSmartBotResponse(farmer, village, sacks, isBlocked) {
 
     if (weather.humidity >= 78 || weather.riskScore >= 70) {
         return `Aleyküm selam ${farmer}! <strong>Konum:</strong> ${village} talebiniz sisteme alındı.<br/><br/>
-        <strong>Mikroklima Uyarısı:</strong> Ünye'de hava şu an <strong>${weather.temp}°C</strong> ve nem <strong>%${weather.humidity}</strong>! Külleme mantarı kuluçka riski <strong>%${weather.riskScore} (${weather.riskLevel})</strong>.<br/>
-        <em>Islak züruf bekledikçe spor saçar. Lütfen atığı fındık ocaklarına atma, üzerini hava alacak brandayla ört veya kireçle. Kesinlikle ateşe verme!</em><br/><br/>
+        <strong>Mikroklima Uyarısı:</strong> Ünye'de hava şu an <strong>${weather.temp}°C</strong> ve nem <strong>%${weather.humidity}</strong>! Külleme risk skoru (sezgisel) <strong>%${weather.riskScore} (${weather.riskLevel})</strong>.<br/>
+        <em>Lütfen atığı fındık ocaklarına atma, toplanana kadar üzerini hava alacak şekilde brandayla ört. Kesinlikle ateşe verme!</em><br/><br/>
         ${isBlocked ? '<strong>Acil Yol Önceliği:</strong> Tek şerit tıkandığı için kepçeli öncü araç doğrudan köyünüze yönlendirildi.' : '<strong>Yol Açık:</strong> Harman kenarında beklettiğiniz için teşekkürler.'}<br/>
         <strong>Lojistik Durumu:</strong> Köy yollarındaki yoğun sis ve çamur nedeniyle araçlarımızda <strong>1-2 saatlik güvenlik gecikmesi</strong> yaşanabilir. Tahmini alım saati: <strong>14:00 - 15:30</strong> arası. Şoförümüz köye girmeden 15 dk önce arayacaktır.`;
     }
@@ -196,8 +196,7 @@ function handleQuickQuestion(type) {
         questionText = "Hava yağmurlu ve sisli gözüküyor, harman kenarındaki gapçuğu ne yapayım?";
         answerText = `
             Üreticimiz selamlar! Şu an Ünye'de hava <strong>${weather.temp}°C</strong> ve nem <strong>%${weather.humidity}</strong> seviyesinde. 
-            Mantar sporları bu nemde hızla çoğalır. Gapçuğun üstünü hava alacak bir brandayla örtün, kesinlikle fındık ocaklarının dibine dökmeyin (kök boğazını çürütür). 
-            Eğer evde sönmemiş kireç varsa üzerine hafifçe serpin. Ekiplerimiz yağış durumuna göre toplama yapacaktır, kesinlikle yakmayın!
+            Bu nem külleme için elverişli olabilir. Gapçuğun üstünü hava alacak bir brandayla örtün, fındık ocaklarının dibine dökmeyin. Ekiplerimiz yağış durumuna göre toplama yapacaktır, kesinlikle yakmayın!
         `;
     } else if (type === 'eta') {
         questionText = "Kamyon nerede, hava muhalefetinden dolayı gecikir mi?";

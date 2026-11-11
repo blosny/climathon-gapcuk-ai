@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaynakça ve Doğrulama | Gapçuk AI</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <style>
+        :root {
+            --bg: #071215;
+            --card: #0D1B20;
+            --line: rgba(255, 255, 255, 0.09);
+            --text: #F8FAFC;
+            --muted: #94A3B8;
+            --green: #34D399;
+            --amber: #FBBF24;
+            --blue: #38BDF8;
+            --red: #F87171;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+        main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 64px; }
+        a { color: var(--blue); }
+        .back { display: inline-block; margin-bottom: 20px; font-size: 0.9rem; text-decoration: none; }
+        h1 { font-size: 1.9rem; margin: 0 0 8px; }
+        h2 { font-size: 1.25rem; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+        p, li { color: #CBD5E1; font-size: 0.95rem; }
+        .lead { color: var(--muted); max-width: 760px; }
+        .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0 0; padding: 0; list-style: none; font-size: 0.85rem; }
+        .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+        table { width: 100%; border-collapse: collapse; min-width: 860px; }
+        th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 0.88rem; }
+        th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        tr:last-child td { border-bottom: none; }
+        td:first-child { font-weight: 600; width: 22%; }
+        td:nth-child(3) { width: 30%; }
+        .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; border: 1px solid; white-space: nowrap; }
+        .ok { color: var(--green); border-color: rgba(52, 211, 153, 0.45); background: rgba(52, 211, 153, 0.1); }
+        .range { color: var(--blue); border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.1); }
+        .calc { color: #A5B4FC; border-color: rgba(165, 180, 252, 0.45); background: rgba(165, 180, 252, 0.1); }
+        .assume { color: var(--amber); border-color: rgba(251, 191, 36, 0.45); background: rgba(251, 191, 36, 0.1); }
+        .no { color: var(--red); border-color: rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.1); }
+        .refs { padding-left: 0; list-style: none; counter-reset: ref; }
+        .refs li { position: relative; padding: 12px 14px 12px 56px; margin-bottom: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+        .refs li::before { counter-increment: ref; content: "K" counter(ref); position: absolute; left: 14px; top: 12px; font-weight: 700; color: var(--green); }
+        .refs li:target { border-color: var(--green); }
+        code { background: rgba(255, 255, 255, 0.07); padding: 1px 6px; border-radius: 6px; font-size: 0.85em; }
+        .note { padding: 14px 16px; border-left: 3px solid var(--amber); background: rgba(251, 191, 36, 0.07); border-radius: 0 10px 10px 0; }
+    </style>
+</head>
+<body>
+<main>
+    <a class="back" href="index.html">&larr; Platforma dön</a>
+    <h1>Kaynakça ve Doğrulama</h1>
+    <p class="lead">Uygulamada ve README'de geçen sayısal ifadelerin dayanakları. Bir değer kaynakta bulunamadıysa bu sayfada açıkça <em>varsayım</em> ya da <em>doğrulanamadı</em> olarak işaretlenmiştir.</p>
+
+    <ul class="legend">
+        <li><span class="pill ok">Doğrulandı</span> değer kaynakta yazıyor</li>
+        <li><span class="pill range">Aralık</span> kaynaklar arasında fark var</li>
+        <li><span class="pill calc">Hesaplandı</span> kaynaklı değerlerden türetildi</li>
+        <li><span class="pill assume">Varsayım</span> pilotta doğrulanacak</li>
+        <li><span class="pill no">Doğrulanamadı</span> açık kaynakta bulunamadı</li>
+    </ul>
+
+    <h2>Doğrulama tablosu</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Rakam</th><th>Kullanılan değer</th><th>Dayanak</th><th>Durum</th></tr>
+            </thead>
+            <tbody>
+                <tr id="d-demo">
+                    <td>Haritadaki köy bildirimleri</td>
+                    <td>6 köy, 220 çuval (≈ 9,9 ton)</td>
+                    <td>Gerçek bildirim değildir. Arayüzü göstermek için hazırlanmış demo verisidir (<code>src/js/data.js</code>); isimler ve konumlar örnektir.</td>
+                    <td><span class="pill assume">Varsayım</span></td>
+                </tr>
+                <tr id="d-miktar">
+                    <td>Yıllık züruf miktarı</td>
+                    <td>Yaklaşık 200 bin – 500 bin ton</td>
+                    <td><a href="#k2">K2</a>: Karadeniz'de yılda ~200 bin ton fındık atığı. <a href="#k3">K3</a>: yılda ~500 bin ton. İki çalışma farklı kapsam ve yöntem kullanıyor.</td>
+                    <td><span class="pill range">Aralık</span></td>
+                </tr>
+                <tr id="d-cn">
+                    <td>C/N oranı</td>
+                    <td>≈ 33:1</td>
+                    <td><a href="#k3">K3</a>. Tek kaynak; doğrudan toprağa serilmesinin uygun olmadığı da aynı yerde belirtiliyor.</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr>
+                    <td>Doğal ayrışma süresi</td>
+                    <td>Yaklaşık 2 yıl</td>
+                    <td><a href="#k3">K3</a> (Özenç ve Özenç, 2008'e atıfla).</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr id="d-isil">
+                    <td>Isıl değer</td>
+                    <td>Briketlenmiş zürufta alt ısıl değer 4.232 cal/g (≈ 4.230 kcal/kg); üst ısıl değer en çok 18,49 MJ/kg</td>
+                    <td><a href="#k1">K1</a>: nem %13–15, 80 MPa, EN 14918. <a href="#k2">K2</a>: nem %8–10, 160 MPa. Ölçümler briket içindir; ham züruf değildir.</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr>
+                    <td>Fındık alanı</td>
+                    <td>≈ 734 bin hektar</td>
+                    <td><a href="#k3">K3</a> (TEPGE, 2022'ye atıfla).</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr id="d-santral">
+                    <td>Çarşamba biyokütle santrali</td>
+                    <td>27 MWe; yılda yaklaşık 250 bin ton tarımsal ve ormancılık atığı</td>
+                    <td><a href="#k4">K4</a>. Haber 2019 tarihli ve devreye alma planını anlatıyor. Zürufun yakıt olarak adı geçmiyor.</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr id="d-fiyat">
+                    <td>Santralin zürufu alması, 2.200 TL/ton, azami nem %35</td>
+                    <td>2.200 TL/ton, kantar teslim, nem ≤ %35</td>
+                    <td>Santral satın alma birimiyle yapılan görüşme. Yazılı şartname kamuya açık değil. Açık kaynaklarda santralin zürufu yakıt olarak kabul ettiğine dair kayıt bulunamadı; sahada teyit edilecek.</td>
+                    <td><span class="pill no">Doğrulanamadı</span></td>
+                </tr>
+                <tr id="d-emisyon">
+                    <td>Açıkta yakma emisyon faktörleri</td>
+                    <td>CH₄ 2,7 g/kg ve N₂O 0,07 g/kg kuru madde; yanma faktörü 0,80</td>
+                    <td><a href="#k5">K5</a>: Tablo 2.5 (tarımsal atıklar) ve Tablo 2.6. Yanma faktörü mısır, pirinç ve şeker kamışı kalıntıları için verilmiş; fındık için ayrı değer yok.</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr>
+                    <td>Küresel ısınma potansiyeli (100 yıl)</td>
+                    <td>CH₄ = 28, N₂O = 265</td>
+                    <td><a href="#k6">K6</a>: Tablo 8.7 (iklim-karbon geri beslemesi hariç).</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr id="d-co2">
+                    <td>Önlenen emisyon</td>
+                    <td>≈ 0,075 t CO₂e / ton atık. 9,9 tonluk sefer için ≈ 0,74 t CO₂e</td>
+                    <td>0,80 × (2,7 × 28 + 0,07 × 265) g/kg ≈ 75 kg CO₂e / ton kuru madde. Nem düzeltmesi yapılmadı, bu yüzden üst sınırdır. Yalnızca CH₄ ve N₂O sayıldı; biyojenik CO₂ ve santralde yakıt ikamesi hesaba katılmadı.</td>
+                    <td><span class="pill calc">Hesaplandı</span></td>
+                </tr>
+                <tr>
+                    <td>Çuval ağırlığı</td>
+                    <td>1 çuval ≈ 45 kg</td>
+                    <td>Proje varsayımı.</td>
+                    <td><span class="pill assume">Varsayım</span></td>
+                </tr>
+                <tr id="d-ekonomi">
+                    <td>Sefer ekonomisi (9,9 ton)</td>
+                    <td>Satış 21.780 ₺, dizel ve şoför 3.500 ₺, kompost 100 ₺, net 18.180 ₺</td>
+                    <td>Satış kalemi 9,9 t × 2.200 ₺ aritmetiğidir ve santral fiyatına bağlıdır (yukarıdaki satır). Maliyet kalemleri varsayımdır.</td>
+                    <td><span class="pill assume">Varsayım</span></td>
+                </tr>
+                <tr>
+                    <td>Çiftçiye sağlanan fayda</td>
+                    <td>≈ 4.200 ₺ / sezon (kompost 1.200, gübre kuponu 700, harman temizliği 800, ilaç tasarrufu 1.500)</td>
+                    <td>Örnek hesap; kalemlerin hiçbiri kaynaklı değil.</td>
+                    <td><span class="pill assume">Varsayım</span></td>
+                </tr>
+                <tr id="d-mesafe">
+                    <td>Ünye–Çarşamba yol mesafesi</td>
+                    <td>≈ 53 km, ≈ 40 dk</td>
+                    <td>OSRM ölçümü, 11 Kasım 2026 (Ünye merkezi → Çarşamba ilçe merkezi). Santral kapısına olan gerçek mesafe farklı olabilir.</td>
+                    <td><span class="pill calc">Hesaplandı</span></td>
+                </tr>
+                <tr>
+                    <td>Dizel tüketimi</td>
+                    <td>0,36 L/km</td>
+                    <td>Telemetri paneli için kullanılan tahmini katsayı.</td>
+                    <td><span class="pill assume">Varsayım</span></td>
+                </tr>
+                <tr id="d-kulleme">
+                    <td>Külleme kaynaklı kayıp</td>
+                    <td>Önemli verim ve kalite kaybı (oran verilmiyor)</td>
+                    <td><a href="#k7">K7</a>, <a href="#k8">K8</a>. Etmen <i>Erysiphe corylacearum</i>. Makalelerde yüzde olarak verim kaybı belirtilmiyor.</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr>
+                    <td>Külleme risk skoru</td>
+                    <td>Sıcaklık ve neme dayalı puan</td>
+                    <td>Sezgisel bir skordur; eşikler saha verisiyle kalibre edilmedi ve yayımlanmış bir epidemiyoloji modeline dayanmıyor.</td>
+                    <td><span class="pill assume">Varsayım</span></td>
+                </tr>
+                <tr id="d-trichoderma">
+                    <td>Trichoderma ile kompostlama</td>
+                    <td>Süre pilotta ölçülecek</td>
+                    <td><a href="#k9">K9</a> ve <a href="#k10">K10</a>: Trichoderma bazlı aktivatörlerin pirinç samanı ve bitki materyali gibi başka substratlarda ayrışmayı hızlandırdığı bildirilmiş. Fındık zürufu için süre veren bir çalışma bulunamadı.</td>
+                    <td><span class="pill no">Doğrulanamadı</span></td>
+                </tr>
+                <tr>
+                    <td>Atığın çevreye bırakılması</td>
+                    <td>Çevre Kanunu md. 8: atığın çevreye zarar verecek şekilde bırakılması yasak</td>
+                    <td><a href="#k11">K11</a>. Madde zürufa özel değildir; anız yakma yasağı (Ek madde 1) zürufu açıkça kapsamaz.</td>
+                    <td><span class="pill ok">Doğrulandı</span></td>
+                </tr>
+                <tr>
+                    <td>Üreticilerin atığı vermeye hazır olması</td>
+                    <td>"Çoğu üretici"</td>
+                    <td>Ünye'deki üreticilerle yapılan görüşmeler. Anket ya da ölçülmüş bir oran değildir.</td>
+                    <td><span class="pill no">Doğrulanamadı</span></td>
+                </tr>
+                <tr>
+                    <td>Hub-and-spoke lojistik</td>
+                    <td>Köyde 10–12 t ring kamyon, santrale 25 t tır</td>
+                    <td>Tasarım varsayımı.</td>
+                    <td><span class="pill assume">Varsayım</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Yöntem notları</h2>
+    <ul>
+        <li>Önlenen emisyon, IPCC 2006 Denklem 2.27 mantığıyla hesaplanmıştır: yakılan kütle × yanma faktörü × emisyon faktörü × küresel ısınma potansiyeli. Biyokütle yanmasından çıkan CO₂ bu hesaba dahil değildir.</li>
+        <li>Ton cinsinden tüm miktarlar çuval sayısından türetilir (çuval × 45 kg). Atığın nemi bilinmediği için kuru madde düzeltmesi yapılmamıştır.</li>
+        <li>Harita, rota ve hava verisi canlı servislerden gelir; değerler her açılışta değişebilir.</li>
+    </ul>
+
+    <p class="note">Bu proje bir yarışma prototipidir. Saha pilotu yapılana kadar ekonomik ve çevresel değerler tahmin olarak okunmalıdır.</p>
+
+    <h2>Kaynakça</h2>
+    <ol class="refs">
+        <li id="k1">Demirel, B., Gürdil, G. A. K. (2018). Fındık zurufu atığından yakıt briketi elde edilmesi ve brikete ait bazı özelliklerin belirlenmesi. <i>Anadolu Tarım Bilimleri Dergisi</i>, 33. <a href="https://doi.org/10.7161/omuanajas.302527" target="_blank" rel="noopener noreferrer">doi:10.7161/omuanajas.302527</a></li>
+        <li id="k2">Gürdil, G. A. K., Demirel, B. (2020). Effect of moisture content, particle size and pressure on some briquetting properties of hazelnut residues. <i>Anadolu Tarım Bilimleri Dergisi</i>, 35. <a href="https://doi.org/10.7161/omuanajas.736851" target="_blank" rel="noopener noreferrer">doi:10.7161/omuanajas.736851</a></li>
+        <li id="k3">Aygün, S., Bender Özenç, D. (2023). Fındık Atığı Ürünlerinin Buğday Yetiştiriciliğinde Değerlendirilmesi. <i>Akademik Ziraat Dergisi</i>, 12 (Özel Sayı), 213–226. <a href="https://doi.org/10.29278/azd.1362301" target="_blank" rel="noopener noreferrer">doi:10.29278/azd.1362301</a></li>
+        <li id="k4">Electricity Turkey (2 Ekim 2019). Siemens is the choice of Turkey biomass power plant to use Siemens Steam Turbines in Samsun Biomass Power Plant. <a href="https://www.electricityturkey.com/haber/samsun-carsamba-biyokutle-enerji-santralinde-siemens-buhar-turbinleri-kullanilecek-turkiyenin-en-buyuk-ikinci-biyokutle-santralnin-preferi-siemens-oldu-21473" target="_blank" rel="noopener noreferrer">electricityturkey.com</a></li>
+        <li id="k5">IPCC (2006). <i>2006 IPCC Guidelines for National Greenhouse Gas Inventories</i>, Vol. 4, Ch. 2, Tablo 2.5 ve 2.6. <a href="https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html" target="_blank" rel="noopener noreferrer">ipcc-nggip.iges.or.jp</a></li>
+        <li id="k6">Myhre, G. vd. (2013). Anthropogenic and Natural Radiative Forcing. <i>IPCC AR5, Working Group I</i>, Bölüm 8, Tablo 8.7. <a href="https://www.ipcc.ch/report/ar5/wg1/" target="_blank" rel="noopener noreferrer">ipcc.ch</a></li>
+        <li id="k7">Sezer, A., Bilgen, Y., Duyar, Ö., Bulam Köse, Ç., Gümüş, E., Er, T. (2019). Erysiphe corylacearum'un neden olduğu külleme hastalığına karşı Giresun ili fındık üretim alanlarında kimyasal mücadele olanaklarının belirlenmesi. <i>Akademik Ziraat Dergisi</i>, 8 (Özel Sayı), 71–78. <a href="https://doi.org/10.29278/azd.656526" target="_blank" rel="noopener noreferrer">doi:10.29278/azd.656526</a></li>
+        <li id="k8">Sezer, A., Şahin, S. (2022). Fındıkta Külleme Hastalığının Uzun Süreli Depolamada Bazı İç Bozuklukları ve Kalite Parametrelerine Etkisi. <i>Ordu Üniversitesi Bilim ve Teknoloji Dergisi</i>, 12 (2), 179–188. <a href="https://dergipark.org.tr/en/pub/ordubtd/article/1207968" target="_blank" rel="noopener noreferrer">dergipark.org.tr</a></li>
+        <li id="k9">Organo, N. D., Granada, S. M. J. M., Pineda, H. G. S., Sandro, J. M. (2022). Assessing the potential of a Trichoderma-based compost activator to hasten the decomposition of incorporated rice straw. <i>Scientific Reports</i>. <a href="https://doi.org/10.1038/s41598-021-03828-1" target="_blank" rel="noopener noreferrer">doi:10.1038/s41598-021-03828-1</a></li>
+        <li id="k10">Komolafe, A. F., Adejuyigbe, C. O., Soretire, A. A., Aiyelaagbe, I. O. O. (2020). Maturity indices of composting plant materials with Trichoderma asperellum as activator. <i>Agricultura Tropica et Subtropica</i>, 53 (1), 19–27. <a href="https://doi.org/10.2478/ats-2020-0003" target="_blank" rel="noopener noreferrer">doi:10.2478/ats-2020-0003</a></li>
+        <li id="k11">T.C. 2872 sayılı Çevre Kanunu, madde 8 (Kirletme yasağı). <a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=2872&amp;MevzuatTur=1&amp;MevzuatTertip=5" target="_blank" rel="noopener noreferrer">mevzuat.gov.tr</a></li>
+        <li id="k12">Açık veri ve servisler: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>, <a href="https://project-osrm.org/" target="_blank" rel="noopener noreferrer">OSRM</a>, <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>.</li>
+    </ol>
+</main>
+</body>
+</html>

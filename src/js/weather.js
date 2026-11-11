@@ -45,8 +45,8 @@ export async function fetchUnyeWeather() {
 }
 
 /**
- * Erysiphe corylacea (Külleme Mantarı) Biyolojik Risk Algoritması
- * Optimum spor yayılım koşulları: 18-26°C sıcaklık ve > %70 bağıl nem
+ * Külleme (Erysiphe corylacearum) için sezgisel risk skoru.
+ * Eşikler yayımlanmış bir modele dayanmaz ve saha verisiyle kalibre edilmemiştir (kaynakca.html).
  */
 export function calculateMildewRisk(temp, humidity) {
     let score = 20;
@@ -72,7 +72,7 @@ export function calculateMildewRisk(temp, humidity) {
             score,
             level: "Kritik",
             color: "#E53E3E", // kırmızı
-            recommendation: "Mantar sporları kuluçka evresinde! Gapçuk 48 saat içinde toplanmalı veya Trichoderma biyo-solüsyonu / kireç uygulanmalıdır. Kesinlikle ateşe vermeyin!"
+            recommendation: "Nem ve sıcaklık külleme için elverişli görünüyor. Gapçuğu mümkün olan en kısa sürede toplatın, toplanana kadar üzerini örtün ve doğrudan fındık ocaklarına dökmeyin. Kesinlikle ateşe vermeyin!"
         };
     } else if (score >= 45) {
         return {

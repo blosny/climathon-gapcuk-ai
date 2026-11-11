@@ -68,7 +68,7 @@ async function loadWeather() {
             <div class="risk-indicator-box">
                 <span class="risk-level-badge ${currentWeatherData.riskLevel === 'Kritik' ? 'critical' : (currentWeatherData.riskLevel === 'Orta Risk' ? 'moderate' : 'low')}">
                     <svg class="icon-svg sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                    <span>Mantar Spor Kuluçka Riski: %${currentWeatherData.riskScore} (${currentWeatherData.riskLevel})</span>
+                    <span>Külleme Risk Skoru (sezgisel): %${currentWeatherData.riskScore} (${currentWeatherData.riskLevel})</span>
                 </span>
             </div>
         `;
@@ -83,15 +83,14 @@ function updateMetrics() {
     const totalSacks = reports.reduce((acc, cur) => acc + cur.sacks, 0);
     const totalTons = Math.round((totalSacks * CONFIG.kgPerSack / 1000) * 10) / 10;
     const valueTL = Math.round(totalTons * CONFIG.pricePerTonTL);
-    const valueUSD = Math.round(valueTL / CONFIG.usdRate);
-    const co2Offset = Math.round(totalTons * CONFIG.co2OffsetPerTon * 10) / 10;
+    const co2Offset = (totalTons * CONFIG.co2OffsetPerTon).toFixed(2);
     const roadBlockedCount = reports.filter(r => r.roadBlocked).length;
 
     document.getElementById('metric-sacks').innerText = `${totalSacks} Çuval`;
     document.getElementById('metric-tons').innerText = `${totalTons} Ton Biyokütle`;
 
     document.getElementById('metric-val-tl').innerText = `${valueTL.toLocaleString('tr-TR')} ₺`;
-    document.getElementById('metric-val-usd').innerText = `$${valueUSD.toLocaleString('en-US')} (BES Değeri)`;
+    document.getElementById('metric-val-usd').innerText = `${totalTons} t × ${CONFIG.pricePerTonTL.toLocaleString('tr-TR')} ₺/t`;
 
     document.getElementById('metric-road-blocked').innerText = `${roadBlockedCount} Nokta`;
     document.getElementById('metric-co2').innerText = `${co2Offset} Ton CO₂e`;
