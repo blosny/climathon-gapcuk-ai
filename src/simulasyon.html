@@ -50,7 +50,7 @@ const STEPS = [
     icon: Truck,
     tone: "amber",
     lead: "Yolu tıkayan yığınlar öne alınır, kamyon OSRM rotasıyla tek seferde toplar.",
-    hero: { value: "%34", unit: "yakıt tasarrufu", label: "Dağınık toplamaya göre" },
+    hero: { value: "Tek", unit: "sefer", label: "Tüm köy rotası tek araçla toplanır" },
     stats: [
       { value: "9,9 t", label: "bu seferde toplanan" },
       { value: "0 ₺", label: "donanım maliyeti" },
@@ -444,7 +444,7 @@ function GapcukDongu() {
             <g transform={truckTransform} opacity={truckOpacity}>
               <EvTruck load={load} />
             </g>
-            <Chip x={430} y={352} text="9,9 t · OSRM · −%34 yakıt" tone={AMBER} show={step === 1 && t > 0.3} />
+            <Chip x={430} y={352} text="9,9 t · OSRM rotası" tone={AMBER} show={step === 1 && t > 0.3} />
 
             {/* Çarşamba BES */}
             <g>
