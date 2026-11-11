@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://climathon-gapcuk-ai.vercel.app"><img src="https://img.shields.io/badge/Canlı%20Uygulama-Vercel%20Production-10B981?style=for-the-badge&logo=vercel" alt="Vercel Live Demo"></a>
-  <a href="https://climathon-gapcuk-ai.vercel.app/simulasyon.html"><img src="https://img.shields.io/badge/İnteraktif%20Simülasyon-Döngüyü%20Başlat-059669?style=for-the-badge&logo=html5" alt="Interactive Simulation"></a>
+  <a href="https://blosny.github.io/climathon-gapcuk-ai/"><img src="https://img.shields.io/badge/Canlı%20Uygulama-GitHub%20Pages-10B981?style=for-the-badge&logo=github" alt="Live Demo"></a>
+  <a href="https://blosny.github.io/climathon-gapcuk-ai/simulasyon.html"><img src="https://img.shields.io/badge/İnteraktif%20Simülasyon-Döngüyü%20Başlat-059669?style=for-the-badge&logo=html5" alt="Interactive Simulation"></a>
   <a href="https://github.com/blosny/climathon-gapcuk-ai"><img src="https://img.shields.io/badge/GitHub-Açık%20Kaynak%20Repo-181717?style=for-the-badge&logo=github" alt="GitHub Repo"></a>
 </p>
 
@@ -30,7 +30,9 @@ Proje kapsamında; fındık zürufunun dağ köyü harmanından çıkıp enerji 
 
 <div align="center">
 
-👉 **[İnteraktif Simülatörü Tarayıcıda Tam Ekran Başlatın ↗](https://climathon-gapcuk-ai.vercel.app/simulasyon.html)**
+👉 **[İnteraktif Simülatörü Tarayıcıda Tam Ekran Başlatın ↗](https://blosny.github.io/climathon-gapcuk-ai/simulasyon.html)**
+
+<sub>Yedek adres: [climathon-gapcuk-ai.vercel.app](https://climathon-gapcuk-ai.vercel.app/simulasyon.html) (vercel.app bazı Türkiye internet sağlayıcılarında açılmıyor).</sub>
 
 </div>
 
